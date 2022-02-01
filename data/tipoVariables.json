@@ -1,0 +1,25 @@
+{
+    "tipoVariables": [
+        {
+            "id": "1",
+            "descripcion": "CADENA"
+        },
+        {
+            "id": "2",
+            "descripcion": "NUMERO"
+        },
+        {
+            "id": "3",
+            "descripcion": "FORMULA"
+        },
+        {
+            "id": "4",
+            "descripcion": "FECHA"
+        },
+        {
+            "id": "4",
+            "descripcion": "PROMPT"
+        }
+    ]
+}
+

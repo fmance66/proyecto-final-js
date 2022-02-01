@@ -1,0 +1,47 @@
+{
+    "variables": [
+        {
+            "id": "1",
+            "nombre": "SUMA",
+            "valor": "2 + 5",
+            "tipo": "CADENA"
+        },
+        {
+            "id": "2",
+            "nombre": "IVA",
+            "valor": "1.21",
+            "tipo": "NUMERO"
+        },
+        {
+            "id": "3",
+            "nombre": "IMPORTE_CON_IVA",
+            "valor": ":IMPORTE * :IVA",
+            "tipo": "FORMULA"
+        },
+        {
+            "id": "4",
+            "nombre": "CONDICIONAL",
+            "valor": "SI(:IMPORTE > :TOPE; :IMPORTE * :IVA; :IMPORTE * (:IVA / 2) )",
+            "tipo": "FORMULA"
+        },
+        {
+            "id": "5",
+            "nombre": "COLOR",
+            "valor": "SI(:COLOR == 'ROJO'; 'COLORES IGUALES'; 'COLORES DISTINTOS')",
+            "tipo": "FORMULA"
+        },
+        {
+            "id": "6",
+            "nombre": "FECHA_PAGO",
+            "valor": "2022/02/09",
+            "tipo": "FECHA"
+        },
+        {
+            "id": "7",
+            "nombre": "ALICUOTA_ANSES",
+            "valor": "0.03",
+            "tipo": "IMPORTE"
+        }
+    ]
+}
+
