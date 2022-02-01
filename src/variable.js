@@ -62,7 +62,7 @@ const cargarTablaVariables = () => {
                 if (e == 'nombre') {
                     td.classList.add("tm-variable-bold", "tm-nombre-variable");
                 } else {
-                    td.classList.add("tm-nombre-variable");
+                    td.classList.add("tm-variable-bold");
                 }; 
 
                 tr.appendChild(td);

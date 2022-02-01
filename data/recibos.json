@@ -2,6 +2,7 @@
     "recibos": [
         {
             "id": "1",
+            "idLiquidacion": "3",
             "legajo": "122339",
             "nombre": "Federico Peralta Ramos",
             "periodo": "2022/01",
@@ -11,6 +12,7 @@
         },
         {
             "id": "2",
+            "idLiquidacion": "3",
             "legajo": "122340",
             "nombre": "Esteban Raúl Martínez",
             "periodo": "2022/01",
@@ -20,6 +22,7 @@
         },
         {
             "id": "3",
+            "idLiquidacion": "3",
             "legajo": "122341",
             "nombre": "Hernán Saúl Ojedavich",
             "periodo": "2022/01",
@@ -29,6 +32,7 @@
         },
         {
             "id": "4",
+            "idLiquidacion": "3",
             "legajo": "122342",
             "nombre": "Guillermo Perez Companc",
             "periodo": "2022/01",
@@ -38,6 +42,7 @@
         },
         {
             "id": "5",
+            "idLiquidacion": "3",
             "legajo": "122343",
             "nombre": "Raúl Becerra Gómez",
             "periodo": "2022/01",
@@ -47,6 +52,7 @@
         },
         {
             "id": "6",
+            "idLiquidacion": "3",
             "legajo": "122344",
             "nombre": "Miguel de Cervantes Saavedra",
             "periodo": "2022/01",
@@ -56,6 +62,7 @@
         },
         {
             "id": "7",
+            "idLiquidacion": "3",
             "legajo": "122345",
             "nombre": "David Luis Brazucka",
             "periodo": "2022/01",
@@ -65,6 +72,7 @@
         },
         {
             "id": "8",
+            "idLiquidacion": "3",
             "legajo": "122346",
             "nombre": "Oscar Pereyra Iraola",
             "periodo": "2022/01",
@@ -74,6 +82,7 @@
         },
         {
             "id": "9",
+            "idLiquidacion": "3",
             "legajo": "122347",
             "nombre": "Carlos Alberto Marrón",
             "periodo": "2022/01",
@@ -83,6 +92,7 @@
         },
         {
             "id": "10",
+            "idLiquidacion": "3",
             "legajo": "122348",
             "nombre": "Lautaro Mendibelzúa",
             "periodo": "2022/01",
@@ -92,6 +102,7 @@
         },
         {
             "id": "11",
+            "idLiquidacion": "3",
             "legajo": "122349",
             "nombre": "Ricardo León Corazo",
             "periodo": "2022/01",
@@ -101,6 +112,7 @@
         },
         {
             "id": "12",
+            "idLiquidacion": "3",
             "legajo": "122350",
             "nombre": "Natalia Argarete Soteldo",
             "periodo": "2022/01",

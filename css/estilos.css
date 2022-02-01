@@ -554,6 +554,7 @@ input[type="checkbox"]:focus {
   font-weight: 600;
 }
 
+.tm-liquidacion-bold,
 .tm-recibo-bold {
   font-weight: bold;
   font-size: 0.95rem;
@@ -563,12 +564,14 @@ input[type="checkbox"]:focus {
   font-size: 0.95rem;
 }
 
+.tm-liquidacion-delete-icon,
 .tm-recibo-delete-icon,
 .tm-variable-delete-icon {
   font-size: 1.1rem;
   color: #fff;
 }
 
+.tm-liquidacion-delete-link,
 .tm-recibo-delete-link,
 .tm-variable-delete-link {
   padding: 10px;
@@ -580,6 +583,7 @@ input[type="checkbox"]:focus {
   text-align: center;
 }
 
+.tm-liquidacion-delete-link:hover .tm-reciliquidacionbo-delete-icon,
 .tm-recibo-delete-link:hover .tm-recibo-delete-icon,
 .tm-variable-delete-link:hover .tm-variable-delete-icon {
   color: #6d8ca6;

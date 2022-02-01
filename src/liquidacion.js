@@ -5,37 +5,35 @@
 import * as utiles from './utiles.js';
 
 // carga file JSON de datos 
-import arrayRecibos from '../data/recibos.json' assert { type: "json" };
+import arrayLiquidaciones from '../data/liquidaciones.json' assert { type: "json" };
 
-const lsRecibos = "lsRecibos";
+const lsLiquidaciones = "lsLiquidaciones";
   
-const Recibo = (id, legajo, nombre, periodo, bruto, descuento, neto) => {
+const Liquidacion = (id, periodo, descripcion, estado, fechaPago) => {
   this.id = id;
-  this.legajo = legajo;
-  this.nombre = nombre;
   this.periodo = periodo;
-  this.bruto  = bruto;
-  this.descuento  = descuento;
-  this.neto  = neto;
+  this.descripcion = descripcion;
+  this.estado = estado;
+  this.fechaPago  = fechaPago;
   this.mostrar = function() {
-      `{ id: ${this.id}, legajo: ${this.legajo}, periodo: ${this.periodo}, nombre: ${this.nombre},` + 
-      ` bruto: ${this.bruto}, descuento: ${this.descuento}, neto: ${this.neto} }`
+      `{ id: ${this.id}, periodo: ${this.periodo}, descripcion: ${this.descripcion}, estado: ${this.estado},` + 
+      ` fechaPago: ${this.fechaPago} }`
   }
 }
 
-// carga tabla de recibos desde array de recibos
-const cargarTablaRecibos = () => {
+// carga tabla de liquidaciones desde array de liquidaciones
+const cargarTablaLiquidaciones = () => {
 
-  // guarda el array de objetos 'Recibo' obtenido desde el JSON externo en localStorage
-  utiles.SetEnLocalStorage(lsRecibos, JSON.stringify(arrayRecibos.recibos));
+  // guarda el array de objetos 'Liquidacion' obtenido desde el JSON externo en localStorage
+  utiles.SetEnLocalStorage(lsLiquidaciones, JSON.stringify(arrayLiquidaciones.liquidaciones));
 
-  let tablaRecibos = document.querySelector("#tablaRecibos");
+  let tablaLiquidaciones = document.querySelector("#tablaLiquidaciones");
   let tbody = document.createElement("tbody");
-  tablaRecibos.appendChild(tbody);
+  tablaLiquidaciones.appendChild(tbody);
 
-  // console.log(arrayRecibos.recibos);
+  // console.log(arrayLiquidaciones.liquidaciones);
 
-  for (let ii = 0; ii < arrayRecibos.recibos.length; ii++) {
+  for (let ii = 0; ii < arrayLiquidaciones.liquidaciones.length; ii++) {
       let tr = document.createElement("tr");
 
       // columna de checkbox
@@ -43,37 +41,31 @@ const cargarTablaRecibos = () => {
       td.innerHTML = '<input type="checkbox" />';
       tr.appendChild(td);
 
-      let recibo = arrayRecibos.recibos[ii];
-      for (let e in recibo) {
+      let liquidacion = arrayLiquidaciones.liquidaciones[ii];
+      for (let e in liquidacion) {
 
-          if (recibo.hasOwnProperty(e)) {
-              if (e == 'id') {     // el id no lo carga en la tabla
-                  continue;
-              }
+          if (liquidacion.hasOwnProperty(e)) {
               let td = document.createElement("td");
-              if (e == 'legajo') {
-                  td.innerHTML = `#${recibo[e]}`
+              if (e == 'id') {
+                  td.innerHTML = `#${liquidacion[e]}`
               } else {
-                  td.innerHTML = recibo[e]
+                  td.innerHTML = liquidacion[e]
               }
-              if (e == 'legajo' || e == 'nombre' || e == 'periodo') {
-                td.classList.add("tm-recibo-bold", "tm-nombre-recibo");
+
+              if (e == 'descripcion' || e == 'periodo') {
+                td.classList.add("tm-liquidacion-bold", "tm-nombre-liquidacion");
               } else {
-                td.classList.add("tm-nombre-recibo");
-              }
+                td.classList.add("tm-nombre-liquidacion");
+              };
+
               tr.appendChild(td);
           }
       }
 
-      // agrega la columna de estado
-      td = document.createElement("td");
-      td.innerHTML = utiles.GenerateDivEstado(recibo['neto']);
-      tr.appendChild(td);
-
       // columna con icono de eliminar
       td = document.createElement("td");
-      td.innerHTML = '<a href="#" class="tm-recibo-delete-link">' +
-                      '<i class="far fa-trash-alt tm-recibo-delete-icon" />' +
+      td.innerHTML = '<a href="#" class="tm-liquidacion-delete-link">' +
+                      '<i class="far fa-trash-alt tm-liquidacion-delete-icon" />' +
                   '</a>';
       tr.appendChild(td);
 
@@ -82,23 +74,22 @@ const cargarTablaRecibos = () => {
 
 }
 
-// carga tabla de recibos
-window.onload=cargarTablaRecibos();
+// carga tabla de liquidacion
+window.onload=cargarTablaLiquidaciones();
 
-// reenvia a la pagina edit-recibo.html
+// reenvia a la pagina edit-liquidacion.html
 $(function() {
-    $(".tm-nombre-recibo").on("click", function() {
-      window.location.href = "edit-recibo.html";
+    $(".tm-nombre-liquidacion").on("click", function() {
+      window.location.href = "edit-liquidacion.html";
     });
   });
 
-// reenvia a la pagina edit-recibo.html
-// const botonClick = document.querySelector(".tm-nombre-recibo");
+// reenvia a la pagina edit-liquidacion.html
+// const botonClick = document.querySelector(".tm-nombre-liquidacion");
 // console.log('hizo click');
 // botonClick.addEventListener("click", () => {
-//     window.location.href = "edit-recibo.html";
+//     window.location.href = "edit-liquidacion.html";
 // });
 
 
-// export { Recibo, lsRecibos, cargarTablaRecibos };
-export { Recibo, lsRecibos };
+export { Liquidacion, lsLiquidaciones };
