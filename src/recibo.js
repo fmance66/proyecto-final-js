@@ -47,7 +47,7 @@ const cargarTablaRecibos = () => {
       for (let e in recibo) {
 
           if (recibo.hasOwnProperty(e)) {
-              if (e == 'id') {     // el id no lo carga en la tabla
+              if ((e == 'id') || (e == 'idLiquidacion')) {     // los id no los carga en la tabla
                   continue;
               }
               let td = document.createElement("td");
@@ -86,18 +86,18 @@ const cargarTablaRecibos = () => {
 window.onload=cargarTablaRecibos();
 
 // reenvia a la pagina edit-recibo.html
-$(function() {
-    $(".tm-nombre-recibo").on("click", function() {
-      window.location.href = "edit-recibo.html";
-    });
-  });
+// $(function() {
+//     $(".tm-nombre-recibo").on("click", function() {
+//       window.location.href = "edit-recibo.html";
+//     });
+//   });
 
 // reenvia a la pagina edit-recibo.html
-// const botonClick = document.querySelector(".tm-nombre-recibo");
-// console.log('hizo click');
-// botonClick.addEventListener("click", () => {
-//     window.location.href = "edit-recibo.html";
-// });
+const botonClick = document.querySelector(".tm-nombre-recibo");
+console.log('hizo click');
+botonClick.addEventListener("click", () => {
+    window.location.href = "edit-recibo.html";
+});
 
 
 // export { Recibo, lsRecibos, cargarTablaRecibos };

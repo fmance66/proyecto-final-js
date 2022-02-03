@@ -68,7 +68,7 @@ const cargarTablaRecibosRo = () => {
         for (let e in recibo) {
 
             if (recibo.hasOwnProperty(e)) {
-                if (e == 'id') {     // el id no lo carga en la tabla
+                if ((e == 'id') || (e == 'idLiquidacion')) {     // los id no los carga en la tabla
                     continue;
                 }
                 let td = document.createElement("td");

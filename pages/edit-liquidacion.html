@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Agregar Recibo - Sistema de Sueldos</title>
+    <title>Editar Liquidación - Sistema de Sueldos</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
     <link rel="stylesheet" href="../css/fontawesome.min.css" />
     <link rel="stylesheet" href="../jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/estilos.css">
+
   </head>
 
   <body>
@@ -104,61 +105,40 @@
 
     <div class="container tm-mt-big tm-mb-big">
       <div class="row">
-        
         <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-            <!-- <div class="row">
+            
+            <div class="row">
               <div class="col-12">
-                <h2 class="tm-block-title d-inline-block">Agregar Recibo</h2> -->
-
-
-
-            <div class="row tm-content-row">
-              <div class="col-12 tm-block-col">
-                <div class="tm-bg-primary-dark tm-block-h-auto">
-                  <h2 class="tm-block-title d-inline-block">Agregar Recibo</h2>
-                </div>
+                <h2 class="tm-block-title d-inline-block">Editar Liquidación</h2>
               </div>
             </div>
+            
+            <div class="row tm-edit-liquidacion-row">
+                <!-- <div class="col-xl-6 col-lg-6 col-md-12"> -->
+                <div class="col-12">
+                  <form action="" method="post" class="tm-edit-liquidacion-form row">
+                    <div class="form-group mb-3 col-lg-6">
+                      <label for="periodo">Período</label>
+                      <input id="periodo" name="periodo" type="text" value="01/2022" 
+                            class="form-control validate"/>
+                    </div>
+                    <div class="form-group mb-3 col-lg-6 col-xs-6 col-sm-6">
+                      <label for="fechaPago">Fecha de Pago</label>
+                      <input id="fechaPago" name="fechaPago" class="form-control validate" type="text" 
+                             value="05/02/2022" data-large-mode="true"/>
+                    </div>
+                    <div class="form-group mb-3 col-lg-12 col-xs-12 col-sm-6">
+                      <label for="descripcion">Descripción</label>
+                      <input id="descripcion" name="descripcion" type="text" value="Enero de 2022" 
+                            class="form-control validate"/>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary btn-block text-uppercase">Actualizar</button>
+                </div>
 
-            <div class="row tm-edit-recibo-row">
-              <div class="col-12">
-                <form action="" class="tm-edit-variable-form row">
-
-                  <div class="form-group mb-3 col-lg-3">
-                    <label for="legajo">Legajo</label>
-                    <input id="legajo" name="legajo" type="text" class="form-control validate" 
-                           value="#122340" required />
-                  </div>
-
-                  <div class="form-group mb-3 col-lg-9">
-                    <label for="name">Nombre Empleado</label>
-                    <input id="name" name="name" type="text" value="Esteban Raúl Martínez" 
-                          class="form-control validate"/>
-                  </div>
-
-                  <div class="form-group mb-3 col-lg-12" col-l>
-                    <label for="description">Valor Variable</label>
-                    <textarea class="form-control validate" rows="3" required></textarea>
-                  </div>
-
-                  <div class="form-group mb-3 col-lg-12">
-                    <label for="category">Tipo Variable</label>
-                    <select class="custom-select tm-select-accounts" id="tipoVariable">
-                      <option selected>Seleccione Tipo de Variable</option>
-                      <option value="1">Cadena</option>
-                      <option value="2">Número</option>
-                      <option value="3">Fórmula</option>
-                      <option value="4">Fecha</option>
-                    </select>
-                  </div>
-                  
-              </div>
-
-              <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block text-uppercase">Agregar Recibo ahora</button>
-              </div>
-            </form>
             </div>
           </div>
         </div>
@@ -174,13 +154,15 @@
         </div>
       </footer>
 
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- <script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../jquery-ui-datepicker/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script>
       $(function() {
-        $("#expire_date").datepicker();
+        $("#fechaPago").datepicker({
+          defaultDate: "01/02/2022"
+        });
       });
-    </script> -->
+    </script>
   </body>
 </html>
