@@ -109,35 +109,37 @@
           <!-- <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col"> -->
           <div class="col-12 tm-block-col">
               <div class="tm-bg-primary-dark tm-block tm-block-recibos">
-              <h2 class="tm-block-title">Recibos de Sueldo</h2>
-              <div class="tm-recibo-table-container">
-                <table id="tablaRecibos" class="table">
-                  <thead>
-                      <tr>
-                        <th>&nbsp;</th>
-                        <th>LEGAJO</th>
-                        <th>NOMBRE</th>
-                        <th>PERIODO</th>
-                        <th>TOTAL BRUTO</th>
-                        <th>DESCUENTOS</th>
-                        <th>TOTAL NETO</th>
-                        <th>ESTADO</th>
-                        <th>&nbsp;</th>
-                      </tr>
-                  </thead>
-                  <!-- <tbody>
-                      se genera dinamicamente en recibos.js
-                  </tbody> -->
-              </table>
-            </div>
-              <!-- table container -->
-              <a
-                href="add-recibo.html"
-                class="btn btn-primary btn-block text-uppercase mb-3">Agregar Recibo</a>
-              <button class="btn btn-primary btn-block text-uppercase">
-                Borrar recibos seleccionadas
-              </button>
-            </div>
+                <h2 class="tm-block-title">Recibos de Sueldo</h2>
+                <div class="tm-recibo-table-container">
+                    <table id="tablaRecibos" class="table">
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th class="oculto">ID</th>
+                            <th>LEGAJO</th>
+                            <th>NOMBRE</th>
+                            <th class="oculto">ID LIQUIDACION</th>
+                            <th>PERIODO</th>
+                            <th>ESTADO</th>
+                            <th>TOTAL BRUTO</th>
+                            <th>DESCUENTOS</th>
+                            <th>TOTAL NETO</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <!-- <tbody>
+                        se genera dinamicamente en recibos.js
+                    </tbody> -->
+                    </table>
+                </div>
+                <!-- table container -->
+                <a href="add-recibo.html" class="btn btn-primary btn-block text-uppercase mb-3 mt-4">
+                    Agregar Recibo
+                </a>
+                <button class="btn btn-primary btn-block text-uppercase">
+                    Borrar recibos seleccionadas
+                </button>
+              </div>
           </div>
         </div>
       </div>

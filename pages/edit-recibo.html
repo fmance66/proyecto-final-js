@@ -127,12 +127,12 @@
                   <form action="" method="post" class="tm-edit-recibo-form row">
                     <div class="form-group mb-3 col-lg-3">
                       <label for="legajo">Legajo</label>
-                      <input id="legajo" name="legajo" type="text" value="#122340" 
+                      <input id="legajo" name="legajo" type="text" 
                             class="form-control validate"/>
                     </div>
                     <div class="form-group mb-3 col-lg-9">
-                      <label for="name">Nombre Empleado</label>
-                      <input id="name" name="name" type="text" value="Esteban Raúl Martínez" 
+                      <label for="nombre">Nombre Empleado</label>
+                      <input id="nombre" name="nombre" type="text" 
                             class="form-control validate"/>
                     </div>
                     <div class="form-group mb-3 col-lg-12">
@@ -154,7 +154,7 @@
                   </form>
                         
                 </div>
-                <div class="col-12">
+                <div class="col-12 mt-4">
                   <button type="submit" class="btn btn-primary btn-block text-uppercase">Actualizar</button>
                 </div>
 
@@ -176,12 +176,8 @@
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../jquery-ui-datepicker/jquery-ui.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
-    <!-- <script>
-      $(function() {
-        $("#expire_date").datepicker({
-          defaultDate: "01/02/2022"
-        });
-      });
-    </script> -->
+
+    <script type="module" src="../src/edit-recibo.js"></script>
+
   </body>
 </html>

@@ -9,15 +9,17 @@ import arrayLiquidaciones from '../data/liquidaciones.json' assert { type: "json
 
 const lsLiquidaciones = "lsLiquidaciones";
   
-const Liquidacion = (id, periodo, descripcion, estado, fechaPago) => {
+function Liquidacion(id, periodo, descripcion, estado, fechaPago) {
   this.id = id;
   this.periodo = periodo;
   this.descripcion = descripcion;
   this.estado = estado;
   this.fechaPago  = fechaPago;
   this.mostrar = function() {
-      `{ id: ${this.id}, periodo: ${this.periodo}, descripcion: ${this.descripcion}, estado: ${this.estado},` + 
-      ` fechaPago: ${this.fechaPago} }`
+    return (
+      `{ id: ${this.id}, periodo: ${this.periodo}, descripcion: ${this.descripcion},` + 
+      ` estado: ${this.estado}, fechaPago: ${this.fechaPago} }`
+      )
   }
 }
 
@@ -25,10 +27,11 @@ const Liquidacion = (id, periodo, descripcion, estado, fechaPago) => {
 const cargarTablaLiquidaciones = () => {
 
   // guarda el array de objetos 'Liquidacion' obtenido desde el JSON externo en localStorage
-  utiles.SetEnLocalStorage(lsLiquidaciones, JSON.stringify(arrayLiquidaciones.liquidaciones));
+  localStorage.setItem(lsLiquidaciones, JSON.stringify(arrayLiquidaciones.liquidaciones));
 
   let tablaLiquidaciones = document.querySelector("#tablaLiquidaciones");
   let tbody = document.createElement("tbody");
+  // tbody.style.cursor = "pointer";
   tablaLiquidaciones.appendChild(tbody);
 
   // console.log(arrayLiquidaciones.liquidaciones);
@@ -52,11 +55,18 @@ const cargarTablaLiquidaciones = () => {
                   td.innerHTML = liquidacion[e]
               }
 
-              if (e == 'descripcion' || e == 'periodo') {
-                td.classList.add("tm-liquidacion-bold", "tm-nombre-liquidacion");
-              } else {
-                td.classList.add("tm-nombre-liquidacion");
+              if (e == 'id' || e == 'descripcion' || e == 'periodo') {
+                td.classList.add("tm-liquidacion-bold");
               };
+                
+              // semaforo de estado
+              if (e == 'estado') {       
+                td.innerHTML = utiles.generateDivEstado(liquidacion[e]);
+              }
+
+              // agrega clase al campo y convierte cursor para usar con el "click"
+              td.classList.add("tm-col-liquidacion");
+              td.style.cursor = "pointer";
 
               tr.appendChild(td);
           }
@@ -69,6 +79,9 @@ const cargarTablaLiquidaciones = () => {
                   '</a>';
       tr.appendChild(td);
 
+      // agrega clase a la fila para usar en un futuro?
+      tr.classList.add("tm-fila-liquidacion");
+
       tbody.appendChild(tr);
   }
 
@@ -77,19 +90,60 @@ const cargarTablaLiquidaciones = () => {
 // carga tabla de liquidacion
 window.onload=cargarTablaLiquidaciones();
 
-// reenvia a la pagina edit-liquidacion.html
-$(function() {
-    $(".tm-nombre-liquidacion").on("click", function() {
-      window.location.href = "edit-liquidacion.html";
-    });
-  });
+function onRowClick(idTabla, callback) {
+  let tabla = document.getElementById(idTabla);
+  let cantFilas = tabla.getElementsByTagName("tr").length;
+  for (let ii = 0; ii < cantFilas; ii++) {
+      // configura click en cada fila
+      tabla.rows[ii].onclick = function (fila) {
+          return function () {
+              callback(fila);
+          };
+      } (tabla.rows[ii]);
+  }
+};
 
-// reenvia a la pagina edit-liquidacion.html
-// const botonClick = document.querySelector(".tm-nombre-liquidacion");
-// console.log('hizo click');
-// botonClick.addEventListener("click", () => {
-//     window.location.href = "edit-liquidacion.html";
+onRowClick("tablaLiquidaciones", function (fila) {
+
+  let tds = fila.querySelectorAll("td");
+  let estado = tds[4].innerText;
+
+  // // recorre el tr sacando el 1er y ultimo elemento (checkbox y boton eliminar)
+  // for (let ii = 1; ii < tds.length - 1; ii++) {
+  //   console.log(`ii: ${ii} tds: ${tds[ii].innerText}`);
+  // }
+
+  const liquidacion = new Liquidacion(); 
+  liquidacion.id = tds[1].innerText;
+  liquidacion.periodo = tds[2].innerText; 
+  liquidacion.descripcion = tds[3].innerText; 
+  liquidacion.estado = tds[4].innerText;
+  liquidacion.fechaPago = tds[5].innerText; 
+    
+  // console.log(`liquidacion: ${liquidacion.mostrar()}`);
+  
+  if (estado == "Abierta") {
+    // console.log(`objLiquidacion: ${JSON.stringify(liquidacion)}`);
+    sessionStorage.setItem("objLiquidacion", JSON.stringify(liquidacion));
+    // console.log('window.location.href = "edit-liquidacion.html"');
+    // setTimeout( function() { window.location.href = "edit-liquidacion.html"; }, 5000 );
+    window.location.href = "edit-liquidacion.html";
+  }
+
+});
+
+// // reenvia a la pagina edit-liquidacion.html (javascript vanilla)
+// const col = document.querySelector(".tm-col-liquidacion");
+// col.addEventListener("click", () => {
+//   window.location.href = "edit-liquidacion.html";
 // });
+
+// // reenvia a la pagina edit-liquidacion.html (jquery)
+// $(function() {
+//     $(".tm-col-liquidacion").on("click", function() {
+//       window.location.href = "edit-liquidacion.html";
+//     });
+//   });
 
 
 export { Liquidacion, lsLiquidaciones };

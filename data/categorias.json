@@ -1,28 +1,28 @@
 {
-    "tipoVariables": [
+    "categorias": [
         {
             "id": "1",
-            "descripcion": "CADENA",
+            "descripcion": "Administrativo",
             "estado": "activo"
         },
         {
             "id": "2",
-            "descripcion": "NUMERO",
+            "descripcion": "Jefe de Departamento",
             "estado": "activo"
         },
         {
             "id": "3",
-            "descripcion": "FORMULA",
+            "descripcion": "Jefe de División",
             "estado": "activo"
         },
         {
             "id": "4",
-            "descripcion": "FECHA",
+            "descripcion": "Líder de Proyecto",
             "estado": "activo"
         },
         {
-            "id": "4",
-            "descripcion": "PROMPT",
+            "id": "5",
+            "descripcion": "Director",
             "estado": "activo"
         }
     ]

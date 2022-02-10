@@ -3,7 +3,7 @@
 */
 
 // ordena un array por el elemento 'nombre'
-const OrdenarVariables = (array) => {
+const ordenarVariables = (array) => {
   array.sort(function(a, b) {
       if (a.nombre > b.nombre) {
           return 1;
@@ -17,51 +17,59 @@ const OrdenarVariables = (array) => {
   return array;
 }
 
-// guarda la clave/valor en localStorage
-const SetEnLocalStorage = (clave, valor) => { 
-    localStorage.setItem(clave, valor) 
+// busca la liquidacion por id en el array de liquidaciones
+const getLiquidacion = (arrayLiquidaciones, id) => {
+    return arrayLiquidaciones.find(function(elemento, index) {
+        if (elemento.id == id) {
+            return true;
+        }
+    })
 };
 
-// devuelve el estado --> por ahora es algo teórico...
-const GenerateDivEstado = (valor) => { 
+// busca un empleado por legajo en el array de empleados
+const getEmpleado = (arrayEmpleados, legajo) => {
+    return arrayEmpleados.find(function(elemento, index) {
+        if (elemento.legajo == legajo) {
+            return true;
+        }
+    })
+};
 
-    // como viene un numero en formato e.eee.eee,dd le saca los puntos y reemplaza la coma por punto
-    const formatear = (x) => {
-        return x.replaceAll('.', '').replaceAll(',', '.')
-    };
+// busca un tipo de variable en el array de tipos de variables
+const getTipoVariable = (arrayTipoVariables, id) => {
+    return arrayTipoVariables.find(function(elemento, index) {
+        if (elemento.id == id) {
+            return true;
+        }
+    })
+};
 
-    // como viene un numero en formato e.eee.eee,dd le saca los puntos y reemplaza la coma por punto
-    valor = formatear(valor);
+// segun el estado devuelve la class con el color del semaforo verde, amarillo o rojo
+const generateDivEstado = (estado) => { 
 
-    let digito = Math.trunc(Number(valor))%10;
     let clase = '';
-    let texto = '';
 
-    switch (digito) {
-        case 0:
-        case 1:
-        case 2:
-        case 3:
-            clase = 'finalizado';
-            texto = 'Pagado';
+    switch (estado) {
+        case 'abierta':
+            clase = 'semaforo-verde';
             break;
-        case 4:
-        case 5:
-        case 6:
-            clase = 'pendiente';
-            texto = 'Pendiente';
+        case 'activo':
+            clase = 'semaforo-verde';
             break;
-        case 7:
-        case 8:
-        case 9:
-            clase = 'cancelado';
-            texto = 'Cancelado';
+        case 'cerrada':
+            clase = 'semaforo-rojo';
+            break;
+        case 'anulado':
+            clase = 'semaforo-rojo';
             break;
         default:
-            clase = 'finalizado';
-            texto = 'Pagado';
+            clase = 'indefinido';
+            estado = 'semaforo-amarillo';
     }
-    return `<div class="tm-estado-circle ${clase}"></div>${texto}`;
+
+    let texto = estado.charAt(0).toUpperCase() + estado.slice(1)
+    return `<div class="tm-estado-semaforo ${clase}"></div>${texto}`;
+    
 };
 
-export { OrdenarVariables, SetEnLocalStorage, GenerateDivEstado };
+export { ordenarVariables, generateDivEstado, getLiquidacion, getEmpleado, getTipoVariable };

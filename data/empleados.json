@@ -1,0 +1,124 @@
+﻿{
+    "empleados": [
+        {
+            "legajo": "122339",
+            "nombre": "Federico Peralta Ramos",
+            "estado": "activo",
+            "fechaIngreso": "01/07/1999",
+            "idCategoria": "1",
+            "telefono": "11-6578-9199",
+            "eMail": "fperamos@outlook.com.ar",
+            "domicilio": "Ranchos Salvajes 3384"
+        },
+        {
+            "legajo": "122340",
+            "nombre": "Esteban Raúl Martínez",
+            "estado": "activo",
+            "fechaIngreso": "11/03/1996",
+            "idCategoria": "5",
+            "telefono": "11-4347-3678",
+            "eMail": "eraumartinez@live.com",
+            "domicilio": "Alvear 1470 5to piso"
+        },
+        {
+            "legajo": "122341",
+            "nombre": "Hernán Saúl Ojedavich",
+            "estado": "activo",
+            "fechaIngreso": "07/01/2006",
+            "idCategoria": "2",
+            "telefono": "11-4478-3890",
+            "eMail": "hsojedavich@gmail.com",
+            "domicilio": "Ecuador 4578 piso 10 'H'"
+        },
+        {
+            "legajo": "122342",
+            "nombre": "Guillermo Perez Companc",
+            "estado": "activo",
+            "fechaIngreso": "14/05/2001",
+            "idCategoria": "3",
+            "telefono": "11-6788-1089",
+            "eMail": "guiperezcompanc@perezcompanc.com.ar",
+            "domicilio": "Av. Pueyrredon 1367 piso 11 '1'"
+        },
+        {
+            "legajo": "122343",
+            "nombre": "Raúl Becerra Gómez",
+            "estado": "activo",
+            "fechaIngreso": "01/07/1996",
+            "idCategoria": "1",
+            "telefono": "11-1456-3444",
+            "eMail": "rbecerragomez78@gmail.com",
+            "domicilio": "Crisólogo Larralde 1249"
+        },
+        {
+            "legajo": "122344",
+            "nombre": "Miguel de Cervantes Saavedra",
+            "estado": "activo",
+            "fechaIngreso": "11/11/2011",
+            "idCategoria": "1",
+            "telefono": "11-4348-6788",
+            "eMail": "quijote@outlook.com.ar",
+            "domicilio": "El Quijote de La Mancha 389"
+        },
+        {
+            "legajo": "122345",
+            "nombre": "David Luis Brazucka",
+            "estado": "activo",
+            "fechaIngreso": "31/07/2003",
+            "idCategoria": "4",
+            "telefono": "11-6578-9199",
+            "eMail": "dlbrazuck@outlook.com.ar",
+            "domicilio": "Av. Brasil 1970"
+        },
+        {
+            "legajo": "122346",
+            "nombre": "Oscar Pereyra Iraola",
+            "estado": "activo",
+            "fechaIngreso": "20/12/2016",
+            "idCategoria": "1",
+            "telefono": "11-5673-1256",
+            "eMail": "opereyrairaola55@fibertel.com.ar",
+            "domicilio": "Blanco Encalada 2851 piso 6 'C'"
+        },
+        {
+            "legajo": "122347",
+            "nombre": "Carlos Alberto Marrón",
+            "estado": "activo",
+            "fechaIngreso": "11/07/1998",
+            "idCategoria": "1",
+            "telefono": "11-6555-4567",
+            "eMail": "cabrown@live.com.ar",
+            "domicilio": "Las Grutas 1178"
+        },
+        {
+            "legajo": "122348",
+            "nombre": "Lautaro Mendibelzúa",
+            "estado": "activo",
+            "fechaIngreso": "01/07/1996",
+            "idCategoria": "1",
+            "telefono": "11-4589-0089",
+            "eMail": "lmendivelzua74@gmail.com",
+            "domicilio": "San Isidro 4567"
+        },
+        {
+            "legajo": "122349",
+            "nombre": "Ricardo León Corazo",
+            "estado": "anulado",
+            "fechaIngreso": "12/11/2008",
+            "idCategoria": "2",
+            "telefono": "11-4789-6787",
+            "eMail": "rleoncorazo@yahoo.com.ar",
+            "domicilio": "Arrcifes 2789"
+        },
+        {
+            "legajo": "122350",
+            "nombre": "Natalia Argarete Soteldo",
+            "estado": "activo",
+            "fechaIngreso": "14/08/2016",
+            "idCategoria": "1",
+            "telefono": "11-6578-3455",
+            "eMail": "nargaretesoteldo@hotmail.com",
+            "domicilio": "Ecuador 1170 piso 14 'H'"
+        }
+    ]
+}

@@ -243,6 +243,10 @@ button:focus {
   font-size: 90%;
 }
 
+.oculto {
+  display: none;
+}
+
 .table {
   background-color: #50697f;
   color: #fff;
@@ -259,7 +263,7 @@ thead {
   border-bottom: 0;
 }
 
-.tm-estado-circle {
+.tm-estado-semaforo {
   display: inline-block;
   margin-right: 5px;
   vertical-align: middle;
@@ -269,17 +273,17 @@ thead {
   margin-top: -3px;
 }
 
-.finalizado {
+.semaforo-verde {
   background-color: #9be64d;
   box-shadow: 0 0 8px #9be64d, inset 0 0 8px #9be64d;
 }
 
-.pendiente {
+.semaforo-amarillo {
   background-color: #efc54b;
   box-shadow: 0 0 8px #efc54b, inset 0 0 8px #efc54b;
 }
 
-.cancelado {
+.semaforo-rojo {
   background-color: #da534f;
   box-shadow: 0 0 8px #da534f, inset 0 0 8px #da534f;
 }
@@ -526,25 +530,27 @@ input[type="checkbox"]:focus {
   box-shadow: none;
 }
 
-.tm-block-liquidaciones,
-.tm-block-recibos,
-.tm-block-variables {
-  min-height: 725px;
+.tm-block-recibos {
+  min-height: 825px;
 }
 
+.tm-block-liquidaciones,
+.tm-block-variables {
+  min-height: 745px;
+}
 .tm-block-variable-categoria {
   min-height: 650px;
 }
 
 .tm-liquidaciones-table-container,
 .tm-recibo-table-container {
-  max-height: 565px;
+  max-height: 550px;
   margin-bottom: 15px;
   overflow-y: scroll;
 }
 
 .tm-variable-table-container {
-  max-height: 465px;
+  max-height: 485px;
   margin-bottom: 15px;
   overflow-y: scroll;
 }

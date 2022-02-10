@@ -48,52 +48,60 @@
 import * as utiles   from './src/utiles.js';
  
 // carga file JSON de datos 
-import arrayRecibos from './data/recibos.json' assert { type: "json" };
+import arrayLiquidaciones from './data/liquidaciones.json' assert { type: "json" };
 
-const lsRecibos = "lsRecibos";
+const lsLiquidaciones = "lsLiquidaciones";
 
-// carga tabla de recibos read only desde array de recibos
-const cargarTablaRecibosRo = () => {
+// carga tabla de liquidaciones read only desde array de liquidaciones
+const cargarTablaLiquidacionesRo = () => {
 
-    // guarda el array de objetos 'Recibo' obtenido desde el JSON externo en localStorage
-    utiles.SetEnLocalStorage(lsRecibos, JSON.stringify(arrayRecibos.recibos));
+    // guarda el array de objetos 'Liquidacion' obtenido desde el JSON externo en localStorage
+    localStorage.setItem(lsLiquidaciones, JSON.stringify(arrayLiquidaciones.liquidaciones));
 
-    let tablaRecibos = document.querySelector("#tablaRecibosIndex");
+    let tablaLiquidaciones = document.querySelector("#tablaLiquidacionesIndex");
     let tbody = document.createElement("tbody");
-    tablaRecibos.appendChild(tbody);
+    tablaLiquidaciones.appendChild(tbody);
 
-    for (let ii = 0; ii < arrayRecibos.recibos.length; ii++) {
-        let tr = document.createElement("tr");
-        let recibo = arrayRecibos.recibos[ii];
-        for (let e in recibo) {
+    for (let ii = 0; ii < arrayLiquidaciones.liquidaciones.length; ii++) {
 
-            if (recibo.hasOwnProperty(e)) {
-                if ((e == 'id') || (e == 'idLiquidacion')) {     // los id no los carga en la tabla
-                    continue;
+        if (arrayLiquidaciones.liquidaciones[ii].estado == 'abierta') {
+            
+            let tr = document.createElement("tr");
+  
+            let liquidacion = arrayLiquidaciones.liquidaciones[ii];
+            for (let e in liquidacion) {
+      
+                if (liquidacion.hasOwnProperty(e)) {
+                    
+                    let td = document.createElement("td");
+                    
+                    if (e == 'id') {
+                        td.innerHTML = `#${liquidacion[e]}`
+                    } else {
+                        td.innerHTML = liquidacion[e]
+                    }
+      
+                    if (e == 'id' || e == 'descripcion' || e == 'periodo') {
+                      td.classList.add("tm-liquidacion-bold");
+                    };
+                    
+                    if (e == 'estado') {
+                        // td.innerHTML = `#${liquidacion[e]}`
+                        td.innerHTML = utiles.generateDivEstado(liquidacion[e]);
+                    }
+                    tr.appendChild(td);
                 }
-                let td = document.createElement("td");
-                if (e == 'legajo') {
-                    td.innerHTML = `#${recibo[e]}`
-                } else {
-                    td.innerHTML = recibo[e]
-                }
-                if (e == 'legajo' || e == 'nombre' || e == 'periodo') {
-                    td.classList.add("tm-recibo-bold");
-                }
-                tr.appendChild(td);
             }
+
+            // agrega clase a la fila para usar a futuro
+            tr.classList.add("tm-fila-liquidacion");
+    
+            tbody.appendChild(tr);
         }
-
-        // agrega la columna de estado
-        let td = document.createElement("td");
-        td.innerHTML = utiles.GenerateDivEstado(recibo['neto']);
-        tr.appendChild(td);
-
-        tbody.appendChild(tr);
     }
 
 }
 
-// carga tabla de recibos read only
-window.onload=cargarTablaRecibosRo();
+// carga tabla de liquidaciones read only
+window.onload=cargarTablaLiquidacionesRo();
 
