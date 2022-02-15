@@ -120,6 +120,7 @@ const armarTablaLiquidacionesIndex = (arrayObj) => {
     // console.log('cargarTablaLiquidacionesIndex');
 
     let tablaLiquidaciones = document.querySelector("#tablaLiquidacionesIndex");
+
     let tbody = document.createElement("tbody");
     tablaLiquidaciones.appendChild(tbody);
 
@@ -162,9 +163,49 @@ const armarTablaLiquidacionesIndex = (arrayObj) => {
             tbody.appendChild(tr);
         }
     }
-
 }
+
+//------ animaciones
+
+$(".tm-site-title").animate({
+    textTransform: 'lowercase',
+    fontSize: '0.1rem',
+    fontWeight: '100',
+    opacity: '0.5'
+});
+
+$(".navbar").hide();
+$("#table-container").fadeOut();
+$(".navbar").show("slow");
+$("#table-container").fadeIn(2000);
+// $(".tm-site-title").toggle();
+
+
+$(".tm-site-title").animate({
+    textTransform: 'uppercase',
+    fontSize: '1.3rem',
+    fontWeight: '700',
+    opacity: '1'
+}, 3000);
+
+//----- fin animaciones
 
 // carga las liquidaciones desde el .json y arma tabla de liquidaciones read only
 window.onload=cargarJsonLiquidaciones();
+
+// });
+
+    // console.log('...hide!!! y ...');
+    // $(".tm-block").hide();
+    // setTimeout(() => {
+    //     console.log("...slideUp!!!");
+    //     $(".tm-block").slideUp("slow");
+    // }, 2000);
+
+
+// // carga las liquidaciones desde el .json y arma tabla de liquidaciones read only
+// window.onload=cargarJsonLiquidaciones();
+
+
+
 
