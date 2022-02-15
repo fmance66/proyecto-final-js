@@ -4,8 +4,7 @@
 
 import * as utiles from './utiles.js';
 
-// carga file JSON de datos 
-import jsonLiquidaciones from '../data/liquidaciones.json' assert { type: "json" };
+const lsLiquidaciones = "lsLiquidaciones";
   
 function Liquidacion(id, periodo, descripcion, estado, fechaPago) {
   this.id = id;
@@ -21,24 +20,82 @@ function Liquidacion(id, periodo, descripcion, estado, fechaPago) {
   }
 }
 
-let arrayLiquidaciones = jsonLiquidaciones.liquidaciones;
+//***** carga file JSON de datos 
 
-const lsLiquidaciones = "lsLiquidaciones";
+// import jsonLiquidaciones from '../data/liquidaciones.json' assert { type: "json" };
+
+// --- metodo 1) IMPORT
+// const cargarJsonLiquidaciones = () => {
+//     // guarda el array de objetos 'Liquidacion' en localStorage
+//     localStorage.setItem(lsLiquidaciones, JSON.stringify(jsonLiquidaciones.liquidaciones));
+//     // arma la tabla de liquidaciones
+//     armarTablaLiquidaciones(jsonLiquidaciones.liquidaciones);
+//  };
+
+const urlJson = '../data/liquidaciones.json';
+
+// // --- metodo 2) JAVASCRIPT
+// const cargarJsonLiquidaciones = () => {
+
+//     let jsonData = localStorage.getItem(lsLiquidaciones);
+
+//     // verifica si existe el json de liquidaciones en local storage
+//     if (jsonData == null || jsonData == undefined) {   // si no existe lo carga del json externo
+
+//         console.log('... cargando local storage de .json externo...');
+
+//         fetch(urlJson)
+//         .then(response => response.json())
+//         .then(data => {
+//             // guarda el array de objetos 'Liquidacion' en localStorage
+//             localStorage.setItem(lsLiquidaciones, JSON.stringify(data.liquidaciones));
+//             // arma la tabla de liquidaciones
+//             armarTablaLiquidaciones(data.liquidaciones);
+//         })
+//         .catch(console.error);
+//     } else {                                           // si existe lo parsea
+//         // arma la tabla de liquidaciones
+//         armarTablaLiquidaciones(JSON.parse(jsonData));
+//     };
+// };
+
+// --- metodo 3) JQUERY
+const cargarJsonLiquidaciones = () => {
+
+  let jsonData = localStorage.getItem(lsLiquidaciones);
+  // console.log(jsonData);
+
+  // verifica si existe el json de liquidaciones en local storage
+  if (jsonData == null || jsonData === undefined) {   // si no existe lo carga del json externo
+
+      console.log('... cargando local storage de .json externo...');
+
+      $.get(urlJson, function(data, estado) {
+          if (estado === "success") {
+              // console.log(respuesta.liquidaciones);
+              // guarda el array de objetos 'Liquidacion' en localStorage
+              localStorage.setItem(lsLiquidaciones, JSON.stringify(data.liquidaciones));
+              // arma la tabla de liquidaciones
+              armarTablaLiquidaciones(data.liquidaciones);
+          }
+      })
+  } else {                                           // si existe lo parsea
+      // arma la tabla de liquidaciones
+      armarTablaLiquidaciones(JSON.parse(jsonData));
+  };
+};
 
 // carga tabla de liquidaciones desde array de liquidaciones
-const cargarTablaLiquidaciones = () => {
-
-  // guarda el array de objetos 'Liquidacion' obtenido desde el JSON externo en localStorage
-  localStorage.setItem(lsLiquidaciones, JSON.stringify(arrayLiquidaciones));
+const armarTablaLiquidaciones = (arrayObj) => {
 
   let tablaLiquidaciones = document.querySelector("#tablaLiquidaciones");
   let tbody = document.createElement("tbody");
   // tbody.style.cursor = "pointer";
   tablaLiquidaciones.appendChild(tbody);
 
-  // console.log(arrayLiquidaciones);
+  // console.log(arrayObj);
 
-  for (let ii = 0; ii < arrayLiquidaciones.length; ii++) {
+  for (let ii = 0; ii < arrayObj.length; ii++) {
       let tr = document.createElement("tr");
 
       // columna de checkbox
@@ -47,7 +104,7 @@ const cargarTablaLiquidaciones = () => {
       td.classList.add("tm-col-checkbox");
       tr.appendChild(td);
 
-      let liquidacion = arrayLiquidaciones[ii];
+      let liquidacion = arrayObj[ii];
       for (let e in liquidacion) {
 
           if (liquidacion.hasOwnProperty(e)) {
@@ -95,8 +152,8 @@ const cargarTablaLiquidaciones = () => {
 
 }
 
-// carga tabla de liquidacion
-window.onload=cargarTablaLiquidaciones();
+// carga las liquidaciones desde el .json y arma tabla de liquidaciones
+window.onload=cargarJsonLiquidaciones();
 
 // eventos de fila de tabla
 $(function() {
@@ -167,4 +224,4 @@ $(function() {
 
 });
 
-export { Liquidacion, lsLiquidaciones };
+export { Liquidacion };

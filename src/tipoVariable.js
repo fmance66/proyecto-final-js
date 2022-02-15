@@ -4,11 +4,6 @@
  
 import * as utiles from'./utiles.js';
 
-// carga file JSON de datos 
-import jsonTipoVariables from '../data/tipoVariables.json' assert { type: "json" };
-
-let arrayTipoVariables = jsonTipoVariables.tipoVariables;
-
 const lsTipoVariables = "lsTipoVariables";
   
 function TipoVariable (id, descripcion, estado) {
@@ -20,23 +15,86 @@ function TipoVariable (id, descripcion, estado) {
   }
 }
 
+//***** carga file JSON de datos 
+
+// import jsonTipoVariables from '../data/tipoVariables.json' assert { type: "json" };
+
+// --- metodo 1) IMPORT
+// const cargarJsonTipoVariables = () => {
+//     // guarda el array de objetos 'TipoVariable' en localStorage
+//     localStorage.setItem(lsTipoVariables, JSON.stringify(jsonTipoVariables.tipoVariables));
+//     // arma la tabla de tipos de variables
+//     armarTablaVariables(jsonTipoVariables.tipoVariables);
+//  };
+
+const urlJson = '../data/tipoVariables.json';
+
+// // --- metodo 2) JAVASCRIPT
+// const cargarJsonTipoVariables = () => {
+
+//     let jsonData = localStorage.getItem(lsTipoVariables);
+
+//     // verifica si existe el json de tipoVariables en local storage
+//     if (jsonData == null || jsonData == undefined) {   // si no existe lo carga del json externo
+
+//         console.log('... cargando local storage de .json externo...');
+
+//         fetch(urlJson)
+//         .then(response => response.json())
+//         .then(data => {
+//             // guarda el array de objetos 'TipoVariable' en localStorage
+//             localStorage.setItem(lsTipoVariables, JSON.stringify(data.tipoVariables));
+//             // arma la tabla de tipo de variables
+//             armarTablaTipoVariables(data.tipoVariables);
+//         })
+//         .catch(console.error);
+//     } else {                                           // si existe lo parsea
+//         // arma la tabla de tipo de variables
+//         armarTablaTipoVariables(JSON.parse(jsonData));
+//     };
+// };
+
+// --- metodo 3) JQUERY
+const cargarJsonTipoVariables = () => {
+
+  let jsonData = localStorage.getItem(lsTipoVariables);
+//   console.log(jsonData);
+
+  // verifica si existe el json de variables en local storage
+  if (jsonData == null || jsonData === undefined) {   // si no existe lo carga del json externo
+
+      console.log('... cargando local storage de .json externo...');
+
+      $.get(urlJson, function(data, estado) {
+          if (estado === "success") {
+              // console.log(respuesta.tipoVariables);
+              // guarda el array de objetos 'TipoVariable' en localStorage
+              localStorage.setItem(lsTipoVariables, JSON.stringify(data.tipoVariables));
+              // arma la tabla de tipo de variables
+              armarTablaTipoVariables(data.tipoVariables);
+          }
+      })
+  } else {                                           // si existe lo parsea
+      // arma la tabla de tipo de variables
+      armarTablaTipoVariables(JSON.parse(jsonData));
+  };
+};
+
 // carga tabla de tipos de variables desde array obtenido de json externo
-const cargarTablaTipoVariables = () => {
-    // guarda el array de objetos 'TipoVariable' obtenido desde el JSON externo en localStorage
-    localStorage.setItem(lsTipoVariables, JSON.stringify(arrayTipoVariables));
+const armarTablaTipoVariables = (arrayObj) => {
     
     // carga table de variables desde array de variables
     let tablaTipoVariables = document.querySelector("#tablaTipoVariables");
     let tbody = document.createElement("tbody");
     tablaTipoVariables.appendChild(tbody);
     
-    // console.log(arrayTipoVariables);
+    // console.log(arrayObj);
 
-    for (let ii = 0; ii < arrayTipoVariables.length; ii++) {
+    for (let ii = 0; ii < arrayObj.length; ii++) {
         let tr = document.createElement("tr");
 
         // columnas de la tabla con datos
-        let tipoVariable = arrayTipoVariables[ii];
+        let tipoVariable = arrayObj[ii];
 
         for (let e in tipoVariable) {
 
@@ -82,7 +140,7 @@ const cargarTablaTipoVariables = () => {
 }
 
 // carga tabla de variables y tipos de variables
-window.onload=cargarTablaTipoVariables();
+window.onload=cargarJsonTipoVariables();
 
  
 // reenvia a la pagina edit-liquidacion.html (jquery)

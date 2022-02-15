@@ -4,15 +4,6 @@
 
 import * as utiles from '../src/utiles.js';
 
-// carga file JSON de datos 
-import jsonRecibos from '../data/recibos.json' assert { type: "json" };
-// import jsonLiquidaciones from '../data/liquidaciones.json' assert { type: "json" };
-// import jsonEmpleados from '../data/empleados.json' assert { type: "json" };
-
-let arrayRecibos = jsonRecibos.recibos;
-// let arrayLiquidaciones = jsonLiquidaciones.liquidaciones;
-// let arrayEmpleados = jsonEmpleados.empleados;
-
 const lsRecibos = "lsRecibos";
   
 function Recibo (id, legajo, idLiquidacion, estado, bruto, descuento, neto) {
@@ -31,21 +22,81 @@ function Recibo (id, legajo, idLiquidacion, estado, bruto, descuento, neto) {
   }
 }
 
-// carga tabla de recibos desde array de recibos
-const cargarTablaRecibos = () => {
+//***** carga file JSON de datos 
 
-  // guarda el array de objetos 'Recibo' obtenido desde el JSON externo en localStorage
-  localStorage.setItem(lsRecibos, JSON.stringify(arrayRecibos));
+// import jsonRecibos from '../data/recibos.json' assert { type: "json" };
+
+// --- metodo 1) IMPORT
+// const cargarJsonRecibos = () => {
+//     // guarda el array de objetos 'Recibo' en localStorage
+//     localStorage.setItem(lsRecibos, JSON.stringify(jsonRecibos.recibos));
+//     // arma la tabla de recibos
+//     armarTablaRecibos(jsonRecibos.recibos);
+//  };
+
+const urlJson = '../data/recibos.json';
+
+// // --- metodo 2) JAVASCRIPT
+// const cargarJsonRecibos = () => {
+
+//     let jsonData = localStorage.getItem(lsRecibos);
+
+//     // verifica si existe el json de recibos en local storage
+//     if (jsonData == null || jsonData == undefined) {   // si no existe lo carga del json externo
+
+//         console.log('... cargando local storage de .json externo...');
+
+//         fetch(urlJson)
+//         .then(response => response.json())
+//         .then(data => {
+//             // guarda el array de objetos 'Recibo' en localStorage
+//             localStorage.setItem(lsRecibos, JSON.stringify(data.recibos));
+//             // arma la tabla de recibos
+//             armarTablaRecibos(data.recibos);
+//         })
+//         .catch(console.error);
+//     } else {                                           // si existe lo parsea
+//         // arma la tabla de recibos
+//         armarTablaRecibos(JSON.parse(jsonData));
+//     };
+// };
+
+// --- metodo 3) JQUERY
+const cargarJsonRecibos = () => {
+
+  let jsonData = localStorage.getItem(lsRecibos);
+  // console.log(jsonData);
+
+  // verifica si existe el json de recibos en local storage
+  if (jsonData == null || jsonData === undefined) {   // si no existe lo carga del json externo
+
+      console.log('... cargando local storage de .json externo...');
+
+      $.get(urlJson, function(data, estado) {
+          if (estado === "success") {
+              // console.log(respuesta.recibos);
+              // guarda el array de objetos 'Recibo' en localStorage
+              localStorage.setItem(lsRecibos, JSON.stringify(data.recibos));
+              // arma la tabla de recibos
+              armarTablaRecibos(data.recibos);
+          }
+      })
+  } else {                                           // si existe lo parsea
+      // arma la tabla de recibos
+      armarTablaRecibos(JSON.parse(jsonData));
+  };
+};
+
+// carga tabla de recibos desde array de recibos
+const armarTablaRecibos = (arrayObj) => {
 
   let tablaRecibos = document.querySelector("#tablaRecibos");
   let tbody = document.createElement("tbody");
   tablaRecibos.appendChild(tbody);
 
-//   console.log(arrayRecibos);
-//   console.log(arrayLiquidaciones);
-//   console.log(arrayEmpleados);
+//   console.log(arrayObj);
 
-  for (let ii = 0; ii < arrayRecibos.length; ii++) {
+  for (let ii = 0; ii < arrayObj.length; ii++) {
       let tr = document.createElement("tr");
 
       // columna de checkbox
@@ -54,14 +105,12 @@ const cargarTablaRecibos = () => {
       td.classList.add("tm-col-checkbox");
       tr.appendChild(td);
 
-      let recibo = arrayRecibos[ii];
+      let recibo = arrayObj[ii];
 
       // busca la liquidacion segun el idLiquidacion
-      // let liquidacion = utiles.getLiquidacion(arrayLiquidaciones, recibo.idLiquidacion);
       let liquidacion = utiles.getLiquidacion(recibo.idLiquidacion);
 
       // busca el empleado segun el legajo
-      // let empleado = utiles.getEmpleado(arrayEmpleados, recibo.legajo);
       let empleado = utiles.getEmpleado(recibo.legajo);
 
       for (let e in recibo) {
@@ -133,8 +182,8 @@ const cargarTablaRecibos = () => {
 
 }
 
-// carga tabla de recibos
-window.onload=cargarTablaRecibos();
+// carga los recibos desde el .json y arma tabla de recibos
+window.onload=cargarJsonRecibos();
 
 // eventos de fila de tabla
 $(function() {
@@ -201,4 +250,4 @@ $(function() {
   
 });
 
-export { Recibo, lsRecibos };
+export { Recibo };

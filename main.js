@@ -45,55 +45,56 @@
 */
 
 // librerias
-// import { lsLiquidaciones } from './src/liquidacion.js';
 import * as utiles   from './src/utiles.js';
+
+const lsLiquidaciones = "lsLiquidaciones";
 
 //***** carga file JSON de datos 
 
 // import jsonLiquidaciones from './data/liquidaciones.json' assert { type: "json" };
 
-const urlJson = './data/liquidaciones.json';
-
 // --- metodo 1) IMPORT
-// const cargarJsonLiquidaciones = (url) => {
+// const cargarJsonLiquidaciones = () => {
 //     // guarda el array de objetos 'Liquidacion' en localStorage
-//     localStorage.setItem("lsLiquidaciones", JSON.stringify(jsonLiquidaciones.liquidaciones));
-//     // arma la tabla de liquidicianos read only
-//     cargarTablaLiquidacionesIndex(jsonLiquidaciones.liquidaciones);
+//     localStorage.setItem(lsLiquidaciones, JSON.stringify(jsonLiquidaciones.liquidaciones));
+//     // arma la tabla de liquidaciones activas (read only)
+//     armarTablaLiquidacionesIndex(jsonLiquidaciones.liquidaciones);
 //  };
 
-// // --- metodo 2) JAVASCRIPT
-// const cargarJsonLiquidaciones = (url) => {
+const urlJson = './data/liquidaciones.json';
 
-//     let jsonData = localStorage.getItem("lsLiquidaciones");
+// // --- metodo 2) JAVASCRIPT
+// const cargarJsonLiquidaciones = () => {
+
+//     let jsonData = localStorage.getItem(lsLiquidaciones);
 
 //     // verifica si existe el json de liquidaciones en local storage
 //     if (jsonData == null || jsonData == undefined) {   // si no existe lo carga del json externo
 
 //         console.log('... cargando local storage de .json externo...');
 
-//         fetch(url)
+//         fetch(urlJson)
 //         .then(response => response.json())
 //         .then(data => {
 //             // guarda el array de objetos 'Liquidacion' en localStorage
-//             localStorage.setItem("lsLiquidaciones", JSON.stringify(data.liquidaciones));
-//             // arma la tabla de liquidaciones read only
+//             localStorage.setItem(lsLiquidaciones, JSON.stringify(data.liquidaciones));
+//             // arma la tabla de liquidaciones activas (read only)
 //             cargarTablaLiquidacionesIndex(data.liquidaciones);
 //         })
 //         .catch(console.error);
 //     } else {                                           // si existe lo parsea
-//         // arma la tabla de liquidiciones read only
-//         cargarTablaLiquidacionesIndex(JSON.parse(jsonData));
+//         // arma la tabla de liquidaciones activas (read only)
+//         armarTablaLiquidacionesIndex(JSON.parse(jsonData));
 //     };
 // };
 
 // --- metodo 3) JQUERY
-const cargarJsonLiquidaciones = (url) => {
+const cargarJsonLiquidaciones = () => {
 
-    let jsonData = localStorage.getItem("lsLiquidaciones");
+    let jsonData = localStorage.getItem(lsLiquidaciones);
 
     // verifica si existe el json de liquidaciones en local storage
-    if (jsonData == null || jsonData == undefined) {   // si no existe lo carga del json externo
+    if (jsonData == null || jsonData === undefined) {   // si no existe lo carga del json externo
 
         console.log('... cargando local storage de .json externo...');
 
@@ -101,22 +102,22 @@ const cargarJsonLiquidaciones = (url) => {
             if (estado === "success") {
                 // console.log(respuesta.liquidaciones);
                 // guarda el array de objetos 'Liquidacion' en localStorage
-                localStorage.setItem("lsLiquidaciones", JSON.stringify(data.liquidaciones));
-                // arma la tabla de liquidicianos read only
-                cargarTablaLiquidacionesIndex(data.liquidaciones);
+                localStorage.setItem(lsLiquidaciones, JSON.stringify(data.liquidaciones));
+                // arma la tabla de liquidaciones activas (read only)
+                armarTablaLiquidacionesIndex(data.liquidaciones);
             }
         })
     } else {                                           // si existe lo parsea
-        // arma la tabla de liquidiciones read only
-        cargarTablaLiquidacionesIndex(JSON.parse(jsonData));
+        // arma la tabla de liquidaciones activas (read only)
+        armarTablaLiquidacionesIndex(JSON.parse(jsonData));
     };
 };
 
 
 // carga tabla de liquidaciones read only desde array de liquidaciones
-const cargarTablaLiquidacionesIndex = (arrayObj) => {
+const armarTablaLiquidacionesIndex = (arrayObj) => {
 
-    console.log('cargarTablaLiquidacionesIndex');
+    // console.log('cargarTablaLiquidacionesIndex');
 
     let tablaLiquidaciones = document.querySelector("#tablaLiquidacionesIndex");
     let tbody = document.createElement("tbody");
@@ -124,7 +125,7 @@ const cargarTablaLiquidacionesIndex = (arrayObj) => {
 
     for (let ii = 0; ii < arrayObj.length; ii++) {
 
-        console.log(arrayObj[ii]);
+        // console.log(arrayObj[ii]);
 
         if (arrayObj[ii].estado == 'abierta') {
             
@@ -165,5 +166,5 @@ const cargarTablaLiquidacionesIndex = (arrayObj) => {
 }
 
 // carga las liquidaciones desde el .json y arma tabla de liquidaciones read only
-window.onload=cargarJsonLiquidaciones(urlJson);
+window.onload=cargarJsonLiquidaciones();
 
