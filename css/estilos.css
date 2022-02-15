@@ -164,6 +164,11 @@ button:focus {
   background-color: #567086;
 }
 
+.navbar-brand h1:hover {
+  color: #f5a623;
+}
+
+
 .navbar-nav a:hover,
 .navbar-nav a:hover i {
   color: #f5a623;
@@ -247,11 +252,21 @@ button:focus {
   display: none;
 }
 
+/* .hide-month .ui-datepicker-month, */
+.hide-current .ui-datepicker-current,
+.hide-calendar .ui-datepicker-calendar{
+  display: none;
+}
+
 .table {
   background-color: #50697f;
   color: #fff;
   font-size: 85%;
   margin-bottom: 0;
+}
+
+.row-select-table {
+  background-color: #4f667c;
 }
 
 thead {

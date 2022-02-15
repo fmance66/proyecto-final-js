@@ -5,9 +5,7 @@
 import * as utiles from './utiles.js';
 
 // carga file JSON de datos 
-import arrayLiquidaciones from '../data/liquidaciones.json' assert { type: "json" };
-
-const lsLiquidaciones = "lsLiquidaciones";
+import jsonLiquidaciones from '../data/liquidaciones.json' assert { type: "json" };
   
 function Liquidacion(id, periodo, descripcion, estado, fechaPago) {
   this.id = id;
@@ -23,28 +21,33 @@ function Liquidacion(id, periodo, descripcion, estado, fechaPago) {
   }
 }
 
+let arrayLiquidaciones = jsonLiquidaciones.liquidaciones;
+
+const lsLiquidaciones = "lsLiquidaciones";
+
 // carga tabla de liquidaciones desde array de liquidaciones
 const cargarTablaLiquidaciones = () => {
 
   // guarda el array de objetos 'Liquidacion' obtenido desde el JSON externo en localStorage
-  localStorage.setItem(lsLiquidaciones, JSON.stringify(arrayLiquidaciones.liquidaciones));
+  localStorage.setItem(lsLiquidaciones, JSON.stringify(arrayLiquidaciones));
 
   let tablaLiquidaciones = document.querySelector("#tablaLiquidaciones");
   let tbody = document.createElement("tbody");
   // tbody.style.cursor = "pointer";
   tablaLiquidaciones.appendChild(tbody);
 
-  // console.log(arrayLiquidaciones.liquidaciones);
+  // console.log(arrayLiquidaciones);
 
-  for (let ii = 0; ii < arrayLiquidaciones.liquidaciones.length; ii++) {
+  for (let ii = 0; ii < arrayLiquidaciones.length; ii++) {
       let tr = document.createElement("tr");
 
       // columna de checkbox
       let td = document.createElement("td");
       td.innerHTML = '<input type="checkbox" />';
+      td.classList.add("tm-col-checkbox");
       tr.appendChild(td);
 
-      let liquidacion = arrayLiquidaciones.liquidaciones[ii];
+      let liquidacion = arrayLiquidaciones[ii];
       for (let e in liquidacion) {
 
           if (liquidacion.hasOwnProperty(e)) {
@@ -62,12 +65,17 @@ const cargarTablaLiquidaciones = () => {
               // semaforo de estado
               if (e == 'estado') {       
                 td.innerHTML = utiles.generateDivEstado(liquidacion[e]);
+                // td.classList.add("tm-col-estado");
               }
 
-              // agrega clase al campo y convierte cursor para usar con el "click"
-              td.classList.add("tm-col-liquidacion");
-              td.style.cursor = "pointer";
+              if (liquidacion.estado == "abierta") {
+                // agrega clase al campo para uso futuro y convierte cursor tipo manito
+                td.classList.add("tm-col-liquidacion");
+                td.style.cursor = "pointer";
+              }
 
+              // agrega la columna a la fila con una clase con el nombre del atributo de clase
+              td.classList.add(`tm-col-${e}`);
               tr.appendChild(td);
           }
       }
@@ -75,13 +83,13 @@ const cargarTablaLiquidaciones = () => {
       // columna con icono de eliminar
       td = document.createElement("td");
       td.innerHTML = '<a href="#" class="tm-liquidacion-delete-link">' +
-                      '<i class="far fa-trash-alt tm-liquidacion-delete-icon" />' +
-                  '</a>';
+                        '<i class="far fa-trash-alt tm-liquidacion-delete-icon" />' +
+                     '</a>';
+      td.classList.add("tm-col-delete");
       tr.appendChild(td);
 
-      // agrega clase a la fila para usar en un futuro?
+      // agrega clase a la fila para usar en el click
       tr.classList.add("tm-fila-liquidacion");
-
       tbody.appendChild(tr);
   }
 
@@ -90,60 +98,73 @@ const cargarTablaLiquidaciones = () => {
 // carga tabla de liquidacion
 window.onload=cargarTablaLiquidaciones();
 
-function onRowClick(idTabla, callback) {
-  let tabla = document.getElementById(idTabla);
-  let cantFilas = tabla.getElementsByTagName("tr").length;
-  for (let ii = 0; ii < cantFilas; ii++) {
-      // configura click en cada fila
-      tabla.rows[ii].onclick = function (fila) {
-          return function () {
-              callback(fila);
-          };
-      } (tabla.rows[ii]);
-  }
-};
+// eventos de fila de tabla
+$(function() {
 
-onRowClick("tablaLiquidaciones", function (fila) {
+  // reenvia a la pagina edit-liquidacion.html (jquery)
+  $(".tm-fila-liquidacion").on("click", function() {
+      let tabla = document.getElementById("tablaLiquidaciones");  
+      let fila = $(this).closest('tr')[0];   // guarda la fila seleccionada
+      // console.log(fila);
 
-  let tds = fila.querySelectorAll("td");
-  let estado = tds[4].innerText;
+      let tds = fila.querySelectorAll("td");
 
-  // // recorre el tr sacando el 1er y ultimo elemento (checkbox y boton eliminar)
-  // for (let ii = 1; ii < tds.length - 1; ii++) {
-  //   console.log(`ii: ${ii} tds: ${tds[ii].innerText}`);
-  // }
+      // // recorre los td de la fila
+      // for (let ii = 0; ii < tds.length, ii++) {
+      //   console.log(`ii: ${ii} tds: ${tds[ii]}`);
+      // }
 
-  const liquidacion = new Liquidacion(); 
-  liquidacion.id = tds[1].innerText;
-  liquidacion.periodo = tds[2].innerText; 
-  liquidacion.descripcion = tds[3].innerText; 
-  liquidacion.estado = tds[4].innerText;
-  liquidacion.fechaPago = tds[5].innerText; 
-    
-  // console.log(`liquidacion: ${liquidacion.mostrar()}`);
-  
-  if (estado == "Abierta") {
-    // console.log(`objLiquidacion: ${JSON.stringify(liquidacion)}`);
-    sessionStorage.setItem("objLiquidacion", JSON.stringify(liquidacion));
-    // console.log('window.location.href = "edit-liquidacion.html"');
-    // setTimeout( function() { window.location.href = "edit-liquidacion.html"; }, 5000 );
-    window.location.href = "edit-liquidacion.html";
-  }
+      const liquidacion = new Liquidacion(); 
+      liquidacion.id = fila.querySelector(".tm-col-id").innerText;
+      liquidacion.periodo = fila.querySelector(".tm-col-periodo").innerText;
+      liquidacion.descripcion = fila.querySelector(".tm-col-descripcion").innerText;
+      liquidacion.estado = fila.querySelector(".tm-col-estado").innerText;
+      liquidacion.fechaPago = fila.querySelector(".tm-col-fechaPago").innerText;
+
+      // console.log(`liquidacion: ${liquidacion.mostrar()}`);
+      
+      if (liquidacion.estado == "Abierta") {
+        // console.log(`objLiquidacion: ${JSON.stringify(liquidacion)}`);
+        sessionStorage.setItem("objLiquidacion", JSON.stringify(liquidacion));
+        // console.log('window.location.href = "edit-liquidacion.html"');
+        window.location.href = "edit-liquidacion.html";
+      }
+
+  });
+
+  // anula el evento click para el checkbox
+  $(".tm-fila-liquidacion").on("click", ".tm-col-checkbox", function(e) { 
+    // console.log('se hizo click en "tm-col-checkbox"');
+    e.stopPropagation() 
+  });
+
+  // anula el evento click para el boton delete
+  $(".tm-fila-liquidacion").on("click", ".tm-col-delete", function(e) { 
+    // console.log('se hizo click en "tm-col-delete"');
+    e.stopPropagation() 
+  });
+
+  // cambia el color de fila editable
+  $(".tm-fila-liquidacion").on("mouseover", function() { 
+    // console.log('se hizo click en "onmouseover"');
+    let estado = this.querySelector(".tm-col-estado").innerText;
+    if (estado == 'Abierta') {
+      // ChangeBackgroundColor(this);
+      $(this).css({
+        'background-color': '#6987a5'
+      });
+    }
+  });
+
+  // restaura el color de fila editable
+  $(".tm-fila-liquidacion").on("mouseout", function() { 
+    // console.log('se hizo click en "onmouseover"');
+    // RestoreBackgroundColor(this);
+    $(this).css({
+      'background-color': '#4f667c'
+    });
+  });
 
 });
-
-// // reenvia a la pagina edit-liquidacion.html (javascript vanilla)
-// const col = document.querySelector(".tm-col-liquidacion");
-// col.addEventListener("click", () => {
-//   window.location.href = "edit-liquidacion.html";
-// });
-
-// // reenvia a la pagina edit-liquidacion.html (jquery)
-// $(function() {
-//     $(".tm-col-liquidacion").on("click", function() {
-//       window.location.href = "edit-liquidacion.html";
-//     });
-//   });
-
 
 export { Liquidacion, lsLiquidaciones };

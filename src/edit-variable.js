@@ -4,34 +4,30 @@
 
 import * as utiles from './utiles.js';
 
-// carga file JSON de datos 
-import arrayVariables from '../data/variables.json' assert { type: "json" };
-import arrayTipoVariables from '../data/tipoVariables.json' assert { type: "json" };
   
 const cargarSelectTipoVariable = () => {
 
   let tipoVariableSelect = document.querySelector('#tipoVariable');
-  
-  // tipoVariableSelect.addEventListener("change", xxxxxxxxx);
+  let arrayTipoVariables = utiles.getListaTipoVariables();
 
-  arrayTipoVariables.tipoVariables.forEach(function(tipoVariable) {
-      let opcion = document.createElement('option')
-      opcion.value = tipoVariable.id
-      opcion.text = tipoVariable.descripcion
-      tipoVariableSelect.add(opcion)
-  })
-}
+  arrayTipoVariables.forEach(function(tipoVariable) {
+    let opcion = document.createElement('option');
+    opcion.value = tipoVariable.id;
+    opcion.text = tipoVariable.descripcion;
+    tipoVariableSelect.add(opcion);
+  });
+
+};
 
 // carga los datos de la variable desde sessionStorage
 const cargarDatosVariable = () => {
 
   // obtiene los datos de la variable desde el sessionStorage
   let variable = JSON.parse(sessionStorage.getItem("objVariable"));
-
   // console.log(variable);
 
   // busca el tipo de variable segun el idTipoVariable
-  let tipoVariable = utiles.getTipoVariable(arrayTipoVariables.tipoVariables, variable.idTipoVariable);
+  let tipoVariable = utiles.getTipoVariable(variable.idTipoVariable);
   // console.log(tipoVariable);
 
   // carga el select de tipo de variable desde el json
@@ -50,9 +46,7 @@ $(function() {
   });
 });
 
-
 // carga los datos del recibo desde la sessionStorage
 window.onload=cargarDatosVariable();
-
 
 // export { xxxxx, yyyyy };

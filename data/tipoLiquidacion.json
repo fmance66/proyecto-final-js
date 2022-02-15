@@ -1,0 +1,15 @@
+{
+    "tipoLiquidacion": [
+        {
+            "id": "1",
+            "descripcion": "Mensual Normal",
+            "estado": "activo"
+        },
+        {
+            "id": "2",
+            "descripcion": "SAC",
+            "estado": "activo"
+        }
+    ]
+}
+

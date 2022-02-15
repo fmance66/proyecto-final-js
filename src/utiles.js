@@ -2,6 +2,17 @@
     Proyecto Final: Interprete de fórmulas tipo Excel
 */
 
+
+// carga file JSON de datos 
+import jsonLiquidaciones from '../data/liquidaciones.json' assert { type: "json" };
+import jsonEmpleados from '../data/empleados.json' assert { type: "json" };
+import jsonTipoVaribles from '../data/tipoVariables.json' assert { type: "json" };
+
+let arrayLiquidaciones = jsonLiquidaciones.liquidaciones;
+let arrayEmpleados = jsonEmpleados.empleados;
+let arrayTipoVariables = jsonTipoVaribles.tipoVariables;
+
+
 // ordena un array por el elemento 'nombre'
 const ordenarVariables = (array) => {
   array.sort(function(a, b) {
@@ -17,32 +28,38 @@ const ordenarVariables = (array) => {
   return array;
 }
 
-// busca la liquidacion por id en el array de liquidaciones
-const getLiquidacion = (arrayLiquidaciones, id) => {
-    return arrayLiquidaciones.find(function(elemento, index) {
+// obtiene la liquidacion segun id
+const getLiquidacion = (id) => {
+        return arrayLiquidaciones.find(function(elemento, index) {
         if (elemento.id == id) {
             return true;
         }
     })
 };
 
-// busca un empleado por legajo en el array de empleados
-const getEmpleado = (arrayEmpleados, legajo) => {
-    return arrayEmpleados.find(function(elemento, index) {
+// obtiene un empleado según el legajo informado
+const getEmpleado = (legajo) => {
+        return arrayEmpleados.find(function(elemento, index) {
         if (elemento.legajo == legajo) {
             return true;
         }
     })
 };
 
-// busca un tipo de variable en el array de tipos de variables
-const getTipoVariable = (arrayTipoVariables, id) => {
-    return arrayTipoVariables.find(function(elemento, index) {
-        if (elemento.id == id) {
-            return true;
-        }
-    })
+// obtiene un tipo de variable segun id
+const getTipoVariable = (id) => {
+        return arrayTipoVariables.find(function(elemento, index) {
+            if (elemento.id == id) {
+                return true;
+            }
+        })
 };
+
+  
+const getListaTipoVariables = () => {
+    return arrayTipoVariables;
+};
+  
 
 // segun el estado devuelve la class con el color del semaforo verde, amarillo o rojo
 const generateDivEstado = (estado) => { 
@@ -72,4 +89,5 @@ const generateDivEstado = (estado) => {
     
 };
 
-export { ordenarVariables, generateDivEstado, getLiquidacion, getEmpleado, getTipoVariable };
+export { ordenarVariables, generateDivEstado, getLiquidacion, getEmpleado, 
+         getTipoVariable, getListaTipoVariables };

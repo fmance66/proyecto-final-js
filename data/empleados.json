@@ -3,6 +3,7 @@
         {
             "legajo": "122339",
             "nombre": "Federico Peralta Ramos",
+            "cuil": "20163458902",
             "estado": "activo",
             "fechaIngreso": "01/07/1999",
             "idCategoria": "1",
@@ -13,6 +14,7 @@
         {
             "legajo": "122340",
             "nombre": "Esteban Raúl Martínez",
+            "cuil": "20190549055",
             "estado": "activo",
             "fechaIngreso": "11/03/1996",
             "idCategoria": "5",
@@ -23,6 +25,7 @@
         {
             "legajo": "122341",
             "nombre": "Hernán Saúl Ojedavich",
+            "cuil": "20267912476",
             "estado": "activo",
             "fechaIngreso": "07/01/2006",
             "idCategoria": "2",
@@ -32,7 +35,8 @@
         },
         {
             "legajo": "122342",
-            "nombre": "Guillermo Perez Companc",
+            "nombre": "Guillermina Perez Companc",
+            "cuil": "27278317094",
             "estado": "activo",
             "fechaIngreso": "14/05/2001",
             "idCategoria": "3",
@@ -43,6 +47,7 @@
         {
             "legajo": "122343",
             "nombre": "Raúl Becerra Gómez",
+            "cuil": "20190183379",
             "estado": "activo",
             "fechaIngreso": "01/07/1996",
             "idCategoria": "1",
@@ -53,6 +58,7 @@
         {
             "legajo": "122344",
             "nombre": "Miguel de Cervantes Saavedra",
+            "cuil": "20277507154",
             "estado": "activo",
             "fechaIngreso": "11/11/2011",
             "idCategoria": "1",
@@ -63,6 +69,7 @@
         {
             "legajo": "122345",
             "nombre": "David Luis Brazucka",
+            "cuil": "20225257745",
             "estado": "activo",
             "fechaIngreso": "31/07/2003",
             "idCategoria": "4",
@@ -72,7 +79,8 @@
         },
         {
             "legajo": "122346",
-            "nombre": "Oscar Pereyra Iraola",
+            "nombre": "Olivia Pereyra Iraola",
+            "cuil": "27310183860",
             "estado": "activo",
             "fechaIngreso": "20/12/2016",
             "idCategoria": "1",
@@ -83,6 +91,7 @@
         {
             "legajo": "122347",
             "nombre": "Carlos Alberto Marrón",
+            "cuil": "20190254179",
             "estado": "activo",
             "fechaIngreso": "11/07/1998",
             "idCategoria": "1",
@@ -93,6 +102,7 @@
         {
             "legajo": "122348",
             "nombre": "Lautaro Mendibelzúa",
+            "cuil": "20190053807",
             "estado": "activo",
             "fechaIngreso": "01/07/1996",
             "idCategoria": "1",
@@ -103,6 +113,7 @@
         {
             "legajo": "122349",
             "nombre": "Ricardo León Corazo",
+            "cuil": "20282082528",
             "estado": "anulado",
             "fechaIngreso": "12/11/2008",
             "idCategoria": "2",
@@ -113,6 +124,7 @@
         {
             "legajo": "122350",
             "nombre": "Natalia Argarete Soteldo",
+            "cuil": "27254550731",
             "estado": "activo",
             "fechaIngreso": "14/08/2016",
             "idCategoria": "1",

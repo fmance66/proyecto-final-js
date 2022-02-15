@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Editar Liquidación - Sistema de Sueldos</title>
+    <title>Agregar Liquidación - Sistema de Sueldos</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
     <link rel="stylesheet" href="../css/fontawesome.min.css" />
     <link rel="stylesheet" href="../jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/estilos.css">
-
   </head>
 
   <body>
@@ -105,40 +104,49 @@
 
     <div class="container tm-mt-big tm-mb-big">
       <div class="row">
+        
         <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-            
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-12">
-                <h2 class="tm-block-title d-inline-block">Editar Liquidación</h2>
+                <h2 class="tm-block-title d-inline-block">Agregar Liquidación</h2> -->
+
+
+
+            <div class="row tm-content-row">
+              <div class="col-12 tm-block-col">
+                <div class="tm-bg-primary-dark tm-block-h-auto">
+                  <h2 class="tm-block-title d-inline-block">Agregar Liquidación</h2>
+                </div>
               </div>
             </div>
-            
-            <div class="row tm-edit-liquidacion-row">
-                <!-- <div class="col-xl-6 col-lg-6 col-md-12"> -->
-                <div class="col-12">
-                  <form action="" method="post" class="tm-edit-liquidacion-form row">
-                    <div class="form-group mb-3 col-lg-6">
-                      <label for="periodo">Período</label>
-                      <input id="periodo" name="periodo" type="text" 
-                             class="form-control validate periodpicker"/>
-                    </div>
-                    <div class="form-group mb-3 col-lg-6 col-xs-6 col-sm-6">
-                      <label for="fechaPago">Fecha de Pago</label>
-                      <input id="fechaPago" name="fechaPago" type="text" data-large-mode="true" 
-                             class="form-control validate datepicker"/>
-                    </div>
-                    <div class="form-group mb-3 col-lg-12 col-xs-12 col-sm-6">
-                      <label for="descripcion">Descripción</label>
-                      <input id="descripcion" name="descripcion" type="text" value="Enero de 2022" 
-                            class="form-control validate"/>
-                    </div>
-                  </form>
-                </div>
-                <div class="col-12 mt-4">
-                  <button type="submit" class="btn btn-primary btn-block text-uppercase">Actualizar</button>
-                </div>
 
+            <div class="row tm-edit-variable-row">
+              <div class="col-12">
+                <form action="" class="tm-edit-variable-form row">
+
+                  <div class="form-group mb-3 col-lg-6">
+                    <label for="periodo">Período</label>
+                    <input id="periodo" name="periodo" type="text" 
+                           class="form-control validate periodpicker"/>
+                  </div>
+                  <div class="form-group mb-3 col-lg-6 col-xs-6 col-sm-6">
+                    <label for="fechaPago">Fecha de Pago</label>
+                    <input id="fechaPago" name="fechaPago" type="text" data-large-mode="true" 
+                           class="form-control validate datepicker"/>
+                  </div>
+                  <div class="form-group mb-3 col-lg-12 col-xs-12 col-sm-6">
+                    <label for="descripcion">Descripción</label>
+                    <input id="descripcion" name="descripcion" type="text" value="" 
+                          class="form-control validate"/>
+                  </div>
+                
+              </div>
+
+              <div class="col-12 mt-4">
+                <button type="submit" class="btn btn-primary btn-block text-uppercase">Agregar Liquidación ahora</button>
+              </div>
+            </form>
             </div>
           </div>
         </div>
@@ -159,7 +167,8 @@
     <script src="../jquery-ui-datepicker/jquery.ui.datepicker-es.js"></script>
     <script src="../js/bootstrap.min.js"></script>
 
-    <script type="module" src="../src/edit-liquidacion.js"></script>
+    <script type="module" src="../src/add-liquidacion.js"></script>
+    
 
   </body>
 </html>

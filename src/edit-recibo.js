@@ -5,8 +5,11 @@
 import * as utiles from './utiles.js';
 
 // carga file JSON de datos 
-import arrayLiquidaciones from '../data/liquidaciones.json' assert { type: "json" };
-import arrayEmpleados from '../data/empleados.json' assert { type: "json" };
+// import jsonLiquidaciones from '../data/liquidaciones.json' assert { type: "json" };
+// import jsonEmpleados from '../data/empleados.json' assert { type: "json" };
+
+// let arrayLiquidaciones = jsonLiquidaciones.liquidaciones;
+// let arrayEmpleados = jsonEmpleados.empleados;
 
 // carga los datos del recibo desde sessionStorage
 const cargarDatosRecibo = () => {
@@ -14,20 +17,21 @@ const cargarDatosRecibo = () => {
   // obtiene los datos del recibo desde el sessionStorage
   let recibo = JSON.parse(sessionStorage.getItem("objRecibo"));
 
-  console.log(recibo);
+  // console.log(recibo);
 
   // busca la liquidacion segun el idLiquidacion
-  let liquidacion = utiles.getLiquidacion(arrayLiquidaciones.liquidaciones, recibo.idLiquidacion);
+  // let liquidacion = utiles.getLiquidacion(arrayLiquidaciones, recibo.idLiquidacion);
+  let liquidacion = utiles.getLiquidacion(recibo.idLiquidacion);
   // console.log(liquidacion);
 
   // busca el empleado segun el legajo
-  let empleado = utiles.getEmpleado(arrayEmpleados.empleados, recibo.legajo);
+  // let empleado = utiles.getEmpleado(arrayEmpleados, recibo.legajo);
+  let empleado = utiles.getEmpleado(recibo.legajo);
   // console.log(empleado);
 
   // asigna valores desde el objeto recibo
   document.querySelector("#legajo").value = recibo.legajo;
   document.querySelector("#nombre").value = empleado.nombre;
-
 }
 
 // datepicker para fechas (jquery)
