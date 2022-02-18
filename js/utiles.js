@@ -13,6 +13,19 @@ let arrayEmpleados = jsonEmpleados.empleados;
 let arrayTipoVariables = jsonTipoVaribles.tipoVariables;
 
 
+const guardarLiquidaciones = () => {
+    localStorage.setItem('lsLiquidaciones', JSON.stringify(arrayLiquidaciones));
+};
+
+const guardarRecibos = () => {
+    localStorage.setItem('lsRecibos', JSON.stringify(arrayRecibos));
+};
+
+const guardarVariables = () => {
+    localStorage.setItem('lsVariables', JSON.stringify(arrayVariables));
+};
+
+
 // ordena un array por el elemento 'nombre'
 const ordenarVariables = (array) => {
   array.sort(function(a, b) {
@@ -89,5 +102,20 @@ const generateDivEstado = (estado) => {
     
 };
 
+  
+const getUltIdLiquidacion = () => {
+    console.log(arrayLiquidaciones);
+    // let ultId = Math.max.apply(Math, arrayLiquidaciones.map(liquidacion => liquidacion.id));
+    let ultId = arrayLiquidaciones.length;
+    console.log(ultId);
+    return(ultId);
+};
+
+  
+const agregarLiquidacion = (liquidacion) => {
+    arrayLiquidaciones.push(liquidacion);
+    guardarLiquidaciones();
+};
+
 export { ordenarVariables, generateDivEstado, getLiquidacion, getEmpleado, 
-         getTipoVariable, getListaTipoVariables };
+         getTipoVariable, getListaTipoVariables, getUltIdLiquidacion, agregarLiquidacion };

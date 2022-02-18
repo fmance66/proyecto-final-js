@@ -22,44 +22,9 @@ function Liquidacion(id, periodo, descripcion, estado, fechaPago) {
 
 //***** carga file JSON de datos 
 
-// import jsonLiquidaciones from '../data/liquidaciones.json' assert { type: "json" };
-
-// --- metodo 1) IMPORT
-// const cargarJsonLiquidaciones = () => {
-//     // guarda el array de objetos 'Liquidacion' en localStorage
-//     localStorage.setItem(lsLiquidaciones, JSON.stringify(jsonLiquidaciones.liquidaciones));
-//     // arma la tabla de liquidaciones
-//     armarTablaLiquidaciones(jsonLiquidaciones.liquidaciones);
-//  };
-
 const urlJson = '../data/liquidaciones.json';
 
-// // --- metodo 2) JAVASCRIPT
-// const cargarJsonLiquidaciones = () => {
-
-//     let jsonData = localStorage.getItem(lsLiquidaciones);
-
-//     // verifica si existe el json de liquidaciones en local storage
-//     if (jsonData == null || jsonData == undefined) {   // si no existe lo carga del json externo
-
-//         console.log('... cargando local storage de .json externo...');
-
-//         fetch(urlJson)
-//         .then(response => response.json())
-//         .then(data => {
-//             // guarda el array de objetos 'Liquidacion' en localStorage
-//             localStorage.setItem(lsLiquidaciones, JSON.stringify(data.liquidaciones));
-//             // arma la tabla de liquidaciones
-//             armarTablaLiquidaciones(data.liquidaciones);
-//         })
-//         .catch(console.error);
-//     } else {                                           // si existe lo parsea
-//         // arma la tabla de liquidaciones
-//         armarTablaLiquidaciones(JSON.parse(jsonData));
-//     };
-// };
-
-// --- metodo 3) JQUERY
+// carga json de liquidaciones y carga tabla html
 const cargarJsonLiquidaciones = () => {
 
   let jsonData = localStorage.getItem(lsLiquidaciones);
@@ -80,7 +45,8 @@ const cargarJsonLiquidaciones = () => {
           }
       })
   } else {                                           // si existe lo parsea
-      // arma la tabla de liquidaciones
+      // console.log('cargando de local storage...', JSON.parse(jsonData));
+    // arma la tabla de liquidaciones
       armarTablaLiquidaciones(JSON.parse(jsonData));
   };
 };
@@ -166,11 +132,6 @@ $(function() {
 
       let tds = fila.querySelectorAll("td");
 
-      // // recorre los td de la fila
-      // for (let ii = 0; ii < tds.length, ii++) {
-      //   console.log(`ii: ${ii} tds: ${tds[ii]}`);
-      // }
-
       const liquidacion = new Liquidacion(); 
       liquidacion.id = fila.querySelector(".tm-col-id").innerText;
       liquidacion.periodo = fila.querySelector(".tm-col-periodo").innerText;
@@ -223,5 +184,6 @@ $(function() {
   });
 
 });
+
 
 export { Liquidacion };

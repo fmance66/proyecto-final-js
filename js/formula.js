@@ -3,7 +3,7 @@
 */   
 
 // definicion de objetos y nombres de ls
-import { Variable } from './variable.js';
+import { Variable } from './js/variable.js';
    
 // constantes de condicionales
 const VARIABLE_IDENTIFICADOR    = ':';

@@ -107,11 +107,6 @@
         
         <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-            <!-- <div class="row">
-              <div class="col-12">
-                <h2 class="tm-block-title d-inline-block">Agregar Liquidación</h2> -->
-
-
 
             <div class="row tm-content-row">
               <div class="col-12 tm-block-col">
@@ -122,9 +117,11 @@
             </div>
 
             <div class="row tm-edit-variable-row">
-              <div class="col-12">
-                <form action="" class="tm-edit-variable-form row">
-
+              
+              <!-- <div class="col-12"> -->
+              <div class="col-xl-12 col-lg-6 col-md-12">
+                  <!-- <form action="#" method="post" class="tm-edit-variable-form row"> -->
+                <form class="tm-add-liquidacion-form row">
                   <div class="form-group mb-3 col-lg-6">
                     <label for="periodo">Período</label>
                     <input id="periodo" name="periodo" type="text" 
@@ -140,13 +137,15 @@
                     <input id="descripcion" name="descripcion" type="text" value="" 
                           class="form-control validate"/>
                   </div>
-                
+
+                  <div id="agregar-liquidacion" class="col-12 mt-4">
+                    <!-- <button id="btnEnviar" type="submit" class="btn btn-primary btn-block text-uppercase">Agregar Liquidación ahora</button> -->
+                    <button id="btnEnviar" type="button" class="btn btn-primary btn-block text-uppercase">Agregar Liquidación ahora</button>
+                  </div>
+    
+                </form>
               </div>
 
-              <div class="col-12 mt-4">
-                <button type="submit" class="btn btn-primary btn-block text-uppercase">Agregar Liquidación ahora</button>
-              </div>
-            </form>
             </div>
           </div>
         </div>
@@ -162,12 +161,12 @@
         </div>
       </footer>
 
-    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/lib/jquery-3.3.1.min.js"></script>
     <script src="../jquery-ui-datepicker/jquery-ui.min.js"></script>
     <script src="../jquery-ui-datepicker/jquery.ui.datepicker-es.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/lib/bootstrap.min.js"></script>
 
-    <script type="module" src="../src/add-liquidacion.js"></script>
+    <script type="module" src="../js/add-liquidacion.js"></script>
     
 
   </body>

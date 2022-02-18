@@ -2,7 +2,7 @@
     Proyecto Final: Interprete de fórmulas tipo Excel
 */
  
-import * as utiles from'./utiles.js';
+import * as utiles from'./utiles';
 
 const lsTipoVariables = "lsTipoVariables";
   
