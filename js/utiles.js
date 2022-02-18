@@ -14,6 +14,7 @@ let arrayTipoVariables = jsonTipoVaribles.tipoVariables;
 
 
 const guardarLiquidaciones = () => {
+    console.log(arrayLiquidaciones);
     localStorage.setItem('lsLiquidaciones', JSON.stringify(arrayLiquidaciones));
 };
 
@@ -105,8 +106,8 @@ const generateDivEstado = (estado) => {
   
 const getUltIdLiquidacion = () => {
     console.log(arrayLiquidaciones);
-    // let ultId = Math.max.apply(Math, arrayLiquidaciones.map(liquidacion => liquidacion.id));
-    let ultId = arrayLiquidaciones.length;
+    let ultId = Math.max.apply(Math, arrayLiquidaciones.map(liquidacion => liquidacion.id));
+    // let ultId = arrayLiquidaciones.length;
     console.log(ultId);
     return(ultId);
 };

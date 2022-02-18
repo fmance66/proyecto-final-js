@@ -56,7 +56,6 @@ const armarTablaLiquidaciones = (arrayObj) => {
 
   let tablaLiquidaciones = document.querySelector("#tablaLiquidaciones");
   let tbody = document.createElement("tbody");
-  // tbody.style.cursor = "pointer";
   tablaLiquidaciones.appendChild(tbody);
 
   // console.log(arrayObj);
@@ -88,7 +87,6 @@ const armarTablaLiquidaciones = (arrayObj) => {
               // semaforo de estado
               if (e == 'estado') {       
                 td.innerHTML = utiles.generateDivEstado(liquidacion[e]);
-                // td.classList.add("tm-col-estado");
               }
 
               if (liquidacion.estado == "abierta") {
@@ -115,7 +113,6 @@ const armarTablaLiquidaciones = (arrayObj) => {
       tr.classList.add("tm-fila-liquidacion");
       tbody.appendChild(tr);
   }
-
 }
 
 // carga las liquidaciones desde el .json y arma tabla de liquidaciones
@@ -167,7 +164,6 @@ $(function() {
     // console.log('se hizo click en "onmouseover"');
     let estado = this.querySelector(".tm-col-estado").innerText;
     if (estado == 'Abierta') {
-      // ChangeBackgroundColor(this);
       $(this).css({
         'background-color': '#6987a5'
       });
@@ -177,7 +173,6 @@ $(function() {
   // restaura el color de fila editable
   $(".tm-fila-liquidacion").on("mouseout", function() { 
     // console.log('se hizo click en "onmouseover"');
-    // RestoreBackgroundColor(this);
     $(this).css({
       'background-color': '#4f667c'
     });

@@ -18,20 +18,6 @@ function Liquidacion(id, periodo, descripcion, estado, fechaPago) {
   }
 }
 
-// // carga los datos de la liquidacion desde sessionStorage
-// const cargarDatosLiquidacion = () => {
-
-//   // obtiene los datos de la liquidacion desde el sessionStorage
-//   // let liquidacion = JSON.parse(sessionStorage.getItem("objLiquidacion"));
-//   // console.log(liquidacion);
-
-//   // asigna valores desde el objeto liquidacion
-//   document.querySelector("#periodo").value = "";           //liquidacion.periodo;
-//   document.querySelector("#descripcion").value = "";       //liquidacion.descripcion;
-//   // document.querySelector("#fechaPago").value = liquidacion.fechaPago;
-
-// }
-
 $(function() {
   $('.periodpicker').datepicker({
       dateFormat: "mm/yy",
@@ -71,8 +57,8 @@ $(function() {
       onClose: function(dateText, inst) {
         let mes = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
         let anio = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-        // $(this).datepicker('setDate', new Date(anio, mes, 1)).trigger('change');
-        $(this).datepicker('setDate', new Date(anio, mes, 1));
+        $(this).datepicker('setDate', new Date(anio, mes, 1)).trigger('change');
+        // $(this).datepicker('setDate', new Date(anio, mes, 1));
         $(this).datepicker('widget').removeClass('hide-month hide-current hide-calendar');
       }        
   })
@@ -118,10 +104,6 @@ $(function() {
 
   });
 });
-
-
-// // carga los datos de la liquidación desde la sessionStorage
-// window.onload=cargarDatosLiquidacion();
 
 
 // export { xxxxx, yyyyy };
