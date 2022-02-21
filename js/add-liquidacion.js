@@ -16,7 +16,17 @@ function Liquidacion(id, periodo, descripcion, estado, fechaPago) {
       ` estado: ${this.estado}, fechaPago: ${this.fechaPago} }`
       )
   }
-}
+};
+
+// carga los datos de la liquidacion desde sessionStorage
+const cargarDatosLiquidacion = () => {
+  // asigna valores desde el objeto liquidacion
+  document.querySelector("#periodo").value = "";
+  document.querySelector("#descripcion").value = "";
+  document.querySelector("#fechaPago").value = "";
+};
+
+window.onload=cargarDatosLiquidacion();
 
 $(function() {
   $('.periodpicker').datepicker({
@@ -74,36 +84,36 @@ $(function() {
 });
 
 $(function() {
-  $("#btnEnviar").click(function() {
-    // console.log('hizo click en enviar!!!');
+  $("#btnAgregar").click(function() {
+    // console.log('hizo click en agregar!!!');
 
-    // const liquidacion = new Liquidacion(); 
-    // liquidacion.id = utiles.getUltIdLiquidacion() + 1;
-    // liquidacion.periodo = document.querySelector("#periodo").value;
-    // liquidacion.fechaPago = document.querySelector("#fechaPago").value;
-    // liquidacion.descripcion = document.querySelector("#descripcion").value;
-    // liquidacion.estado = "abierta";
+    const liquidacion = new Liquidacion(); 
+    liquidacion.id = utiles.getUltIdLiquidacion() + 1;
+    liquidacion.periodo = document.querySelector("#periodo").value;
+    liquidacion.fechaPago = document.querySelector("#fechaPago").value;
+    liquidacion.descripcion = document.querySelector("#descripcion").value;
+    liquidacion.estado = "abierta";
 
-    // console.log(liquidacion);
+    console.log(liquidacion);
 
-    // utiles.agregarLiquidacion(liquidacion);
+    utiles.agregarLiquidacion(liquidacion);
 
-    let id = utiles.getUltIdLiquidacion() + 1;
-    let periodo = document.querySelector("#periodo").value;
-    let fechaPago = document.querySelector("#fechaPago").value;
-    let descripcion = document.querySelector("#descripcion").value;
-    let estado = "abierta";
+    // let id = utiles.getUltIdLiquidacion() + 1;
+    // let periodo = document.querySelector("#periodo").value;
+    // let fechaPago = document.querySelector("#fechaPago").value;
+    // let descripcion = document.querySelector("#descripcion").value;
+    // let estado = "abierta";
 
-    utiles.agregarLiquidacion({
-      id: id.toString(),
-      periodo: periodo,
-      descripcion: descripcion,
-      estado: estado,
-      fechaPago: fechaPago
-    });
+    // utiles.agregarLiquidacion({
+    //   id: id,
+    //   periodo: periodo,
+    //   descripcion: descripcion,
+    //   estado: estado,
+    //   fechaPago: fechaPago
+    // });
 
   });
+
+
 });
 
-
-// export { xxxxx, yyyyy };

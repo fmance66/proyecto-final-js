@@ -4,52 +4,22 @@
 
 import * as utiles from './utiles.js';
 
-const lsLiquidaciones = "lsLiquidaciones";
+// const lsLiquidaciones = "lsLiquidaciones";
   
-function Liquidacion(id, periodo, descripcion, estado, fechaPago) {
+function Liquidacion(id, periodo, descripcion, idTipoLiquidacion, estado, fechaPago) {
   this.id = id;
   this.periodo = periodo;
   this.descripcion = descripcion;
+  this.idTipoLiquidacion = idTipoLiquidacion;
   this.estado = estado;
   this.fechaPago  = fechaPago;
   this.mostrar = function() {
     return (
-      `{ id: ${this.id}, periodo: ${this.periodo}, descripcion: ${this.descripcion},` + 
-      ` estado: ${this.estado}, fechaPago: ${this.fechaPago} }`
+      `{ id: ${this.id}, periodo: ${this.periodo},descripcion: ${this.descripcion},` + 
+      `  idTipoLiquidacion: ${this.idTipoLiquidacion}, estado: ${this.estado}, fechaPago: ${this.fechaPago} }`
       )
   }
 }
-
-//***** carga file JSON de datos 
-
-const urlJson = '../data/liquidaciones.json';
-
-// carga json de liquidaciones y carga tabla html
-const cargarJsonLiquidaciones = () => {
-
-  let jsonData = localStorage.getItem(lsLiquidaciones);
-  // console.log(jsonData);
-
-  // verifica si existe el json de liquidaciones en local storage
-  if (jsonData == null || jsonData === undefined) {   // si no existe lo carga del json externo
-
-      console.log('... cargando local storage de .json externo...');
-
-      $.get(urlJson, function(data, estado) {
-          if (estado === "success") {
-              // console.log(respuesta.liquidaciones);
-              // guarda el array de objetos 'Liquidacion' en localStorage
-              localStorage.setItem(lsLiquidaciones, JSON.stringify(data.liquidaciones));
-              // arma la tabla de liquidaciones
-              armarTablaLiquidaciones(data.liquidaciones);
-          }
-      })
-  } else {                                           // si existe lo parsea
-      // console.log('cargando de local storage...', JSON.parse(jsonData));
-    // arma la tabla de liquidaciones
-      armarTablaLiquidaciones(JSON.parse(jsonData));
-  };
-};
 
 // carga tabla de liquidaciones desde array de liquidaciones
 const armarTablaLiquidaciones = (arrayObj) => {
@@ -70,18 +40,39 @@ const armarTablaLiquidaciones = (arrayObj) => {
       tr.appendChild(td);
 
       let liquidacion = arrayObj[ii];
+
+      // busca el tipo de liquidacion segun el idTipoLiquidacion
+      let tipoLiquidacion = utiles.getTipoLiquidacion(liquidacion.idTipoLiquidacion);
+
       for (let e in liquidacion) {
 
           if (liquidacion.hasOwnProperty(e)) {
+
               let td = document.createElement("td");
-              if (e == 'id') {
-                  td.innerHTML = `#${liquidacion[e]}`
+              
+              // oculta el idTipoLiquidacion y muestra la descripocion del tipo de liquidacion
+              if (e == 'idTipoLiquidacion') {     
+                // carga idTipoLiquidacion oculto
+                td.innerHTML = liquidacion.idTipoLiquidacion;
+                td.classList.add("oculto", `tm-col-${e}`);
+                tr.appendChild(td);
+                // carga la descripcion del idTipoLiquidacion
+                td = document.createElement("td");
+                td.classList.add("tm-col-tipoLiquidacion");
+                td.innerHTML = tipoLiquidacion.descripcion;
               } else {
-                  td.innerHTML = liquidacion[e]
+                // agrega la columna a la fila con una clase con el nombre del atributo de clase
+                td.classList.add(`tm-col-${e}`);
+                if (e == 'id') {
+                  td.innerHTML = `#${liquidacion[e]}`
+                } else {
+                    td.innerHTML = liquidacion[e]
+                }
               }
 
+              // if (e == 'id' || e == 'idTipoLiquidacion' || e == 'descripcion' || e == 'periodo') {
               if (e == 'id' || e == 'descripcion' || e == 'periodo') {
-                td.classList.add("tm-liquidacion-bold");
+                  td.classList.add("tm-liquidacion-bold");
               };
                 
               // semaforo de estado
@@ -95,8 +86,6 @@ const armarTablaLiquidaciones = (arrayObj) => {
                 td.style.cursor = "pointer";
               }
 
-              // agrega la columna a la fila con una clase con el nombre del atributo de clase
-              td.classList.add(`tm-col-${e}`);
               tr.appendChild(td);
           }
       }
@@ -116,13 +105,23 @@ const armarTablaLiquidaciones = (arrayObj) => {
 }
 
 // carga las liquidaciones desde el .json y arma tabla de liquidaciones
-window.onload=cargarJsonLiquidaciones();
+function start() {
+  // let arrayTipoLiquidaciones = utiles.getListaTipoLiquidaciones();
+  let arrayLiquidaciones = utiles.getListaLiquidaciones();
+  armarTablaLiquidaciones(arrayLiquidaciones);
+};
 
-// eventos de fila de tabla
+ window.onload = start();
+
+
+// // eventos de fila de tabla
 $(function() {
 
   // reenvia a la pagina edit-liquidacion.html (jquery)
   $(".tm-fila-liquidacion").on("click", function() {
+
+      // console.log('click en tablaLiquidaciones');
+
       let tabla = document.getElementById("tablaLiquidaciones");  
       let fila = $(this).closest('tr')[0];   // guarda la fila seleccionada
       // console.log(fila);
@@ -130,15 +129,17 @@ $(function() {
       let tds = fila.querySelectorAll("td");
 
       const liquidacion = new Liquidacion(); 
-      liquidacion.id = fila.querySelector(".tm-col-id").innerText;
+      liquidacion.id = parseInt(fila.querySelector(".tm-col-id").innerText.replace('#',''));
       liquidacion.periodo = fila.querySelector(".tm-col-periodo").innerText;
       liquidacion.descripcion = fila.querySelector(".tm-col-descripcion").innerText;
-      liquidacion.estado = fila.querySelector(".tm-col-estado").innerText;
+      liquidacion.idTipoLiquidacion = parseInt(fila.querySelector(".tm-col-idTipoLiquidacion").innerText);    // oculto
+      // liquidacion.tipoLiquidacion = fila.querySelector(".tm-col-tipoLiquidacion").innerText;               
+      liquidacion.estado = fila.querySelector(".tm-col-estado").innerText.toLowerCase();
       liquidacion.fechaPago = fila.querySelector(".tm-col-fechaPago").innerText;
 
       // console.log(`liquidacion: ${liquidacion.mostrar()}`);
       
-      if (liquidacion.estado == "Abierta") {
+      if (liquidacion.estado == "abierta") {
         // console.log(`objLiquidacion: ${JSON.stringify(liquidacion)}`);
         sessionStorage.setItem("objLiquidacion", JSON.stringify(liquidacion));
         // console.log('window.location.href = "edit-liquidacion.html"');
@@ -163,6 +164,7 @@ $(function() {
   $(".tm-fila-liquidacion").on("mouseover", function() { 
     // console.log('se hizo click en "onmouseover"');
     let estado = this.querySelector(".tm-col-estado").innerText;
+    // console.log('mouseover on: ', estado);
     if (estado == 'Abierta') {
       $(this).css({
         'background-color': '#6987a5'

@@ -117,8 +117,23 @@
             <div class="tm-edit-liquidacion-row row">
                 <div class="col-xl-12 col-lg-6 col-md-12">
                 <!-- <div class="col-12"> -->
-                  <form action="" method="post" class="tm-edit-liquidacion-form row">
-                    <div class="form-group mb-3 col-lg-6">
+                  <!-- <form action="" method="post" class="tm-edit-liquidacion-form row"> -->
+                  <form class="tm-edit-liquidacion-form row">
+                    <div class="form-group">
+                      <!-- <label for="periodo">ID</label> -->
+                      <input id="id" name="id" type="text" 
+                             class="form-control validate oculto"/>
+                    </div>
+                    <div class="form-group mb-3 col-lg-12 col-xs-12 col-sm-6">
+                      <label for="tipoLiquidacion">
+                        Tipo Liquidación
+                      </label>
+                      <select id="selTipoLiquidacion" class="custom-select tm-select-accounts">
+                        <option>Seleccione Tipo de Liquidación</option>
+                        <!-- se llena en liquidacion.js -->
+                      </select>
+                    </div>
+                    <div class="form-group mb-3 col-lg-6 col-xs-6 col-sm-6">
                       <label for="periodo">Período</label>
                       <input id="periodo" name="periodo" type="text" 
                              class="form-control validate periodpicker"/>
@@ -133,12 +148,17 @@
                       <input id="descripcion" name="descripcion" type="text" value="Enero de 2022" 
                             class="form-control validate"/>
                     </div>
+                    <div class="form-group">
+                      <!-- <label for="estado">Estado</label> -->
+                      <input id="estado" name="estado" type="text" 
+                             class="form-control validate oculto"/>
+                    </div>
                   </form>
                 </div>
-                <div class="col-12 mt-4">
-                  <button type="submit" class="btn btn-primary btn-block text-uppercase">Actualizar</button>
+                <div id="editar-liquidacion" class="col-12 mt-4">
+                  <button id="btnActualizar" type="submit" class="btn btn-primary btn-block text-uppercase">Actualizar</button>
+                  <!-- <button id="btnActualizar" type="button" class="btn btn-primary btn-block text-uppercase">Agregar Liquidación ahora</button> -->
                 </div>
-
             </div>
           </div>
         </div>
@@ -157,7 +177,7 @@
     <script src="../js/lib/jquery-3.3.1.min.js"></script>
     <script src="../jquery-ui-datepicker/jquery-ui.min.js"></script>
     <script src="../jquery-ui-datepicker/jquery.ui.datepicker-es.js"></script>
-    <script src="../js//bootstrap.min.js"></script>
+    <script src="../js/lib/bootstrap.min.js"></script>
 
     <script type="module" src="../js/edit-liquidacion.js"></script>
 

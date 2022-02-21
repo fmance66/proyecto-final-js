@@ -7,7 +7,7 @@ import * as utiles from './utiles.js';
   
 const cargarSelectTipoVariable = () => {
 
-  let tipoVariableSelect = document.querySelector('#tipoVariable');
+  let tipoVariableSelect = document.querySelector('#selTipoVariable');
   let arrayTipoVariables = utiles.getListaTipoVariables();
 
   arrayTipoVariables.forEach(function(tipoVariable) {
@@ -36,7 +36,7 @@ const cargarDatosVariable = () => {
   // asigna valores desde el objeto variable
   document.querySelector("#nombre").value = variable.nombre;
   document.querySelector("#valor").value = variable.valor;
-  document.querySelector("#tipoVariable").value = tipoVariable.id;
+  document.querySelector("#selTipoVariable").value = tipoVariable.id;
 }
 
 // datepicker para fechas (jquery)
@@ -48,5 +48,3 @@ $(function() {
 
 // carga los datos del recibo desde la sessionStorage
 window.onload=cargarDatosVariable();
-
-// export { xxxxx, yyyyy };

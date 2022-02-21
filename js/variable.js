@@ -3,8 +3,7 @@
 */
  
 import * as utiles from './utiles.js';
-
-const lsVariables = "lsVariables";
+import * as tipoVariable from './tipoVariable.js';
   
 function Variable (id, nombre, valor, idTipoVariable, estado) {
   this.id = id;
@@ -19,71 +18,6 @@ function Variable (id, nombre, valor, idTipoVariable, estado) {
       )
   }
 }
-
-//***** carga file JSON de datos 
-
-// import jsonVariables from '../data/variables.json' assert { type: "json" };
-
-// --- metodo 1) IMPORT
-// const cargarJsonVariables = () => {
-//     // guarda el array de objetos 'Variable' en localStorage
-//     localStorage.setItem(lsVariables, JSON.stringify(jsonVariables.variables));
-//     // arma la tabla de variables
-//     armarTablaVariables(jsonVariables.variables);
-//  };
-
-const urlJson = '../data/variables.json';
-
-// // --- metodo 2) JAVASCRIPT
-// const cargarJsonVariables = () => {
-
-//     let jsonData = localStorage.getItem(lsVariables);
-
-//     // verifica si existe el json de variables en local storage
-//     if (jsonData == null || jsonData == undefined) {   // si no existe lo carga del json externo
-
-//         console.log('... cargando local storage de .json externo...');
-
-//         fetch(urlJson)
-//         .then(response => response.json())
-//         .then(data => {
-//             // guarda el array de objetos 'Variable' en localStorage
-//             localStorage.setItem(lsVariables, JSON.stringify(data.variables));
-//             // arma la tabla de variables
-//             armarTablaVariables(data.variables);
-//         })
-//         .catch(console.error);
-//     } else {                                           // si existe lo parsea
-//         // arma la tabla de variables
-//         armarTablaVariables(JSON.parse(jsonData));
-//     };
-// };
-
-// --- metodo 3) JQUERY
-const cargarJsonVariables = () => {
-
-  let jsonData = localStorage.getItem(lsVariables);
-  // console.log(jsonData);
-
-  // verifica si existe el json de variables en local storage
-  if (jsonData == null || jsonData === undefined) {   // si no existe lo carga del json externo
-
-      console.log('... cargando local storage de .json externo...');
-
-      $.get(urlJson, function(data, estado) {
-          if (estado === "success") {
-              // console.log(respuesta.variables);
-              // guarda el array de objetos 'Variable' en localStorage
-              localStorage.setItem(lsVariables, JSON.stringify(data.variables));
-              // arma la tabla de variables
-              armarTablaVariables(data.variables);
-          }
-      })
-  } else {                                           // si existe lo parsea
-      // arma la tabla de variables
-      armarTablaVariables(JSON.parse(jsonData));
-  };
-};
 
 
 // carga tabla de variables desde array de variables obtenido de json externo
@@ -171,9 +105,6 @@ const armarTablaVariables = (arrayObj) => {
     }
 }
 
-// carga tabla de variables y tipos de variables
-window.onload=cargarJsonVariables();
-
 // eventos de fila de tabla
 $(function() {
 
@@ -234,4 +165,15 @@ $(function() {
     
 });
 
-export { Variable, lsVariables };
+// carga tabla de variables y tabla html
+function start() {
+  let arrayTipoVariables = utiles.getListaTipoVariables();
+  tipoVariable.armarTablaTipoVariables(arrayTipoVariables);
+  let arrayVariables = utiles.getListaVariables();
+  armarTablaVariables(arrayVariables);
+};
+
+ window.onload = start();
+
+
+export { Variable };

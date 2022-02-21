@@ -1,52 +1,52 @@
 {
     "variables": [
         {
-            "id": "1",
+            "id": 1,
             "nombre": "SUMA",
             "valor": "2 + 5",
-            "idTipoVariable": "1",
+            "idTipoVariable": 1,
             "estado": "activo"
         },
         {
-            "id": "2",
+            "id": 2,
             "nombre": "IVA",
             "valor": "1.21",
-            "idTipoVariable": "2",
+            "idTipoVariable": 2,
             "estado": "activo"
         },
         {
-            "id": "3",
+            "id": 3,
             "nombre": "IMPORTE_CON_IVA",
             "valor": ":IMPORTE * :IVA",
-            "idTipoVariable": "3",
+            "idTipoVariable": 3,
             "estado": "activo"
         },
         {
-            "id": "4",
+            "id": 4,
             "nombre": "CONDICIONAL",
             "valor": "SI(:IMPORTE > :TOPE; :IMPORTE * :IVA; :IMPORTE * (:IVA / 2) )",
-            "idTipoVariable": "3",
+            "idTipoVariable": 3,
             "estado": "activo"
         },
         {
-            "id": "5",
+            "id": 5,
             "nombre": "COLOR",
             "valor": "SI(:COLOR == 'ROJO'; 'COLORES IGUALES'; 'COLORES DISTINTOS')",
-            "idTipoVariable": "3",
+            "idTipoVariable": 3,
             "estado": "activo"
         },
         {
-            "id": "6",
+            "id": 6,
             "nombre": "FECHA_PAGO",
             "valor": "2022/02/09",
-            "idTipoVariable": "4",
+            "idTipoVariable": 4,
             "estado": "activo"
         },
         {
-            "id": "7",
+            "id": 7,
             "nombre": "ALICUOTA_ANSES",
             "valor": "0.03",
-            "idTipoVariable": "2",
+            "idTipoVariable": 2,
             "estado": "activo"
         }
     ]

@@ -1,27 +1,27 @@
 {
     "tipoVariables": [
         {
-            "id": "1",
+            "id": 1,
             "descripcion": "CADENA",
             "estado": "activo"
         },
         {
-            "id": "2",
+            "id": 2,
             "descripcion": "NUMERO",
             "estado": "activo"
         },
         {
-            "id": "3",
+            "id": 3,
             "descripcion": "FORMULA",
             "estado": "activo"
         },
         {
-            "id": "4",
+            "id": 4,
             "descripcion": "FECHA",
             "estado": "activo"
         },
         {
-            "id": "4",
+            "id": 5,
             "descripcion": "PROMPT",
             "estado": "activo"
         }

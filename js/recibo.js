@@ -22,69 +22,22 @@ function Recibo (id, legajo, idLiquidacion, estado, bruto, descuento, neto) {
   }
 }
 
-//***** carga file JSON de datos 
+const cargarSelectLiquidacion = () => {
 
-// import jsonRecibos from '../data/recibos.json' assert { type: "json" };
+  let liquidacionSelect = document.querySelector('#selLiquidacion');
+  let arrayLiquidaciones = utiles.getListaLiquidaciones();
 
-// --- metodo 1) IMPORT
-// const cargarJsonRecibos = () => {
-//     // guarda el array de objetos 'Recibo' en localStorage
-//     localStorage.setItem(lsRecibos, JSON.stringify(jsonRecibos.recibos));
-//     // arma la tabla de recibos
-//     armarTablaRecibos(jsonRecibos.recibos);
-//  };
+  arrayLiquidaciones.forEach(function(liquidacion) {
+    let opcion = document.createElement('option');
+    opcion.value = liquidacion.id;
+    opcion.text = liquidacion.descripcion;
+    liquidacionSelect.add(opcion);
+  });
 
-const urlJson = '../data/recibos.json';
+  // propone la última liquidacion como default
+  liquidacionSelect.value = arrayLiquidaciones[arrayLiquidaciones.length - 1].id;
 
-// // --- metodo 2) JAVASCRIPT
-// const cargarJsonRecibos = () => {
-
-//     let jsonData = localStorage.getItem(lsRecibos);
-
-//     // verifica si existe el json de recibos en local storage
-//     if (jsonData == null || jsonData == undefined) {   // si no existe lo carga del json externo
-
-//         console.log('... cargando local storage de .json externo...');
-
-//         fetch(urlJson)
-//         .then(response => response.json())
-//         .then(data => {
-//             // guarda el array de objetos 'Recibo' en localStorage
-//             localStorage.setItem(lsRecibos, JSON.stringify(data.recibos));
-//             // arma la tabla de recibos
-//             armarTablaRecibos(data.recibos);
-//         })
-//         .catch(console.error);
-//     } else {                                           // si existe lo parsea
-//         // arma la tabla de recibos
-//         armarTablaRecibos(JSON.parse(jsonData));
-//     };
-// };
-
-// --- metodo 3) JQUERY
-const cargarJsonRecibos = () => {
-
-  let jsonData = localStorage.getItem(lsRecibos);
-  // console.log(jsonData);
-
-  // verifica si existe el json de recibos en local storage
-  if (jsonData == null || jsonData === undefined) {   // si no existe lo carga del json externo
-
-      console.log('... cargando local storage de .json externo...');
-
-      $.get(urlJson, function(data, estado) {
-          if (estado === "success") {
-              // console.log(respuesta.recibos);
-              // guarda el array de objetos 'Recibo' en localStorage
-              localStorage.setItem(lsRecibos, JSON.stringify(data.recibos));
-              // arma la tabla de recibos
-              armarTablaRecibos(data.recibos);
-          }
-      })
-  } else {                                           // si existe lo parsea
-      // arma la tabla de recibos
-      armarTablaRecibos(JSON.parse(jsonData));
-  };
+  return liquidacionSelect.value;
 };
 
 // carga tabla de recibos desde array de recibos
@@ -92,6 +45,7 @@ const armarTablaRecibos = (arrayObj) => {
 
   let tablaRecibos = document.querySelector("#tablaRecibos");
   let tbody = document.createElement("tbody");
+  tbody.setAttribute("id", "tablaRecibosBody");
   tablaRecibos.appendChild(tbody);
 
 //   console.log(arrayObj);
@@ -183,7 +137,15 @@ const armarTablaRecibos = (arrayObj) => {
 }
 
 // carga los recibos desde el .json y arma tabla de recibos
-window.onload=cargarJsonRecibos();
+function start() {
+  // carga el select de liquidaciones filtrado por idLiquidacion
+  let idLiquidacion = cargarSelectLiquidacion();
+  let arrayRecibos = utiles.getListaRecibos(idLiquidacion);
+  armarTablaRecibos(arrayRecibos);
+};
+
+ window.onload = start();
+
 
 // eventos de fila de tabla
 $(function() {
@@ -248,6 +210,25 @@ $(function() {
     });
   });
   
+});
+
+// cambio la seleeccion de liquidacion
+$("#selLiquidacion").on("change", function() { 
+
+  // // vacia la tabla html
+  // let tabla = document.querySelector("#tablaRecibos");
+  // console.log(tabla);
+  // tabla.innerHTML = "";
+  // console.log(tabla);
+
+  // vacia la tabla html
+  // $("#tablaRecibos > tbody"). empty();
+  $("#tablaRecibos"). empty();
+  
+  let idLiquidacion = this.value;
+  let arrayRecibos = utiles.getListaRecibos(idLiquidacion);
+  console.log(idLiquidacion, arrayRecibos);
+  armarTablaRecibos(arrayRecibos);
 });
 
 export { Recibo };

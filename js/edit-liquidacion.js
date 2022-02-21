@@ -2,8 +2,36 @@
     Proyecto Final: Interprete de fórmulas tipo Excel
 */
 
-// import * as utiles from './utiles.js';
+import * as utiles from './utiles.js';
 
+  
+function Liquidacion(id, periodo, descripcion, estado, fechaPago) {
+  this.id = id;
+  this.periodo = periodo;
+  this.descripcion = descripcion;
+  this.estado = estado;
+  this.fechaPago  = fechaPago;
+  this.mostrar = function() {
+    return (
+      `{ id: ${this.id}, periodo: ${this.periodo}, descripcion: ${this.descripcion},` + 
+      ` estado: ${this.estado}, fechaPago: ${this.fechaPago} }`
+      )
+  }
+};
+  
+const cargarSelectTipoLiquidacion = () => {
+
+  let tipoLiquidacionSelect = document.querySelector('#selTipoLiquidacion');
+  let arrayTipoLiquidaciones = utiles.getListaTipoLiquidaciones();
+
+  arrayTipoLiquidaciones.forEach(function(tipoLiquidacion) {
+    let opcion = document.createElement('option');
+    opcion.value = tipoLiquidacion.id;
+    opcion.text = tipoLiquidacion.descripcion;
+    tipoLiquidacionSelect.add(opcion);
+  });
+
+};
 
 // carga los datos de la liquidacion desde sessionStorage
 const cargarDatosLiquidacion = () => {
@@ -12,12 +40,21 @@ const cargarDatosLiquidacion = () => {
   let liquidacion = JSON.parse(sessionStorage.getItem("objLiquidacion"));
   // console.log(liquidacion);
 
+  // busca el tipo de liquidacion segun el idTipoLiquidacion
+  let tipoLiquidacion = utiles.getTipoLiquidacion(liquidacion.idTipoLiquidacion);
+  // console.log(tipoVariable);
+
+  // carga el select de tipo de liquidaciones desde el json
+  cargarSelectTipoLiquidacion();
+
   // asigna valores desde el objeto liquidacion
+  document.querySelector("#id").value = liquidacion.id;
+  document.querySelector("#selTipoLiquidacion").value = tipoLiquidacion.id;
   document.querySelector("#periodo").value = liquidacion.periodo;
   document.querySelector("#descripcion").value = liquidacion.descripcion;
   document.querySelector("#fechaPago").value = liquidacion.fechaPago;
+  document.querySelector("#estado").value = liquidacion.estado;
 }
-
 
 $(function() {
     $('.periodpicker').datepicker({
@@ -73,8 +110,23 @@ $(function() {
   });
 });
 
+$(function() {
+  $("#btnActualizar").click(function() {
+    // console.log('hizo click en actualizar!!!');
+
+    const liquidacion = new Liquidacion(); 
+    liquidacion.id = parseInt(document.querySelector("#id").value);
+    liquidacion.periodo = document.querySelector("#periodo").value;
+    liquidacion.fechaPago = document.querySelector("#fechaPago").value;
+    liquidacion.descripcion = document.querySelector("#descripcion").value;
+    liquidacion.estado = document.querySelector("#estado").value;
+
+    console.log(liquidacion);
+
+    utiles.actualizarLiquidacion(liquidacion);
+
+  });
+});
+
 // carga los datos de la liquidación desde la sessionStorage
 window.onload=cargarDatosLiquidacion();
-
-
-// export { xxxxx, yyyyy };

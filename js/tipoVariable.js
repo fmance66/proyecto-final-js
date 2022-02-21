@@ -2,7 +2,7 @@
     Proyecto Final: Interprete de fórmulas tipo Excel
 */
  
-import * as utiles from'./utiles';
+import * as utiles from'./utiles.js';
 
 const lsTipoVariables = "lsTipoVariables";
   
@@ -14,71 +14,6 @@ function TipoVariable (id, descripcion, estado) {
       `{ id: ${this.id}, descripcion: ${this.descripcion}, estado: ${this.estado} }`
   }
 }
-
-//***** carga file JSON de datos 
-
-// import jsonTipoVariables from '../data/tipoVariables.json' assert { type: "json" };
-
-// --- metodo 1) IMPORT
-// const cargarJsonTipoVariables = () => {
-//     // guarda el array de objetos 'TipoVariable' en localStorage
-//     localStorage.setItem(lsTipoVariables, JSON.stringify(jsonTipoVariables.tipoVariables));
-//     // arma la tabla de tipos de variables
-//     armarTablaVariables(jsonTipoVariables.tipoVariables);
-//  };
-
-const urlJson = '../data/tipoVariables.json';
-
-// // --- metodo 2) JAVASCRIPT
-// const cargarJsonTipoVariables = () => {
-
-//     let jsonData = localStorage.getItem(lsTipoVariables);
-
-//     // verifica si existe el json de tipoVariables en local storage
-//     if (jsonData == null || jsonData == undefined) {   // si no existe lo carga del json externo
-
-//         console.log('... cargando local storage de .json externo...');
-
-//         fetch(urlJson)
-//         .then(response => response.json())
-//         .then(data => {
-//             // guarda el array de objetos 'TipoVariable' en localStorage
-//             localStorage.setItem(lsTipoVariables, JSON.stringify(data.tipoVariables));
-//             // arma la tabla de tipo de variables
-//             armarTablaTipoVariables(data.tipoVariables);
-//         })
-//         .catch(console.error);
-//     } else {                                           // si existe lo parsea
-//         // arma la tabla de tipo de variables
-//         armarTablaTipoVariables(JSON.parse(jsonData));
-//     };
-// };
-
-// --- metodo 3) JQUERY
-const cargarJsonTipoVariables = () => {
-
-  let jsonData = localStorage.getItem(lsTipoVariables);
-//   console.log(jsonData);
-
-  // verifica si existe el json de variables en local storage
-  if (jsonData == null || jsonData === undefined) {   // si no existe lo carga del json externo
-
-      console.log('... cargando local storage de .json externo...');
-
-      $.get(urlJson, function(data, estado) {
-          if (estado === "success") {
-              // console.log(respuesta.tipoVariables);
-              // guarda el array de objetos 'TipoVariable' en localStorage
-              localStorage.setItem(lsTipoVariables, JSON.stringify(data.tipoVariables));
-              // arma la tabla de tipo de variables
-              armarTablaTipoVariables(data.tipoVariables);
-          }
-      })
-  } else {                                           // si existe lo parsea
-      // arma la tabla de tipo de variables
-      armarTablaTipoVariables(JSON.parse(jsonData));
-  };
-};
 
 // carga tabla de tipos de variables desde array obtenido de json externo
 const armarTablaTipoVariables = (arrayObj) => {
@@ -138,10 +73,6 @@ const armarTablaTipoVariables = (arrayObj) => {
         tbody.appendChild(tr);
     }
 }
-
-// carga tabla de variables y tipos de variables
-window.onload=cargarJsonTipoVariables();
-
  
 // reenvia a la pagina edit-liquidacion.html (jquery)
 $(".tm-fila-tipo-variable").on("click", function() {
@@ -173,4 +104,4 @@ $(".tm-fila-tipo-variable").on("click", ".tm-col-delete", function(e) {
 });
    
 
-export { TipoVariable, lsTipoVariables };
+export { TipoVariable, armarTablaTipoVariables };

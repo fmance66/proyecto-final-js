@@ -16,7 +16,7 @@
   <body id="reciboPage">
     <div class="" id="recibo">
 
-        <nav class="navbar navbar-expand-xl">
+      <nav class="navbar navbar-expand-xl">
             <!-- <div class="container h-100"> -->
             <div class="container-fluid h-100">
 
@@ -102,17 +102,31 @@
                 </div>
             </div>
 
-        </nav>
+      </nav>
 
       <div class="container-fluid p-5">
+
         <div class="row tm-content-row">
+            <div class="col-lg-12 col-xs-12 col-sm-6 tm-block-col">
+              <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                <h2 class="tm-block-title">Liquidaciones de Sueldos</h2>
+                <p class="text-white">Liquidaciones</p>
+                <select id="selLiquidacion" class="custom-select">
+                    <option>Seleccione Liquidación</option>
+                    <!-- se llena en liquidacion.js -->
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row tm-content-row">
           <!-- <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col"> -->
           <div class="col-12 tm-block-col">
               <div class="tm-bg-primary-dark tm-block tm-block-recibos">
                 <h2 class="tm-block-title">Recibos de Sueldo</h2>
                 <div class="tm-recibo-table-container">
                     <table id="tablaRecibos" class="table table-hover">
-                    <thead>
+                    <thead id="tablaRecibosHead">
                         <tr>
                             <th>&nbsp;</th>
                             <th class="oculto">ID</th>

@@ -45,5 +45,3 @@ $(function() {
 // carga los datos del recibo desde la sessionStorage
 window.onload=cargarDatosRecibo();
 
-
-// export { xxxxx, yyyyy };
