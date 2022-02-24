@@ -8,6 +8,7 @@
     <title>Empleados - Sistema de Sueldos</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
     <link rel="stylesheet" href="../css/fontawesome.min.css" />
+    <link rel="stylesheet" href="../jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/estilos.css">
  
@@ -138,11 +139,22 @@
                   <label for="nombre">Nombre y Apellido</label>
                   <input id="nombre" name="nombre" type="text" class="form-control validate"/>
                 </div>
+                <!-- <div class="form-group col-lg-5">
+                  <label for="fechaIngreso">Fecha de Ingreso</label>
+                  <input id="fechaIngreso" name="fechaIngreso" type="date" class="form-control validate"/>
+                </div> -->
 
                 <div class="form-group col-lg-5">
-                  <label for="password">Fecha de Ingreso</label>
-                  <input id="fechaIngreso" name="fechaIngreso" type="date" class="form-control validate"/>
+                  <label for="fechaIngreso">Fecha de Ingreso</label>
+                  <input id="fechaIngreso" name="fechaIngreso" class="form-control validate datepicker"/>
                 </div>
+
+                <!-- <div class="form-group mb-3 col-lg-6 col-xs-6 col-sm-6">
+                  <label for="fechaPago">Fecha de Pago</label>
+                  <input id="fechaPago" name="fechaPago" type="text" data-large-mode="true" 
+                         class="form-control validate datepicker"/>
+                </div> -->
+
                 <div class="form-group col-lg-7">
                   <!-- <div class="form-group col-12"> -->
                     <label for="email">Categoria</label>
@@ -203,7 +215,12 @@
     </div>
 
     <script src="../js/lib/jquery-3.3.1.min.js"></script>
+    <script src="../jquery-ui-datepicker/jquery-ui.min.js"></script>
+    <script src="../jquery-ui-datepicker/jquery.ui.datepicker-es.js"></script>
     <script src="../js/lib/bootstrap.min.js"></script>
+
+    <script type="module" src="../js/empleado.js"></script>
+
   </body>
 
 </html>

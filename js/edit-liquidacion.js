@@ -83,6 +83,7 @@ $(function() {
             $(input).datepicker("widget").addClass('hide-month hide-current hide-calendar');
 
             let datestr = $(this).val();
+            // console.log('datestr: ', datestr);
 
             if (datestr.length > 0) {
                 let anio = datestr.substring(datestr.length - 4, datestr.length);

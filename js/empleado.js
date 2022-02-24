@@ -21,5 +21,13 @@ function Empleado(legajo, nombre, cuil, estado, fechaIngreso, idCategoria, obraS
   }
 
 }
-   
+
+// datepicker para fechas (jquery)
+$(function() {
+    $(".ui-datepicker-calendar").show();
+    $(".datepicker").datepicker({
+      dateFormat: 'dd/mm/yy'
+    });
+  });
+
 export { Empleado };
