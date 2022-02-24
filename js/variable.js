@@ -117,10 +117,10 @@ $(function() {
       let tds = fila.querySelectorAll("td");
 
       const variable = new Variable(); 
-      variable.id = fila.querySelector(".tm-col-id").innerText;                           // oculto
+      variable.id = parseInt(fila.querySelector(".tm-col-id").innerText);                           // oculto
       variable.nombre = fila.querySelector(".tm-col-nombre").innerText;               
       variable.valor = fila.querySelector(".tm-col-valor").innerText;               
-      variable.idTipoVariable = fila.querySelector(".tm-col-idTipoVariable").innerText;   // oculto
+      variable.idTipoVariable = parseInt(fila.querySelector(".tm-col-idTipoVariable").innerText);   // oculto
       // variable.tipoVariable = fila.querySelector(".tm-col-tipoVariable").innerText;               
       variable.estado = fila.querySelector(".tm-col-estado").innerText;
 

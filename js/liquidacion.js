@@ -50,7 +50,7 @@ const armarTablaLiquidaciones = (arrayObj) => {
 
               let td = document.createElement("td");
               
-              // oculta el idTipoLiquidacion y muestra la descripocion del tipo de liquidacion
+              // oculta el idTipoLiquidacion y muestra la descripcion del tipo de liquidacion
               if (e == 'idTipoLiquidacion') {     
                 // carga idTipoLiquidacion oculto
                 td.innerHTML = liquidacion.idTipoLiquidacion;
@@ -70,7 +70,6 @@ const armarTablaLiquidaciones = (arrayObj) => {
                 }
               }
 
-              // if (e == 'id' || e == 'idTipoLiquidacion' || e == 'descripcion' || e == 'periodo') {
               if (e == 'id' || e == 'descripcion' || e == 'periodo') {
                   td.classList.add("tm-liquidacion-bold");
               };
@@ -118,12 +117,12 @@ function start() {
 $(function() {
 
   // reenvia a la pagina edit-liquidacion.html (jquery)
-  $(".tm-fila-liquidacion").on("click", function() {
+  $(".tm-fila-liquidacion").on("click", function(e) {
 
       // console.log('click en tablaLiquidaciones');
 
-      let tabla = document.getElementById("tablaLiquidaciones");  
-      let fila = $(this).closest('tr')[0];   // guarda la fila seleccionada
+      // obtengo la fila seleccionada (tr )donde se hizo el click
+      let fila = e.target.parentNode;
       // console.log(fila);
 
       let tds = fila.querySelectorAll("td");
@@ -156,8 +155,28 @@ $(function() {
 
   // anula el evento click para el boton delete
   $(".tm-fila-liquidacion").on("click", ".tm-col-delete", function(e) { 
-    // console.log('se hizo click en "tm-col-delete"');
-    e.stopPropagation() 
+    console.log('se hizo click en "tm-col-delete"');
+    e.stopPropagation(); 
+    
+    console.log('va a ejecutar eliminarLiquidacion()...');
+
+    // obtengo la fila seleccionada (tr )donde se hizo el click
+    let fila = e.target.parentNode.parentNode.parentNode;
+    let id = parseInt(fila.querySelector(".tm-col-id").innerText.replace('#',''));
+    // elimina la fila del array y actualiza el localStorage
+    utiles.eliminarLiquidacion(id);
+    // elimina la fila de la tabla html
+    fila.remove();
+    // mensaje de exito
+    toastr.options = {
+      "closeButton": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": true,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "2000",
+    }
+    toastr.success('El registro fue eliminada con éxito...','Eliminar liquidación');
   });
 
   // cambia el color de fila editable

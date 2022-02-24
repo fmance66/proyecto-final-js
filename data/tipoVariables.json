@@ -24,6 +24,11 @@
             "id": 5,
             "descripcion": "PROMPT",
             "estado": "activo"
+        },
+        {
+            "id": 6,
+            "descripcion": "INTERNA",
+            "estado": "activo"
         }
     ]
 }

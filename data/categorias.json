@@ -1,33 +1,33 @@
 {
     "categorias": [
         {
-            "id": "1",
+            "id": 1,
             "descripcion": "Administrativo",
             "sueldoBruto": "127000.00",
             "estado": "activo"
         },
         {
-            "id": "2",
+            "id": 2,
             "descripcion": "Jefe de Departamento",
             "sueldoBruto": "570000.00",
             "estado": "activo"
         },
         {
-            "id": "3",
+            "id": 3,
             "descripcion": "Jefe de División",
             "sueldoBruto": "320000.00",
             "estado": "activo"
         },
         {
-            "id": "4",
+            "id": 4,
             "descripcion": "Líder de Proyecto",
             "sueldoBruto": "210000.00",
             "estado": "activo"
         },
         {
-            "id": "5",
+            "id": 5,
             "descripcion": "Director",
-            "sueldoBruto": "1270000.00",
+            "sueldoBruto": "1560000.00",
             "estado": "activo"
         }
     ]

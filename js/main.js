@@ -67,16 +67,34 @@ const armarTablaLiquidacionesIndex = (arrayObj) => {
             let tr = document.createElement("tr");
   
             let liquidacion = arrayObj[ii];
+
+            // busca el tipo de liquidacion segun el idTipoLiquidacion
+            let tipoLiquidacion = utiles.getTipoLiquidacion(liquidacion.idTipoLiquidacion);
+
             for (let e in liquidacion) {
       
                 if (liquidacion.hasOwnProperty(e)) {
                     
                     let td = document.createElement("td");
-                    
-                    if (e == 'id') {
-                        td.innerHTML = `#${liquidacion[e]}`
+              
+                    // oculta el idTipoLiquidacion y muestra la descripcion del tipo de liquidacion
+                    if (e == 'idTipoLiquidacion') {     
+                        // carga idTipoLiquidacion oculto
+                        td.innerHTML = liquidacion.idTipoLiquidacion;
+                        td.classList.add("oculto", `tm-col-${e}`);
+                        tr.appendChild(td);
+                        // carga la descripcion del idTipoLiquidacion
+                        td = document.createElement("td");
+                        td.classList.add("tm-col-tipoLiquidacion");
+                        td.innerHTML = tipoLiquidacion.descripcion;
                     } else {
-                        td.innerHTML = liquidacion[e]
+                        // agrega la columna a la fila con una clase con el nombre del atributo de clase
+                        td.classList.add(`tm-col-${e}`);
+                        if (e == 'id') {
+                        td.innerHTML = `#${liquidacion[e]}`
+                        } else {
+                            td.innerHTML = liquidacion[e]
+                        }
                     }
       
                     if (e == 'id' || e == 'descripcion' || e == 'periodo') {
@@ -84,9 +102,9 @@ const armarTablaLiquidacionesIndex = (arrayObj) => {
                     };
                     
                     if (e == 'estado') {
-                        // td.innerHTML = `#${liquidacion[e]}`
                         td.innerHTML = utiles.generateDivEstado(liquidacion[e]);
-                    }
+                    };
+
                     tr.appendChild(td);
                 }
             }

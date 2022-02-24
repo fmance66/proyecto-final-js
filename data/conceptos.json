@@ -1,66 +1,52 @@
 {
     "conceptos": [
         {
-            "id": "1",
+            "id": 1,
             "descripcion": "Sueldo",
-            "variable": "SUELDO",
+            "formula": ":SUELDO",
             "mostrado": "",
             "estado": "activo"
         },
         {
-            "id": "2",
+            "id": 2,
             "descripcion": "Jubilación",
-            "variable": "JUBILACION",
+            "formula": ":JUBILACION",
             "mostrado": "",
             "estado": "activo"
         },
         {
-            "id": "3",
+            "id": 3,
             "descripcion": "Ley 19.032",
-            "variable": "LEY_19032",
+            "formula": ":LEY_19032",
             "mostrado": "",
             "estado": "activo"
         },
         {
-            "id": "4",
+            "id": 4,
             "descripcion": "Obra Social",
-            "variable": "OBRA_SOCIAL",
+            "formula": ":OBRA_SOCIAL",
             "mostrado": "",
             "estado": "activo"
         },
         {
-            "id": "5",
+            "id": 5,
             "descripcion": "A.N.S.S.A.L",
-            "variable": "ANSSAL",
+            "formula": ":ANSSAL",
             "mostrado": "",
             "estado": "activo"
         },
         {
-            "id": "6",
+            "id": 6,
             "descripcion": "Impuesto a las Ganancias",
-            "variable": "GANANCIAS",
+            "formula": ":GANANCIAS",
             "mostrado": "Impuesto Ganancias",
             "estado": "activo"
         },
         {
-            "id": "7",
-            "descripcion": "",
-            "variable": "",
-            "mostrado": "",
-            "estado": "activo"
-        },
-        {
-            "id": "8",
-            "descripcion": "",
-            "variable": "",
-            "mostrado": "",
-            "estado": "activo"
-        },
-        {
-            "id": "9",
-            "descripcion": "",
-            "variable": "",
-            "mostrado": "",
+            "id": 7,
+            "descripcion": "Dif. Obra Social",
+            "formula": ":DIF_OBRA_SOCIAL",
+            "mostrado": "Dif. :NOMBRE_OBRA_SOCIAL",
             "estado": "activo"
         }
     ]

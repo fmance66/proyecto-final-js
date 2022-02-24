@@ -2,8 +2,24 @@
    Las formulas vienen en un string y devuelven un resultado
 */   
 
-// definicion de objetos y nombres de ls
-import { Variable } from './js/variable.js';
+import * as utiles from './utiles.js';
+
+// definicion de objetos 
+// import { Variable } from './variable.js';
+function Variable (id, nombre, valor, idTipoVariable, estado) {
+    this.id = id;
+    this.nombre = nombre;
+    this.valor  = valor;
+    this.idTipoVariable = idTipoVariable;
+    this.estado = estado;
+    this.mostrar = function() {
+        return (
+        `{ id: ${this.id}, nombre: ${this.nombre}, valor: ${this.valor},` +
+        ` idTipoVariable: ${this.idTipoVariable}, estado: ${this.estado} }`
+        )
+    }
+}
+
    
 // constantes de condicionales
 const VARIABLE_IDENTIFICADOR    = ':';
@@ -20,17 +36,17 @@ const SetSeparadores        = ',; ';
 const SetLetras             = SetMinusculas + SetMayusculas + SetSeparadores;
 const SetOperadores         = '+-/|\*^=';
 const SetDelimitadores      = SetOperadores + CONDICIONAL_INICIO + CONDICIONAL_FIN;
-const SetOtrosCaracteres    = '_.';       // otros caracteres validos para variables
+const SetOtrosCaracteres    = '#_.';       // otros caracteres validos para variables
 
 const SetCaracteresVariable = SetMinusculas + SetMayusculas + SetNumeros + SetOtrosCaracteres;
 
 // obtiene el valor de la variable del array y la devuelve como string
-const GetValorVariable = (nombreVariable) => {
+const getValorVariable = (nombreVariable) => {
 
     // busca la variable en el array por el nombre (parametro)
-    let variableEncontrada = variables.find(elemento => elemento.nombre == nombreVariable);
+    let variableEncontrada = utiles.getVariable(nombreVariable);
+    
     if (variableEncontrada == undefined ) {
-
         // console.log(`variable buscada ${nombreVariable}, no encontrada se solicita valor...`);
         
         // si una variable no existe pide ingresarla
@@ -55,7 +71,7 @@ const GetValorVariable = (nombreVariable) => {
 } 
 
 // obtiene el nombre de la variable del parametro formula indicado en la posicion parámetro
-const GetNombreVariable = (formula, posicion) => {
+const getNombreVariable = (formula, posicion) => {
     
     let posicionInicial = posicion + VARIABLE_IDENTIFICADOR.length;
     let posicionFinal = posicionInicial;
@@ -75,39 +91,38 @@ const GetNombreVariable = (formula, posicion) => {
 }
 
 // determina si hay una variable en la fórmula
-const HayVariable = (formula) => {
+const hayVariable = (formula) => {
     return formula.indexOf(VARIABLE_IDENTIFICADOR) >= 0;
 }
 
 // obtiene la primer variable del parametro formula y devuelve un objeto con el nombre y valor de la misma
-const GetVariable = (formula) => {
+const getVariable = (formula) => {
 
     let posIdentificador = formula.indexOf(VARIABLE_IDENTIFICADOR);
 
-    let variableNombre = GetNombreVariable(formula, posIdentificador);
-    let variableValor  = GetValorVariable (variableNombre);
+    let variableNombre = getNombreVariable(formula, posIdentificador);
+    let variableValor  = getValorVariable (variableNombre);
 
-    console.log(`variableNombre: ${variableNombre}, variableValor: ${variableValor}`);
+    // console.log(`variableNombre: ${variableNombre}, variableValor: ${variableValor}`);
 
-    const variable = new Variable(variableNombre, variableValor);
+    return {
+        'nombre': variableNombre,
+        'valor' : variableValor
+    };
 
-    // return {
-    //     'nombre': variableNombre,
-    //     'valor' : variableValor
-    // };
-
-    return variable;
+    // const variable = new Variable(variableNombre, variableValor);
+    // return variable;
 }
 
 // realiza la cuenta con la expresion informada como parametro, ej: 4 + 2, 3 * 6, etc
-const ResultadoCuenta = (expresion) => {
-    console.log(`ejecuta ResultadoCuenta, expresion: ${expresion}`);
+const resultadoCuenta = (expresion) => {
+    // console.log(`ejecuta resultadoCuenta, expresion: ${expresion}`);
     return Function('return ' + expresion)();
 }
 
 
 // devuelve el condicional principal de una formula       
-const GetCondicional = (formula) => {
+const getCondicional = (formula) => {
   
     let condicional = ''; 
     let condicionalesAbiertos = 0;
@@ -136,35 +151,35 @@ const GetCondicional = (formula) => {
     
 
 // devuelve TRUE si la condicion es verdadera, FALSE si no       
-const CumpleCondicion = (condicion) => {
+const cumpleCondicion = (condicion) => {
 
     condicion = condicion.trim();
 
-    console.log(`CumpleCondicion --> condicion: ${condicion}`);
+    // console.log(`cumpleCondicion --> condicion: ${condicion}`);
 
     if (condicion == null) {
         return false;        // en realidad no se pudo evaluar porque es nula
     }
 
-    if (HayVariable(condicion)) {
+    if (hayVariable(condicion)) {
 
-        let variable = GetVariable(condicion);
+        let variable = getVariable(condicion);
 
-        console.log(`CumpleCondicion hay variable: ${variable.nombre} = ${variable.valor}`);
+        // console.log(`cumpleCondicion hay variable: ${variable.nombre} = ${variable.valor}`);
         if (variable.valor.indexOf('"' > -1)) {
             console.log('... la variable tiene comillas ...');
         }
     
-        let resultadoVariable = CalculoFormula(variable.valor);  
+        let resultadoVariable = calculoFormula(variable.valor);  
         
         if (condicion == VARIABLE_IDENTIFICADOR + variable.nombre) {
             null;      // no se reemplaza la variable en la formula
         } else {
             if (variable.valor.indexOf('"' > -1)) {
-                return CumpleCondicion(condicion.replace(VARIABLE_IDENTIFICADOR + variable.nombre, '"' + resultadoVariable + '"'));
+                return cumpleCondicion(condicion.replace(VARIABLE_IDENTIFICADOR + variable.nombre, '"' + resultadoVariable + '"'));
             }
             else {
-                return CumpleCondicion(condicion.replace(VARIABLE_IDENTIFICADOR + variable.nombre, resultadoVariable));
+                return cumpleCondicion(condicion.replace(VARIABLE_IDENTIFICADOR + variable.nombre, resultadoVariable));
             }
         }
     } else {
@@ -173,7 +188,7 @@ const CumpleCondicion = (condicion) => {
     }
 }
 
-const SplitCondicional = (condicional) => {
+const splitCondicional = (condicional) => {
 
     let condicion = ''; 
     let operandoV = ''; 
@@ -233,7 +248,7 @@ const SplitCondicional = (condicional) => {
 }
 
 // Resuelve la formula que viene como parámetro (falta desarrollar condicionales)
-const CalculoFormula = (formula) => {
+const calculoFormula = (formula) => {
 
     let resultado = '';
 
@@ -246,72 +261,74 @@ const CalculoFormula = (formula) => {
 
         // console.log('no hay condicional');
 
-        if (HayVariable(formula)) {     // hay variable
+        if (hayVariable(formula)) {     // hay variable
 
             // console.log('hay variable');
             
-            let variable = GetVariable(formula);
+            let variable = getVariable(formula);
 
             // console.log(`variable: ${variable.nombre} = ${variable.valor}`);
 
-            resultado = CalculoFormula(variable.valor);  
+            resultado = calculoFormula(variable.valor);  
             
             if (formula == VARIABLE_IDENTIFICADOR + variable.nombre) {
                 null;                 // no se reemplaza la variable en la formula, termina CalculoFormula
             } else {
-                resultado = CalculoFormula(formula.replace(VARIABLE_IDENTIFICADOR + variable.nombre, resultado));
+                resultado = calculoFormula(formula.replace(VARIABLE_IDENTIFICADOR + variable.nombre, resultado));
             }
         } else {                      // no hay variable hace la cuenta
 
             // console.log('NO hay variable');
 
-            resultado = ResultadoCuenta(formula);       // termina CalculoFormula
+            resultado = resultadoCuenta(formula);       // termina CalculoFormula
         }  
     
     } else {            // hay condicionales
 
         // console.log('hay condicional');
     
-        let condicional = GetCondicional(formula);
+        let condicional = getCondicional(formula);
 
         if (condicional != null) {
 
-            oCondicional = SplitCondicional(condicional);
+            oCondicional = splitCondicional(condicional);
 
             if (oCondicional != null) {
 
-                if (CumpleCondicion(oCondicional.condicion)) {       // el condicional dio verdadero
-                    resultado = CalculoFormula(oCondicional.operandoV);
+                if (cumpleCondicion(oCondicional.condicion)) {       // el condicional dio verdadero
+                    resultado = calculoFormula(oCondicional.operandoV);
                 } else {
-                    resultado = CalculoFormula(oCondicional.operandoF);
+                    resultado = calculoFormula(oCondicional.operandoF);
                 } 
             
                 if (formula == condicional) {
                     null;      // no se reemplaza el condicional en la formula
                 } else {
-                    resultado = CalculoFormula(formula.replace(condicional, resultado));
+                    resultado = calculoFormula(formula.replace(condicional, resultado));
                 }
             } 
         } 
     }                                              
 
+    console.log(`resultado: ${resultado}`);
+
     return resultado;
 }
 
 // muestra por consola el resultado de la cuenta o formula
-const CalcularYMostrar = (formula, funcion) => {
+const calcularYMostrar = (formula, funcion) => {
     switch (funcion.toLowerCase()) {
         case 'cuenta': 
-            console.log(`... ejecución de ResultadoCuenta (${formula}) ==> ${ResultadoCuenta(formula)}`);
+            console.log(`... ejecución de ResultadoCuenta (${formula}) ==> ${resultadoCuenta(formula)}`);
             break;
         case 'formula': 
-            console.log(`... ejecución de CalculoFormula (${formula}) ==> ${CalculoFormula(formula)}`);
+            console.log(`... ejecución de CalculoFormula (${formula}) ==> ${calculoFormula(formula)}`);
             break;
         default: 
-            console.log(`... ejecución de CalculoFormula (${formula}) ==> ${CalculoFormula(formula)}`);
+            console.log(`... ejecución de CalculoFormula (${formula}) ==> ${calculoFormula(formula)}`);
             break;
     }
   }
   
 
-export { ResultadoCuenta, CalculoFormula, CalcularYMostrar };
+export { resultadoCuenta, calculoFormula, calcularYMostrar };

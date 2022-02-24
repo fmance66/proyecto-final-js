@@ -159,10 +159,10 @@ $(function() {
       let tds = fila.querySelectorAll("td");
 
       const recibo = new Recibo(); 
-      recibo.id = fila.querySelector(".tm-col-id").innerText;                            // oculto
+      recibo.id = parseInt(fila.querySelector(".tm-col-id").innerText);                            // oculto
       recibo.legajo = fila.querySelector(".tm-col-legajo").innerText.replace('#', ''); 
       // recibo.nombre = fila.querySelector(".tm-col-nombre").innerText; 
-      recibo.idLiquidacion = fila.querySelector(".tm-col-idLiquidacion").innerText;     // oculto
+      recibo.idLiquidacion = parseInt(fila.querySelector(".tm-col-idLiquidacion").innerText);     // oculto
     //   recibo.periodo = fila.querySelector(".tm-col-periodo").innerText; 
       recibo.estado = fila.querySelector(".tm-col-estado").innerText;
       recibo.bruto = fila.querySelector(".tm-col-bruto").innerText; 

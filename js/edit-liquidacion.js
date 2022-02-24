@@ -4,17 +4,17 @@
 
 import * as utiles from './utiles.js';
 
-  
-function Liquidacion(id, periodo, descripcion, estado, fechaPago) {
+function Liquidacion(id, periodo, descripcion, idTipoLiquidacion, estado, fechaPago) {
   this.id = id;
   this.periodo = periodo;
   this.descripcion = descripcion;
+  this.idTipoLiquidacion = idTipoLiquidacion;
   this.estado = estado;
   this.fechaPago  = fechaPago;
   this.mostrar = function() {
     return (
       `{ id: ${this.id}, periodo: ${this.periodo}, descripcion: ${this.descripcion},` + 
-      ` estado: ${this.estado}, fechaPago: ${this.fechaPago} }`
+      ` idTipoLiquidacion: ${this.idTipoLiquidacion}, estado: ${this.estado}, fechaPago: ${this.fechaPago} }`
       )
   }
 };
@@ -119,12 +119,16 @@ $(function() {
     liquidacion.periodo = document.querySelector("#periodo").value;
     liquidacion.fechaPago = document.querySelector("#fechaPago").value;
     liquidacion.descripcion = document.querySelector("#descripcion").value;
+    liquidacion.idTipoLiquidacion = parseInt(document.querySelector("#selTipoLiquidacion").value);
     liquidacion.estado = document.querySelector("#estado").value;
 
-    console.log(liquidacion);
+    // console.log(liquidacion);
 
+    // actualiza liquidación en array y local storage
     utiles.actualizarLiquidacion(liquidacion);
 
+    // muestra mensaje de exito
+    toastr.success('El registro fue actualizado con éxito...','Actualizar liquidación');
   });
 });
 

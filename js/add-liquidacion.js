@@ -4,26 +4,58 @@
 
 import * as utiles from './utiles.js';
   
-function Liquidacion(id, periodo, descripcion, estado, fechaPago) {
+function Liquidacion(id, periodo, descripcion, idTipoLiquidacion, estado, fechaPago) {
   this.id = id;
   this.periodo = periodo;
   this.descripcion = descripcion;
+  this.idTipoLiquidacion = idTipoLiquidacion;
   this.estado = estado;
   this.fechaPago  = fechaPago;
   this.mostrar = function() {
     return (
       `{ id: ${this.id}, periodo: ${this.periodo}, descripcion: ${this.descripcion},` + 
-      ` estado: ${this.estado}, fechaPago: ${this.fechaPago} }`
+      ` idTipoLiquidacion: ${this.idTipoLiquidacion}, estado: ${this.estado}, fechaPago: ${this.fechaPago} }`
       )
   }
 };
 
+const cargarSelectTipoLiquidacion = () => {
+
+  let tipoLiquidacionSelect = document.querySelector('#selTipoLiquidacion');
+  let arrayTipoLiquidaciones = utiles.getListaTipoLiquidaciones();
+
+  arrayTipoLiquidaciones.forEach(function(tipoLiquidacion) {
+    let opcion = document.createElement('option');
+    opcion.value = tipoLiquidacion.id;
+    opcion.text = tipoLiquidacion.descripcion;
+    tipoLiquidacionSelect.add(opcion);
+  });
+
+  // propone el primer tipo de liquidacion como default
+  tipoLiquidacionSelect.value = arrayTipoLiquidaciones[0].id;
+
+};
+
 // carga los datos de la liquidacion desde sessionStorage
 const cargarDatosLiquidacion = () => {
-  // asigna valores desde el objeto liquidacion
+
+  // carga el select de tipo de liquidaciones desde el json
+  cargarSelectTipoLiquidacion();
+
+  // busca el tipo de liquidacion segun el idTipoLiquidacion
+  let tipoLiquidacionSelect = document.querySelector('#selTipoLiquidacion');
+  // console.log(tipoLiquidacionSelect.value);
+  let tipoLiquidacion = utiles.getTipoLiquidacion(tipoLiquidacionSelect.value);
+  
+  // console.log(tipoLiquidacion);
+
+  // asigna valores por defecto
+  document.querySelector("#id").value = 0;
+  document.querySelector("#selTipoLiquidacion").value = tipoLiquidacion.id;
   document.querySelector("#periodo").value = "";
   document.querySelector("#descripcion").value = "";
   document.querySelector("#fechaPago").value = "";
+  document.querySelector("#estado").value = "abierta";
 };
 
 window.onload=cargarDatosLiquidacion();
@@ -92,28 +124,20 @@ $(function() {
     liquidacion.periodo = document.querySelector("#periodo").value;
     liquidacion.fechaPago = document.querySelector("#fechaPago").value;
     liquidacion.descripcion = document.querySelector("#descripcion").value;
+    liquidacion.idTipoLiquidacion = parseInt(document.querySelector("#selTipoLiquidacion").value);
     liquidacion.estado = "abierta";
+    // console.log(liquidacion);
 
-    console.log(liquidacion);
-
+    // agrega la liquidacion en el array global y el localStorage
     utiles.agregarLiquidacion(liquidacion);
 
-    // let id = utiles.getUltIdLiquidacion() + 1;
-    // let periodo = document.querySelector("#periodo").value;
-    // let fechaPago = document.querySelector("#fechaPago").value;
-    // let descripcion = document.querySelector("#descripcion").value;
-    // let estado = "abierta";
+    // mensaje de exito
+    toastr.success('El registro fue agregado con éxito...','Alta liquidación');
 
-    // utiles.agregarLiquidacion({
-    //   id: id,
-    //   periodo: periodo,
-    //   descripcion: descripcion,
-    //   estado: estado,
-    //   fechaPago: fechaPago
-    // });
+
+    // limpia el formulario
+    cargarDatosLiquidacion();
 
   });
-
-
 });
 

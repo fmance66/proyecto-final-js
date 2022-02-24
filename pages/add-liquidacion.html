@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
     <link rel="stylesheet" href="../css/fontawesome.min.css" />
     <link rel="stylesheet" href="../jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="../jquery-toastr/toastr.css" />
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/estilos.css">
   </head>
@@ -122,25 +123,47 @@
               <div class="col-xl-12 col-lg-6 col-md-12">
                 <!-- <form class="tm-add-liquidacion-form row" action="#" method="post"> -->
                 <form class="tm-add-liquidacion-form row">
-                  <div class="form-group mb-3 col-lg-6">
+
+                  <div class="form-group">
+                    <!-- <label for="periodo">ID</label> -->
+                    <input id="id" name="id" type="text" 
+                           class="form-control validate oculto"/>
+                  </div>
+                  <div class="form-group mb-3 col-lg-12 col-xs-12 col-sm-6">
+                    <label for="tipoLiquidacion">
+                      Tipo Liquidación
+                    </label>
+                    <select id="selTipoLiquidacion" class="custom-select tm-select-accounts">
+                      <option>Seleccione Tipo de Liquidación</option>
+                      <!-- se llena en liquidacion.js -->
+                    </select>
+                  </div>
+
+                  <div class="form-group mb-3 col-lg-6 col-xs-6 col-sm-6">
                     <label for="periodo">Período</label>
                     <input id="periodo" name="periodo" type="text" 
                            class="form-control validate periodpicker"/>
                   </div>
+
                   <div class="form-group mb-3 col-lg-6 col-xs-6 col-sm-6">
                     <label for="fechaPago">Fecha de Pago</label>
                     <input id="fechaPago" name="fechaPago" type="text" data-large-mode="true" 
                            class="form-control validate datepicker"/>
                   </div>
+
                   <div class="form-group mb-3 col-lg-12 col-xs-12 col-sm-6">
                     <label for="descripcion">Descripción</label>
                     <input id="descripcion" name="descripcion" type="text" value="" 
                           class="form-control validate"/>
                   </div>
+                  <div class="form-group">
+                    <input id="estado" name="estado" type="text" 
+                            class="form-control validate oculto"/>
+                  </div>
 
                   <div id="agregar-liquidacion" class="col-12 mt-4">
-                    <button id="btnAgregar" type="submit" class="btn btn-primary btn-block text-uppercase">Agregar Liquidación ahora</button>
-                    <!-- <button id="btnAgregar" type="button" class="btn btn-primary btn-block text-uppercase">Agregar Liquidación ahora</button> -->
+                    <!-- <button id="btnAgregar" type="submit" class="btn btn-primary btn-block text-uppercase">Agregar Liquidación ahora</button> -->
+                    <button id="btnAgregar" type="button" class="btn btn-primary btn-block text-uppercase">Agregar Liquidación ahora</button>
                   </div>
     
                 </form>
@@ -164,6 +187,7 @@
     <script src="../js/lib/jquery-3.3.1.min.js"></script>
     <script src="../jquery-ui-datepicker/jquery-ui.min.js"></script>
     <script src="../jquery-ui-datepicker/jquery.ui.datepicker-es.js"></script>
+    <script src="../jquery-toastr/toastr.js"></script>
     <script src="../js/lib/bootstrap.min.js"></script>
 
     <script type="module" src="../js/add-liquidacion.js"></script>
