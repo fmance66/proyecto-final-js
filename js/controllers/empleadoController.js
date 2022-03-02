@@ -24,7 +24,7 @@ class EmpleadoController {
 
         console.log('... cargando local storage de .json externo...');
 
-        $.get(urlJsonEmpleados, function(data, estado) {
+        $.get(urlJson, function(data, estado) {
             if (estado === "success") {
                 // console.log(respuesta.empleados);
                 // guarda el array de objetos 'Empleado' en localStorage
