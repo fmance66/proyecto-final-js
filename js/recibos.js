@@ -37,7 +37,7 @@ const armarTablaHTML = (idTabla, recibos) => {
 
   let tablaRecibos = document.querySelector(idTabla);
 
-  let tbody = document.createElement("tbody");
+  let tbody = document.createElement("tbody");  
   tbody.setAttribute("id", "tablaRecibosBody");
   tablaRecibos.appendChild(tbody);
 
@@ -64,8 +64,10 @@ const armarTablaHTML = (idTabla, recibos) => {
         if (recibo.hasOwnProperty(e)) {
             
           let td = document.createElement("td");
+
+          console.log('recibo[e]: ', recibo[e]);
             
-          if (e == 'id') {     // los id no los muestra, estan ocultos
+          if ((e == 'id') || (e == 'conceptos')) {     // los id y conceptos no los muestra, estan ocultos
               td.classList.add("oculto");
           }
             
@@ -208,7 +210,7 @@ $(function() {
 // cambio la seleccion de liquidacion
 $("#selLiquidacion").on("change", function() { 
   // vacia la tabla html
-  $("#tablaRecibos").empty();
+  $("#tablaRecibosBody").remove();
   // carga la tabla html con el idLiquidacion seleccionado
   let idLiquidacion = this.value;
   const recibos = new ReciboController();

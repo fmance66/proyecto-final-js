@@ -26,6 +26,7 @@
         "totalRemunerativo": 236456.25,
         "totalDeducciones": 49655.81,
         "totalNoRemunerativo": 0.00,
+        "totalNeto": 0.00,
         "conceptos": [
             { "id": 1, "resultado": 236456.25 },
             { "id": 2, "resultado": 26010.19 },
@@ -44,6 +45,7 @@
         "totalRemunerativo": 333281.48,
         "totalDeducciones": 69989.11,
         "totalNoRemunerativo": 0.00,
+        "totalNeto": 0.00,
         "conceptos": [
             { "id": 1, "resultado": 333281.48 },
             { "id": 2, "resultado": 36660.96 },
@@ -62,6 +64,7 @@
         "totalRemunerativo": 188233.70,
         "totalDeducciones": 37646.74,
         "totalNoRemunerativo": 0.00,
+        "totalNeto": 0.00,
         "conceptos": [
             { "id": 1, "resultado": 188233.70 },
             { "id": 2, "resultado": 20705.71 },
@@ -80,6 +83,7 @@
         "totalRemunerativo": 459678.41,
         "totalDeducciones": 87338.90,
         "totalNoRemunerativo": 0.00,
+        "totalNeto": 0.00,
         "conceptos": [
             { "id": 1, "resultado": 459678.41 },
             { "id": 2, "resultado": 50564.63 },
@@ -98,6 +102,7 @@
         "totalRemunerativo": 78956.78,
         "totalDeducciones": 15791.36,
         "totalNoRemunerativo": 0.00,
+        "totalNeto": 0.00,
         "conceptos": [
             { "id": 1, "resultado": 78956.78  },
             { "id": 2, "resultado": 8685.25 },
@@ -116,6 +121,7 @@
         "totalRemunerativo": 116345.80,
         "totalDeducciones": 22105.70,
         "totalNoRemunerativo": 0.00,
+        "totalNeto": 0.00,
         "conceptos": [
             { "id": 1, "resultado": 116345.80 },
             { "id": 2, "resultado": 12798.04 },
@@ -134,6 +140,7 @@
         "totalRemunerativo": 289434.90,
         "totalDeducciones": 57886.98,
         "totalNoRemunerativo": 0.00,
+        "totalNeto": 0.00,
         "conceptos": [
             { "id": 1, "resultado": 289434.90 },
             { "id": 2, "resultado": 31837.84 },
@@ -152,6 +159,7 @@
         "totalRemunerativo": 356970.65,
         "totalDeducciones": 74963.84,
         "totalNoRemunerativo": 0.00,
+        "totalNeto": 0.00,
         "conceptos": [
             { "id": 1, "resultado": 356970.65 },
             { "id": 2, "resultado": 39266.77 },
@@ -170,6 +178,7 @@
         "totalRemunerativo": 176956.33,
         "totalDeducciones": 33621.70,
         "totalNoRemunerativo": 0.00,
+        "totalNeto": 0.00,
         "conceptos": [
             { "id": 1, "resultado": 176956.33 },
             { "id": 2, "resultado": 19465.20 },
@@ -188,6 +197,7 @@
         "totalRemunerativo": 188233.70,
         "totalDeducciones": 37646.74,
         "totalNoRemunerativo": 0.00,
+        "totalNeto": 0.00,
         "conceptos": [
             { "id": 1, "resultado": 188233.70 },
             { "id": 2, "resultado": 20705.71 },
@@ -206,6 +216,7 @@
         "totalRemunerativo": 88456.20,
         "totalDeducciones": 16806.68,
         "totalNoRemunerativo": 0.00,
+        "totalNeto": 0.00,
         "conceptos": [
             { "id": 1, "resultado": 88456.20 },
             { "id": 2, "resultado": 9730.18	},

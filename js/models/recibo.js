@@ -9,9 +9,11 @@ class Recibo {
     this.legajo = recibo.legajo;
     this.idLiquidacion = recibo.idLiquidacion;
     this.estado = recibo.estado;
-    this.bruto = recibo.bruto;
-    this.descuento = recibo.descuento;
-    this.neto = recibo.neto;
+    this.totalRemunerativo = recibo.totalRemunerativo;
+    this.totalDeducciones = recibo.totalDeducciones;
+    this.totalNoRemunerativo = recibo.totalNoRemunerativo;
+    this.totalNeto = recibo.totalNeto;
+    this.conceptos = recibo.conceptos;
   }
   
   mostrar() {
