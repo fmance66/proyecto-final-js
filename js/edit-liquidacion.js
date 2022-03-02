@@ -2,50 +2,32 @@
     Proyecto Final: Interprete de fórmulas tipo Excel
 */
 
-import * as utiles from './utiles.js';
+import { Liquidacion } from './models/liquidacion.js';
+import { TipoLiquidacionController } from './controllers/tipoLiquidacionController.js';
 
-function Liquidacion(id, periodo, descripcion, idTipoLiquidacion, estado, fechaPago) {
-  this.id = id;
-  this.periodo = periodo;
-  this.descripcion = descripcion;
-  this.idTipoLiquidacion = idTipoLiquidacion;
-  this.estado = estado;
-  this.fechaPago  = fechaPago;
-  this.mostrar = function() {
-    return (
-      `{ id: ${this.id}, periodo: ${this.periodo}, descripcion: ${this.descripcion},` + 
-      ` idTipoLiquidacion: ${this.idTipoLiquidacion}, estado: ${this.estado}, fechaPago: ${this.fechaPago} }`
-      )
-  }
-};
-  
-const cargarSelectTipoLiquidacion = () => {
+ 
+// carga los datos de la liquidacion desde sessionStorage
+const cargarDatosLiquidacion = () => {
 
+  // obtiene los datos de la liquidacion desde el sessionStorage
+  const liquidacion = new Liquidacion(
+    JSON.parse(sessionStorage.getItem("objLiquidacion"))
+  );
+
+  console.log(liquidacion);
+
+  // busca el tipo de liquidacion segun el idTipoLiquidacion
+  const tipoLiquidaciones = new TipoLiquidacionController();
+  let tipoLiquidacion = tipoLiquidaciones.get(liquidacion.idTipoLiquidacion);
+
+  // carga el select de tipo de liquidaciones desde el json
   let tipoLiquidacionSelect = document.querySelector('#selTipoLiquidacion');
-  let arrayTipoLiquidaciones = utiles.getListaTipoLiquidaciones();
-
-  arrayTipoLiquidaciones.forEach(function(tipoLiquidacion) {
+  tipoLiquidaciones.getAll().forEach(function(tipoLiquidacion) {
     let opcion = document.createElement('option');
     opcion.value = tipoLiquidacion.id;
     opcion.text = tipoLiquidacion.descripcion;
     tipoLiquidacionSelect.add(opcion);
   });
-
-};
-
-// carga los datos de la liquidacion desde sessionStorage
-const cargarDatosLiquidacion = () => {
-
-  // obtiene los datos de la liquidacion desde el sessionStorage
-  let liquidacion = JSON.parse(sessionStorage.getItem("objLiquidacion"));
-  // console.log(liquidacion);
-
-  // busca el tipo de liquidacion segun el idTipoLiquidacion
-  let tipoLiquidacion = utiles.getTipoLiquidacion(liquidacion.idTipoLiquidacion);
-  // console.log(tipoVariable);
-
-  // carga el select de tipo de liquidaciones desde el json
-  cargarSelectTipoLiquidacion();
 
   // asigna valores desde el objeto liquidacion
   document.querySelector("#id").value = liquidacion.id;

@@ -2,29 +2,18 @@
     Proyecto Final: Interprete de fórmulas tipo Excel
 */
 
-import * as utiles from './utiles.js';
-  
-function Liquidacion(id, periodo, descripcion, idTipoLiquidacion, estado, fechaPago) {
-  this.id = id;
-  this.periodo = periodo;
-  this.descripcion = descripcion;
-  this.idTipoLiquidacion = idTipoLiquidacion;
-  this.estado = estado;
-  this.fechaPago  = fechaPago;
-  this.mostrar = function() {
-    return (
-      `{ id: ${this.id}, periodo: ${this.periodo}, descripcion: ${this.descripcion},` + 
-      ` idTipoLiquidacion: ${this.idTipoLiquidacion}, estado: ${this.estado}, fechaPago: ${this.fechaPago} }`
-      )
-  }
-};
+import { Liquidacion } from './models/liquidacion.js';
+import { LiquidacionController } from './controllers/liquidacionController.js';
+import { TipoLiquidacionController } from './controllers/tipoLiquidacionController.js';
 
-const cargarSelectTipoLiquidacion = () => {
 
+// carga los datos de la liquidacion desde sessionStorage
+const cargarDatosLiquidacion = () => {
+
+  // carga el select de tipo de liquidaciones desde el json
   let tipoLiquidacionSelect = document.querySelector('#selTipoLiquidacion');
-  let arrayTipoLiquidaciones = utiles.getListaTipoLiquidaciones();
-
-  arrayTipoLiquidaciones.forEach(function(tipoLiquidacion) {
+  const tipoLiquidaciones = new TipoLiquidacionController();
+  tipoLiquidaciones.getAll().forEach(function(tipoLiquidacion) {
     let opcion = document.createElement('option');
     opcion.value = tipoLiquidacion.id;
     opcion.text = tipoLiquidacion.descripcion;
@@ -32,20 +21,12 @@ const cargarSelectTipoLiquidacion = () => {
   });
 
   // propone el primer tipo de liquidacion como default
-  tipoLiquidacionSelect.value = arrayTipoLiquidaciones[0].id;
-
-};
-
-// carga los datos de la liquidacion desde sessionStorage
-const cargarDatosLiquidacion = () => {
-
-  // carga el select de tipo de liquidaciones desde el json
-  cargarSelectTipoLiquidacion();
-
+  tipoLiquidacionSelect.value = tipoLiquidaciones.tipoLiquidaciones[0].id;
+  
   // busca el tipo de liquidacion segun el idTipoLiquidacion
-  let tipoLiquidacionSelect = document.querySelector('#selTipoLiquidacion');
+  tipoLiquidacionSelect = document.querySelector('#selTipoLiquidacion');
   // console.log(tipoLiquidacionSelect.value);
-  let tipoLiquidacion = utiles.getTipoLiquidacion(tipoLiquidacionSelect.value);
+  let tipoLiquidacion = tipoLiquidaciones.get(tipoLiquidacionSelect.value);
   
   // console.log(tipoLiquidacion);
 
@@ -118,26 +99,25 @@ $(function() {
 $(function() {
   $("#btnAgregar").click(function() {
     // console.log('hizo click en agregar!!!');
-
-    const liquidacion = new Liquidacion(); 
-    liquidacion.id = utiles.getUltIdLiquidacion() + 1;
-    liquidacion.periodo = document.querySelector("#periodo").value;
-    liquidacion.fechaPago = document.querySelector("#fechaPago").value;
-    liquidacion.descripcion = document.querySelector("#descripcion").value;
-    liquidacion.idTipoLiquidacion = parseInt(document.querySelector("#selTipoLiquidacion").value);
-    liquidacion.estado = "abierta";
+    const liquidaciones = new LiquidacionController();
+    const liquidacion = new Liquidacion({
+      id: liquidaciones.getUltId() + 1,
+      periodo: document.querySelector("#periodo").value,
+      fechaPago: document.querySelector("#fechaPago").value,
+      descripcion: document.querySelector("#descripcion").value,
+      idTipoLiquidacion: parseInt(document.querySelector("#selTipoLiquidacion").value),
+      estado: "abierta"
+    }); 
     // console.log(liquidacion);
 
     // agrega la liquidacion en el array global y el localStorage
-    utiles.agregarLiquidacion(liquidacion);
+    liquidaciones.agregar(liquidacion);
 
     // mensaje de exito
     toastr.success('El registro fue agregado con éxito...','Alta liquidación');
 
-
     // limpia el formulario
     cargarDatosLiquidacion();
-
   });
 });
 

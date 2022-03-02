@@ -2,25 +2,9 @@
    Las formulas vienen en un string y devuelven un resultado
 */   
 
-import * as utiles from './utiles.js';
-
-// definicion de objetos 
-// import { Variable } from './variable.js';
-function Variable (id, nombre, valor, idTipoVariable, estado) {
-    this.id = id;
-    this.nombre = nombre;
-    this.valor  = valor;
-    this.idTipoVariable = idTipoVariable;
-    this.estado = estado;
-    this.mostrar = function() {
-        return (
-        `{ id: ${this.id}, nombre: ${this.nombre}, valor: ${this.valor},` +
-        ` idTipoVariable: ${this.idTipoVariable}, estado: ${this.estado} }`
-        )
-    }
-}
-
-   
+import { Variable } from './models/variable.js';
+import { VariableController } from './controllers/variableController.js';
+  
 // constantes de condicionales
 const VARIABLE_IDENTIFICADOR    = ':';
 const CONDICIONAL_IDENTIFICADOR = 'SI';
@@ -44,7 +28,8 @@ const SetCaracteresVariable = SetMinusculas + SetMayusculas + SetNumeros + SetOt
 const getValorVariable = (nombreVariable) => {
 
     // busca la variable en el array por el nombre (parametro)
-    let variableEncontrada = utiles.getVariable(nombreVariable);
+    const variableController = new VariableController();
+    let variableEncontrada = variableController.get(nombreVariable);
     
     if (variableEncontrada == undefined ) {
         // console.log(`variable buscada ${nombreVariable}, no encontrada se solicita valor...`);
@@ -53,10 +38,11 @@ const getValorVariable = (nombreVariable) => {
         let valor = prompt(`Por favor ingrese un valor para la variable: ${nombreVariable}\n` + 
                            `si es string poner entre "", por ejemplo: "ROJO"`);
 
-        // ingresa la variable en el array
-        variables.push(new Variable(nombreVariable, valor));
-
+        // actualiza la variable con el valor ingresado
+        variableEncontrada.valor = valor;
+        variableController.actualizar(variableEncontrada);
         return valor;
+        
 } else {
         // console.log(`variable buscada ${nombreVariable}, encontrada ${variableEncontrada.mostrar()}`);
 

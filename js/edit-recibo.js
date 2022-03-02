@@ -3,30 +3,43 @@
 */
 
 import * as utiles from './utiles.js';
+// import { Recibo } from './recibo.js';
+import { EmpleadoController } from './controllers/empleadoController.js';
+import { LiquidacionController } from './controllers/liquidacionController.js';
+  
+class Recibo {
 
-// carga file JSON de datos 
-// import jsonLiquidaciones from '../data/liquidaciones.json' assert { type: "json" };
-// import jsonEmpleados from '../data/empleados.json' assert { type: "json" };
+  constructor (recibo) {
+    this.id = recibo.id;
+    this.legajo = recibo.legajo;
+    this.idLiquidacion = recibo.idLiquidacion;
+    this.estado = recibo.estado;
+    this.bruto = recibo.bruto;
+    this.descuento = recibo.descuento;
+    this.neto = recibo.neto;
+  }
+};     // fin de class Recibo
 
-// let arrayLiquidaciones = jsonLiquidaciones.liquidaciones;
-// let arrayEmpleados = jsonEmpleados.empleados;
 
 // carga los datos del recibo desde sessionStorage
 const cargarDatosRecibo = () => {
 
   // obtiene los datos del recibo desde el sessionStorage
-  let recibo = JSON.parse(sessionStorage.getItem("objRecibo"));
+  const recibo = new Recibo(
+    JSON.parse(sessionStorage.getItem("objRecibo"))
+  );
 
   // console.log(recibo);
 
   // busca la liquidacion segun el idLiquidacion
-  // let liquidacion = utiles.getLiquidacion(arrayLiquidaciones, recibo.idLiquidacion);
-  let liquidacion = utiles.getLiquidacion(recibo.idLiquidacion);
+  const liquidaciones = new LiquidacionController();
+  let liquidacion = liquidaciones.get(recibo.idLiquidacion);
+
   // console.log(liquidacion);
 
   // busca el empleado segun el legajo
-  // let empleado = utiles.getEmpleado(arrayEmpleados, recibo.legajo);
-  let empleado = utiles.getEmpleado(recibo.legajo);
+  const empleados = new EmpleadoController();
+  let empleado = empleados.get(recibo.legajo);
   // console.log(empleado);
 
   // asigna valores desde el objeto recibo
