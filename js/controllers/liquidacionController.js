@@ -5,10 +5,12 @@
 import * as formula from '../formula.js';
 
 import { Liquidacion } from '../models/liquidacion.js';
+import { Recibo } from '../models/recibo.js';
 import { CategoriaController } from './categoriaController.js';
 import { ConceptoController } from './conceptoController.js';
 import { EmpleadoController } from './empleadoController.js';
 import { TipoLiquidacionController } from './tipoLiquidacionController.js';
+import { ReciboController } from './reciboController.js';
 
 const urlJson = '../data/liquidaciones.json';
 const lsName = "lsLiquidaciones";
@@ -61,15 +63,18 @@ class LiquidacionController {
   };
 
   agregar(liquidacion) {
-    console.log('liquidaciones.agregar (antes)', this.liquidaciones);
+
+    // console.log('liquidaciones.agregar (antes)', this.liquidaciones);
     this.liquidaciones.push(liquidacion);
-    console.log('liquidaciones.agregar (despues)', this.liquidaciones);
+    // console.log('liquidaciones.agregar (despues)', this.liquidaciones);
     this.guardar();
+
+    let ultIdLiquidacion = this.getUltId();
 
     // obtiene el tipo de liquidacion para generar los conceptos de los recibos
     const tipoLiquidaciones = new TipoLiquidacionController();
     let tipoLiquidacion = tipoLiquidaciones.get(liquidacion.idTipoLiquidacion);
-    console.log('tipoLiquidacion: ', tipoLiquidacion);
+    // console.log('tipoLiquidacion: ', tipoLiquidacion);
 
     // obtiene todos los empleados para generar los recibos
     const empleados = new EmpleadoController();
@@ -77,7 +82,7 @@ class LiquidacionController {
     // recorre la lista de empleados para generar un recibo por c/u
     empleados.getAll().forEach(function(empleado) {
 
-        console.log('empleado: ', empleado);
+        // console.log('empleado: ', empleado);
   
         // obtiene los datos del empleado para calculos como sueldo bruto, antiguedad con la fecha de ingreso, etc
         const categorias = new CategoriaController();
@@ -85,21 +90,65 @@ class LiquidacionController {
         empleados.cargarVariablesEmpleado(empleado.legajo);
 
         let conceptosRecibo = [];
+        let totalRemunerativo = 0;
+        let totalDeducciones = 0;
+        let totalNoRemunerativo = 0;
+        let totalExcepcional = 0;
+        let importeConcepto = 0;
 
         // calcula los conceptos del recibo desde el array de conceptos del tipo de liquidacion utilizando
         // el "simulador" de formulas
         tipoLiquidacion.conceptos.forEach(function(idConcepto) {
-            console.log('idConcepto: ', idConcepto);
+            // console.log('idConcepto: ', idConcepto);
             const conceptos = new ConceptoController();
             let concepto = conceptos.get(idConcepto);
-            console.log('concepto: ', concepto);
+            // console.log('concepto: ', concepto);
             let resultado = formula.calculoFormula(concepto.formula);
+            importeConcepto = parseFloat(resultado);
+
+            // console.log('importeConcepto: ' , typeof(importeConcepto), importeConcepto);
+
+            switch (concepto.tipoConcepto) {
+              case 1: 
+                totalRemunerativo += importeConcepto;
+                break;
+              case 2:
+                totalDeducciones += importeConcepto;
+                break;
+              case 3:
+                totalNoRemunerativo += importeConcepto;
+                break;
+              case 4:
+                totalExcepcional += importeConcepto;
+                break;
+              default:
+                totalRemunerativo += importeConcepto;
+                break;
+              }
+
             conceptosRecibo.push({ id: concepto.id, 
-                                   resultado: resultado.toFixed(2)
+                                   resultado: importeConcepto
                                  });
         });
-        // debería armar el recibo con esto!!!!!!!!!!!!!!!!!!!!!!!
-        console.log('conceptosRecibo: ', conceptosRecibo)
+
+        // armar el recibo
+        // console.log('conceptosRecibo: ', conceptosRecibo);
+        const recibos = new ReciboController();
+
+        const recibo = new Recibo ({
+          ID: 0,
+          legajo: empleado.legajo,
+          idLiquidacion: ultIdLiquidacion,
+          estado: "activo",
+          totalRemunerativo: totalRemunerativo,
+          totalDeducciones: totalDeducciones,
+          totalNoRemunerativo: totalNoRemunerativo,
+          totalNeto: totalRemunerativo - totalDeducciones + totalNoRemunerativo,
+          conceptos: conceptosRecibo
+        });
+
+        console.log('va a agregar el recibo: ', recibo);
+        recibos.agregar(recibo);
     });
   };
 
@@ -117,7 +166,13 @@ class LiquidacionController {
   };
 
   eliminar(id) {
-    // console.log('liquidacion.eliminar (antes)', id, this.liquidaciones);
+
+    // elimina los recibos de la liquidacion
+    const recibos = new ReciboController();
+    recibos.eliminarRecibosLiquidacion(id);
+
+    // elimina la liquidacion
+    console.log('liquidacion.eliminar (antes)', id, this.liquidaciones);
     this.liquidaciones = this.liquidaciones.filter(liquidacion => liquidacion.id !== id);
     // console.log('liquidacion.eliminar (despues)', id, this.liquidaciones);
     this.guardar();

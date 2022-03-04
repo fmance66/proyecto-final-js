@@ -6,15 +6,16 @@ class Concepto {
 
   constructor(concepto) {
     this.id = concepto.id;
-    this.nombre = concepto.nombre;
+    this.descripcion = concepto.descripcion;
     this.formula = concepto.formula;
     this.mostrado = concepto.mostrado;
+    this.tipoConcepto = concepto.tipoConcepto;
     this.estado = concepto.estado;
   }
 
   mostrar = () => {
-      `{ id: ${this.id}, descripcion: ${this.nombre}, variable: ${this.formula},` +
-      ` mostrado: ${this.mostrado}, estado: ${this.estado}  }`
+      `{ id: ${this.id}, descripcion: ${this.descripcion}, variable: ${this.formula},` +
+      ` mostrado: ${this.mostrado}, tipoConcepto: ${this.tipoConcepto}, estado: ${this.estado}  }`
   }
 }
    

@@ -44,6 +44,8 @@ const armarTablaHTML = (idTabla, liquidaciones, isReadOnly) => {
         if (liquidacion.hasOwnProperty(e)) {
 
             let td = document.createElement("td");
+
+            // console.log('liquidacion[e]: ', typeof(liquidacion[e]), liquidacion[e]);
             
             // oculta el idTipoLiquidacion y muestra la descripcion del tipo de liquidacion
             if (e == 'idTipoLiquidacion') {     
@@ -107,11 +109,11 @@ $(function() {
   // reenvia a la pagina edit-liquidacion.html (jquery)
   $(".tm-fila-liquidacion").on("click", function(e) {
 
-      console.log('click en tablaLiquidaciones');
+      // console.log('click en tablaLiquidaciones');
 
       // obtengo la fila seleccionada (tr )donde se hizo el click
       let fila = e.target.parentNode;
-      console.log(fila);
+      // console.log(fila);
 
       let tds = fila.querySelectorAll("td");
 
@@ -125,7 +127,7 @@ $(function() {
         fechaPago: fila.querySelector(".tm-col-fechaPago").innerText
       }); 
 
-      console.log(liquidacion);
+      // console.log(liquidacion);
       
       if (liquidacion.estado == "abierta") {
         // console.log(`objLiquidacion: ${JSON.stringify(liquidacion)}`);
@@ -138,27 +140,28 @@ $(function() {
 
   // anula el evento click para el checkbox
   $(".tm-fila-liquidacion").on("click", ".tm-col-checkbox", function(e) { 
-    console.log('se hizo click en "tm-col-checkbox"');
+    // console.log('se hizo click en "tm-col-checkbox"');
     e.stopPropagation() 
   });
 
   // anula el evento click para el boton delete
   $(".tm-fila-liquidacion").on("click", ".tm-col-delete", function(e) { 
-    console.log('se hizo click en "tm-col-delete"');
+    // console.log('se hizo click en "tm-col-delete"');
     e.stopPropagation(); 
     
-    console.log('va a ejecutar eliminarLiquidacion()...');
+    // console.log('va a ejecutar eliminarLiquidacion()...');
 
     // obtengo la fila seleccionada (tr )donde se hizo el click
     let fila = e.target.parentNode.parentNode.parentNode;
+    // console.log('fila: ', fila);
     let id = parseInt(fila.querySelector(".tm-col-id").innerText.replace('#',''));
+    // console.log('id: ', id);
     // elimina la fila del array y actualiza el localStorage
     const liquidaciones = new LiquidacionController();
     liquidaciones.eliminar(id);
     // elimina la fila de la tabla html
     fila.remove();
     // mensaje de exito
-    console.log('va a ejecutar toastr...');
     toastr.options = {
       "closeButton": true,
       "positionClass": "toast-top-right",

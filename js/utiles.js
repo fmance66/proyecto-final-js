@@ -23,13 +23,12 @@ const generateDivEstado = (estado) => {
             clase = 'semaforo-rojo';
             break;
         default:
-            clase = 'indefinido';
-            estado = 'semaforo-amarillo';
-    }
+            clase = 'semaforo-amarillo';
+            break;
+    };
 
-    let texto = estado.charAt(0).toUpperCase() + estado.slice(1)
-    return `<div class="tm-estado-semaforo ${clase}"></div>${texto}`;
-    
+    let texto = estado.charAt(0).toUpperCase() + estado.slice(1);
+    return `<div class="tm-estado-semaforo ${clase}"></div>${texto}`;  
 };
 
 export { generateDivEstado };

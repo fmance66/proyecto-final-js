@@ -14,7 +14,7 @@ const cargarDatosLiquidacion = () => {
     JSON.parse(sessionStorage.getItem("objLiquidacion"))
   );
 
-  console.log(liquidacion);
+  // console.log(liquidacion);
 
   // busca el tipo de liquidacion segun el idTipoLiquidacion
   const tipoLiquidaciones = new TipoLiquidacionController();

@@ -7,6 +7,7 @@ import { Recibo } from './models/recibo.js';
 import { EmpleadoController } from './controllers/empleadoController.js';
 import { LiquidacionController } from './controllers/liquidacionController.js';
 import { ReciboController } from './controllers/reciboController.js';
+import { UsuarioController } from './controllers/usuarioController.js';
 
 const urlJson = '../data/recibos.json';
 const lsName = "lsRecibos";
@@ -24,7 +25,7 @@ const cargarSelectLiquidacion = () => {
     liquidacionSelect.add(opcion);
   });
 
-  console.log('liquidacionSelect', liquidacionSelect);
+  // console.log('liquidacionSelect', liquidacionSelect);
 
   // propone la última liquidacion como default
   liquidacionSelect.value = liquidaciones.liquidaciones[liquidaciones.liquidaciones.length - 1].id;
@@ -34,6 +35,8 @@ const cargarSelectLiquidacion = () => {
 
 // carga tabla de recibos desde array de recibos
 const armarTablaHTML = (idTabla, recibos) => {
+
+  // console.log('recibos: ', recibos);
 
   let tablaRecibos = document.querySelector(idTabla);
 
@@ -64,8 +67,6 @@ const armarTablaHTML = (idTabla, recibos) => {
         if (recibo.hasOwnProperty(e)) {
             
           let td = document.createElement("td");
-
-          console.log('recibo[e]: ', recibo[e]);
             
           if ((e == 'id') || (e == 'conceptos')) {     // los id y conceptos no los muestra, estan ocultos
               td.classList.add("oculto");
@@ -84,9 +85,18 @@ const armarTablaHTML = (idTabla, recibos) => {
           } else {
             // agrega la columna a la fila con una clase con el nombre del atributo de clase
             td.classList.add(`tm-col-${e}`);
-            td.innerHTML = recibo[e]
+            if (typeof(recibo[e]) == "number") {
+              td.innerHTML = recibo[e].toLocaleString('es-AR', { minimumFractionDigits: 2 , 
+                                                                 maximumFractionDigits: 2 });
+              td.style.textAlign = "right";
+            } else {
+              if (e == 'conceptos') {
+                td.innerHTML = JSON.stringify(recibo[e]);
+              } else {
+                td.innerHTML = recibo[e];
+              }
+            }
           }
-            
           // oculta el id y muestra el periodo de la liquidacion
           if (e == 'idLiquidacion') {     
               // carga idLiquidacion oculto
@@ -101,8 +111,8 @@ const armarTablaHTML = (idTabla, recibos) => {
                 
           // semaforo de estado y periodo de liquidacion
           if (e == 'estado') {
-              td.innerHTML = utiles.generateDivEstado(recibo[e]);
-              // td.classList.add("tm-col-estado");
+            td.classList.add("tm-col-estado");
+            td.innerHTML = utiles.generateDivEstado(recibo[e]);
           }
 
           if (recibo.estado == "activo") {
@@ -131,24 +141,32 @@ const armarTablaHTML = (idTabla, recibos) => {
  
 // carga los recibos desde el .json y arma tabla de recibos
 const iniciar = () => {
+
+  const usuarios = new UsuarioController();
+
+  let userLogon = usuarios.getUserLogon();
+  if (userLogon == null || userLogon === undefined) {
+      window.location.href = "../pages/login.html";
+  }
+
   // carga el select de liquidaciones filtrado por idLiquidacion
   let idLiquidacion = cargarSelectLiquidacion();
   const recibos = new ReciboController();
   recibos.recibos = recibos.getAll(idLiquidacion);
   armarTablaHTML("#tablaRecibos", recibos);
-}
+};
 
 // arma tabla html dinamica (read only) desde las liquidaciones en localStorage
 window.onload = iniciar();
 
 // eventos de fila de tabla
-$(function() {
+$(document).ready(function() {  
 
   // reenvia a la pagina edit-liquidacion.html (jquery)
-  $(".tm-fila-recibo").on("click", function() {
+  $(document).on("click", ".tm-fila-recibo", function() { 
+
       let tabla = document.getElementById("tablaRecibos");  
       let fila = $(this).closest('tr')[0];   // guarda la fila seleccionada
-      console.log(fila);
 
       let tds = fila.querySelectorAll("td");
 
@@ -157,16 +175,19 @@ $(function() {
         legajo: fila.querySelector(".tm-col-legajo").innerText.replace('#', ''), 
         // nombre = fila.querySelector(".tm-col-nombre").innerText, 
         idLiquidacion: parseInt(fila.querySelector(".tm-col-idLiquidacion").innerText),     // oculto
-      //   periodo = fila.querySelector(".tm-col-periodo").innerText, 
+        // periodo = fila.querySelector(".tm-col-periodo").innerText, 
         estado: fila.querySelector(".tm-col-estado").innerText,
-        bruto: fila.querySelector(".tm-col-bruto").innerText,
-        descuento: fila.querySelector(".tm-col-descuento").innerText,
-        neto: fila.querySelector(".tm-col-neto").innerText
+        totalRemunerativo: fila.querySelector(".tm-col-totalRemunerativo").innerText,
+        totalDeducciones: fila.querySelector(".tm-col-totalDeducciones").innerText,
+        totalNoRemunerativo: fila.querySelector(".tm-col-totalNoRemunerativo").innerText,
+        totalNeto: fila.querySelector(".tm-col-totalNeto").innerText,
+        conceptos: JSON.parse(fila.querySelector(".tm-col-conceptos").innerText)
       }); 
         
     //   console.log(`recibo: ${recibo.mostrar()}`);
       
-      if (recibo.estado == "Activo") {
+    if (recibo.estado == "Activo") {
+    // if (recibo.estado == "activo") {
         // console.log(`objRecibo: ${JSON.stringify(recibo)}`);
         sessionStorage.setItem("objRecibo", JSON.stringify(recibo));
         // console.log('window.location.href = "edit-recibo.html"');
@@ -175,31 +196,32 @@ $(function() {
   });
 
   // anula el evento click para el checkbox
-  $(".tm-fila-recibo").on("click", ".tm-col-checkbox", function(e) { 
-    // console.log('se hizo click en "tm-col-checkbox"');
-    e.stopPropagation() 
+  $(document).on("click", ".tm-col-checkbox", function(e) { 
+
+    console.log('se hizo click en "tm-col-checkbox"');
+    e.stopPropagation(); 
   });
 
   // anula el evento click para el boton delete
-  $(".tm-fila-recibo").on("click", ".tm-col-delete", function(e) { 
-    // console.log('se hizo click en "tm-col-delete"');
-    e.stopPropagation() 
+  $(document).on("click", ".tm-col-delete", function(e) { 
+      console.log('se hizo click en "tm-col-delete"');
+    e.stopPropagation(); 
   });
 
   // cambia el color de fila editable
-  $(".tm-fila-recibo").on("mouseover", function() { 
-    // console.log('se hizo click en "onmouseover"');
+  $(document).on("mouseover", ".tm-fila-recibo", function(e) { 
+      // console.log('se hizo click en "onmouseover"');
     let estado = this.querySelector(".tm-col-estado").innerText;
     if (estado == 'Activo') {
-      $(this).css({
+        $(this).css({
         'background-color': '#6987a5'
       });
     }
   });
 
   // restaura el color de fila editable
-  $(".tm-fila-recibo").on("mouseout", function() { 
-    // console.log('se hizo click en "onmouseover"');
+  $(document).on("mouseout", ".tm-fila-recibo", function(e) { 
+      // console.log('se hizo click en "onmouseout"');
     $(this).css({
       'background-color': '#4f667c'
     });
@@ -209,12 +231,10 @@ $(function() {
 
 // cambio la seleccion de liquidacion
 $("#selLiquidacion").on("change", function() { 
-  // vacia la tabla html
-  $("#tablaRecibosBody").remove();
   // carga la tabla html con el idLiquidacion seleccionado
   let idLiquidacion = this.value;
+  $("#tablaRecibosBody").remove();              // vacia la tabla html
   const recibos = new ReciboController();
   recibos.recibos = recibos.getAll(idLiquidacion);
   armarTablaHTML("#tablaRecibos", recibos);
 });
-

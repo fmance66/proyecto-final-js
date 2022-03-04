@@ -56,6 +56,26 @@ class ReciboController {
     localStorage.setItem(lsName, JSON.stringify(this.recibos));
   };
 
-}   
+  agregar(recibo) {
+    
+    console.log('recibo antes: ', recibo);
+    recibo.id = this.getUltId();
+    console.log('this.getUltId(): ', this.getUltId());
+    console.log('recibo despues: ', recibo);
+    this.recibos.push(recibo);
+    this.guardar();
+  };
+
+  eliminar(id) {
+    this.recibos = this.recibos.filter(recibo => recibo.id !== id);
+    this.guardar();
+  };
+
+  eliminarRecibosLiquidacion(idLiquidacion) {
+    this.recibos = this.recibos.filter(recibo => recibo.idLiquidacion !== idLiquidacion);
+    this.guardar();
+  };
+
+}
 
 export { ReciboController };

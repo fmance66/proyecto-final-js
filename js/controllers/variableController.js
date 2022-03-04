@@ -17,7 +17,7 @@ class VariableController {
     // console.log(jsonData);
     let variables = [];
 
-    console.log(jsonData);
+    // console.log(jsonData);
 
     // verifica si existe el json de variables en local storage
     if ((jsonData === undefined) || (jsonData == null)) {   // si no existe lo carga del json externo

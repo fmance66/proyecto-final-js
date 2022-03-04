@@ -22,6 +22,16 @@ a:hover {
   text-decoration: none;
 }
 
+/* a.disabled {
+  pointer-events: none;
+  cursor: default;
+} */
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
 button:focus {
   outline: 0;
 }
@@ -70,11 +80,11 @@ button:focus {
 }
 
 .tm-block-col {
-  margin-bottom: 30px;
+  margin-bottom: 5px;
 }
 
 .tm-block {
-  padding: 40px;
+  padding: 30px;
   -webkit-box-shadow: 1px 1px 5px 0 #455c71;
   -moz-box-shadow: 1px 1px 5px 0 #455c71;
   box-shadow: 1px 1px 5px 0 #455c71;
@@ -110,7 +120,7 @@ button:focus {
   font-size: 1.1rem;
   font-weight: 700;
   color: #fff;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .nav-link {
@@ -211,6 +221,7 @@ button:focus {
   width: 21.95%;
 }
 
+
 .tm-gray-circle {
   width: 80px;
   height: 80px;
@@ -303,12 +314,12 @@ thead {
   box-shadow: 0 0 8px #da534f, inset 0 0 8px #da534f;
 }
 
-.tm-col-datos-recibo {
+/* .tm-col-datos-recibo {
   max-width: 822px;
   width: 100%;
   padding-left: 15px;
   padding-right: 15px;
-}
+} */
 
 .tm-foto {
   width: 345px;
@@ -412,7 +423,7 @@ thead {
 }
 
 .form-control {
-  padding: 19px 18px;
+  padding: 15px 18px;
   border-radius: 0;
   height: 50px;
 }
@@ -557,6 +568,7 @@ input[type="checkbox"]:focus {
   min-height: 650px;
 }
 
+.tm-concepto-table-container,
 .tm-liquidaciones-table-container,
 .tm-recibo-table-container {
   max-height: 550px;
@@ -575,39 +587,48 @@ input[type="checkbox"]:focus {
   font-weight: 600;
 }
 
-.tm-liquidacion-bold,
-.tm-recibo-bold {
+.tm-liquidacion-bold {
   font-weight: bold;
   font-size: 0.95rem;
 }
 
+.tm-concepto-bold,
+.tm-recibo-bold,
 .tm-variable-bold {
-  font-size: 0.95rem;
+    font-weight: bold;
+  font-size: 0.85rem;
 }
 
+.tm-concepto-delete-icon,
 .tm-liquidacion-delete-icon,
 .tm-recibo-delete-icon,
 .tm-variable-delete-icon {
-  font-size: 1.1rem;
+  font-size: 0.85rem;
   color: #fff;
 }
 
+.tm-cocnepto-delete-link,
 .tm-liquidacion-delete-link,
 .tm-recibo-delete-link,
 .tm-variable-delete-link {
-  padding: 10px;
+  padding: 4px;
   border-radius: 50%;
   background-color: #394e64;
   display: inline-block;
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
   text-align: center;
 }
 
-.tm-liquidacion-delete-link:hover .tm-reciliquidacionbo-delete-icon,
+.tm-concepto-delete-link:hover .tm-concepto-delete-icon,
+.tm-liquidacion-delete-link:hover .tm-lquidacion-delete-icon,
 .tm-recibo-delete-link:hover .tm-recibo-delete-icon,
 .tm-variable-delete-link:hover .tm-variable-delete-icon {
   color: #6d8ca6;
+}
+
+.table td.tm-col-estado {
+  padding: 15px 12px;
 }
 
 .custom-select {
