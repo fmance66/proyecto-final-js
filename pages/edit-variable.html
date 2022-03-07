@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
     <link rel="stylesheet" href="../css/fontawesome.min.css" />
     <link rel="stylesheet" href="../jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="../jquery-toastr/toastr.css" />
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/estilos.css">
 
@@ -113,10 +114,17 @@
                 <h2 class="tm-block-title d-inline-block">Editar Variable</h2>
               </div>
             </div>
-            <div class="row tm-edit-variable-row">
+            <div class="tm-edit-variable-row row">
               <!-- <div class="col-xl-6 col-lg-6 col-md-12"> -->
               <div class="col-12">
-                  <form action="" method="post" class="tm-edit-variable-form">
+                <!-- <form action="" method="post" class="tm-edit-variable-form"> -->
+                <form class="tm-edit-variable-form">
+
+                  <div class="form-group mb-3">
+                    <input id="id" name="id" type="text" 
+                           class="form-control validate oculto"/>
+                  </div>
+
                   <div class="form-group mb-3">
                     <label for="nombre">
                       Nombre Variable
@@ -135,43 +143,35 @@
                     </label>
                     <select id="selTipoVariable" class="custom-select tm-select-accounts">
                       <option>Seleccione Tipo de Variable</option>
-                      <!-- <option value="1" selected>Cadena</option>
-                      <option value="2">Número</option>
-                      <option value="3">Fórmula</option>
-                      <option value="4">Fecha</option> -->
                     </select>
                   </div>
-                  <!-- <div class="row">
-                      <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <label for="fecha">
-                            Fecha
-                          </label>
-                          <input id="fecha" name="fecha" type="text" value="22 Octubre de 2020"
-                                 data-large-mode="true" class="form-control validate"/>
-                        </div>
-                  </div> -->
+                  <div class="form-group mb-3">
+                    <input id="estado" name="estado" type="text" 
+                           class="form-control validate oculto"/>
+                  </div>
+                </form>
               </div>
-              <div class="col-12 mt-4">
-                <button type="submit" class="btn btn-primary btn-block text-uppercase">Actualizar</button>
+              <div id="editar-liquidacion" class="col-12 mt-4">
+                  <button id="btnActualizar" type="submit" class="btn btn-primary btn-block text-uppercase">Actualizar</button>
               </div>
-            </form>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-      <footer class="tm-footer row tm-mt-small">
-        <div class="col-12 font-weight-light">
-            <p class="text-center text-white mb-0 px-4 small">
-                &copy; <b>2022</b> Main IT. Todos los derechos reservados. 
-                &nbsp;Diseño: <a rel="nofollow noopener" href="https://www.linkedin.com/in/fernando-mancevich/" class="tm-footer-link">Fernando Mancevich</a>
-            </p>
-        </div>
-      </footer>
+    <footer class="tm-footer row tm-mt-small">
+      <div class="col-12 font-weight-light">
+          <p class="text-center text-white mb-0 px-4 small">
+              &copy; <b>2022</b> Main IT. Todos los derechos reservados. 
+              &nbsp;Diseño: <a rel="nofollow noopener" href="https://www.linkedin.com/in/fernando-mancevich/" class="tm-footer-link">Fernando Mancevich</a>
+          </p>
+      </div>
+    </footer>
 
     <script src="../js/lib/jquery-3.3.1.min.js"></script>
     <script src="../jquery-ui-datepicker/jquery-ui.min.js"></script>
+    <script src="../jquery-toastr/toastr.js"></script>
     <script src="../js/lib/bootstrap.min.js"></script>
 
     <script type="module" src="../js/edit-variable.js"></script>

@@ -59,7 +59,7 @@ class ReciboController {
   agregar(recibo) {
     
     console.log('recibo antes: ', recibo);
-    recibo.id = this.getUltId();
+    recibo.id = this.getUltId() + 1;
     console.log('this.getUltId(): ', this.getUltId());
     console.log('recibo despues: ', recibo);
     this.recibos.push(recibo);
@@ -67,6 +67,7 @@ class ReciboController {
   };
 
   eliminar(id) {
+    console.log('elimina recibo con id: ', id, );
     this.recibos = this.recibos.filter(recibo => recibo.id !== id);
     this.guardar();
   };

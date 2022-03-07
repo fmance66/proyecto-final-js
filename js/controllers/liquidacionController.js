@@ -172,9 +172,8 @@ class LiquidacionController {
     recibos.eliminarRecibosLiquidacion(id);
 
     // elimina la liquidacion
-    console.log('liquidacion.eliminar (antes)', id, this.liquidaciones);
+    console.log('va a eliminar liquidacion con id: ', id);
     this.liquidaciones = this.liquidaciones.filter(liquidacion => liquidacion.id !== id);
-    // console.log('liquidacion.eliminar (despues)', id, this.liquidaciones);
     this.guardar();
   };
 }  

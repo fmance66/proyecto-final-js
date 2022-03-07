@@ -83,19 +83,19 @@ const armarTablaHTML = (idTabla, recibos) => {
               td.classList.add("tm-recibo-bold", "tm-col-nombre");
               td.innerHTML = empleado.nombre; 
           } else {
-            // agrega la columna a la fila con una clase con el nombre del atributo de clase
-            td.classList.add(`tm-col-${e}`);
-            if (typeof(recibo[e]) == "number") {
-              td.innerHTML = recibo[e].toLocaleString('es-AR', { minimumFractionDigits: 2 , 
-                                                                 maximumFractionDigits: 2 });
-              td.style.textAlign = "right";
-            } else {
-              if (e == 'conceptos') {
-                td.innerHTML = JSON.stringify(recibo[e]);
+              // agrega la columna a la fila con una clase con el nombre del atributo de clase
+              td.classList.add(`tm-col-${e}`);
+              if (e.substring(0, 5) == "total") {
+                td.innerHTML = recibo[e].toLocaleString('es-AR', { minimumFractionDigits: 2 , 
+                                                                   maximumFractionDigits: 2 });
+                td.style.textAlign = "right";
               } else {
-                td.innerHTML = recibo[e];
+                if (e == 'conceptos') {
+                  td.innerHTML = JSON.stringify(recibo[e]);
+                } else {
+                  td.innerHTML = recibo[e];
+                }
               }
-            }
           }
           // oculta el id y muestra el periodo de la liquidacion
           if (e == 'idLiquidacion') {     
@@ -204,8 +204,33 @@ $(document).ready(function() {
 
   // anula el evento click para el boton delete
   $(document).on("click", ".tm-col-delete", function(e) { 
-      console.log('se hizo click en "tm-col-delete"');
+    
+    console.log('se hizo click en "tm-col-delete"');
     e.stopPropagation(); 
+
+    // console.log('va a ejecutar eliminarRecibo()...');
+
+    // obtengo la fila seleccionada (tr )donde se hizo el click
+    let fila = e.target.parentNode.parentNode.parentNode;
+    // console.log('fila: ', fila);
+    let id = parseInt(fila.querySelector(".tm-col-id").innerText.replace('#',''));
+    // console.log('id: ', id);
+    // elimina la fila del array y actualiza el localStorage
+    const recibos = new ReciboController();
+    recibos.eliminar(id);
+    // elimina la fila de la tabla html
+    fila.remove();
+    // mensaje de exito
+    toastr.options = {
+      "closeButton": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": true,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "2000",
+    }
+    toastr.success('El registro fue eliminado con éxito...','Eliminar recibo');
+
   });
 
   // cambia el color de fila editable

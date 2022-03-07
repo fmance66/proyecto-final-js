@@ -130,9 +130,8 @@ const cargarDatosRecibo = () => {
     JSON.parse(sessionStorage.getItem("objRecibo"))
   );
 
-  console.log(recibo);
+  // console.log(recibo);
   // console.log(recibo.conceptos[0]);
-
 
   // asigna valores desde el objeto recibo
   const liquidaciones = new LiquidacionController();          // busca la liquidacion segun el idLiquidacion

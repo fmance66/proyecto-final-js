@@ -104,15 +104,16 @@ const armarTablaHTML = (idTabla, liquidaciones, isReadOnly) => {
 };
 
 // eventos de fila de tabla
-$(function() {
+$(document).ready(function() {  
 
   // reenvia a la pagina edit-liquidacion.html (jquery)
-  $(".tm-fila-liquidacion").on("click", function(e) {
+  $(document).on("click", ".tm-fila-liquidacion", function() { 
 
-      // console.log('click en tablaLiquidaciones');
+    // console.log('click en tablaLiquidaciones');
 
       // obtengo la fila seleccionada (tr )donde se hizo el click
-      let fila = e.target.parentNode;
+      let tabla = document.getElementById("tablaLiquidaciones");  
+      let fila = $(this).closest('tr')[0];   // guarda la fila seleccionada
       // console.log(fila);
 
       let tds = fila.querySelectorAll("td");
@@ -135,17 +136,18 @@ $(function() {
         // console.log('window.location.href = "edit-liquidacion.html"');
         window.location.href = "edit-liquidacion.html";
       }
-
   });
 
   // anula el evento click para el checkbox
-  $(".tm-fila-liquidacion").on("click", ".tm-col-checkbox", function(e) { 
+  $(document).on("click", ".tm-col-checkbox", function(e) { 
+
     // console.log('se hizo click en "tm-col-checkbox"');
     e.stopPropagation() 
   });
 
   // anula el evento click para el boton delete
-  $(".tm-fila-liquidacion").on("click", ".tm-col-delete", function(e) { 
+  $(document).on("click", ".tm-col-delete", function(e) { 
+
     // console.log('se hizo click en "tm-col-delete"');
     e.stopPropagation(); 
     
@@ -153,7 +155,7 @@ $(function() {
 
     // obtengo la fila seleccionada (tr )donde se hizo el click
     let fila = e.target.parentNode.parentNode.parentNode;
-    // console.log('fila: ', fila);
+    console.log('fila: ', fila);
     let id = parseInt(fila.querySelector(".tm-col-id").innerText.replace('#',''));
     // console.log('id: ', id);
     // elimina la fila del array y actualiza el localStorage
@@ -170,11 +172,12 @@ $(function() {
       "hideDuration": "1000",
       "timeOut": "2000",
     }
-    toastr.success('El registro fue eliminada con éxito...','Eliminar liquidación');
+    toastr.success('El registro fue eliminado con éxito...','Eliminar liquidación');
   });
 
   // cambia el color de fila editable
-  $(".tm-fila-liquidacion").on("mouseover", function() { 
+  $(document).on("mouseover", ".tm-fila-liquidacion", function(e) { 
+
     // console.log('se hizo click en "onmouseover"');
     let estado = this.querySelector(".tm-col-estado").innerText;
     // console.log('mouseover on: ', estado);
@@ -186,7 +189,8 @@ $(function() {
   });
 
   // restaura el color de fila editable
-  $(".tm-fila-liquidacion").on("mouseout", function() { 
+  $(document).on("mouseout", ".tm-fila-liquidacion", function(e) { 
+
     // console.log('se hizo click en "onmouseover"');
     $(this).css({
       'background-color': '#4f667c'

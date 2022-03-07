@@ -3,6 +3,7 @@
 */
  
 import * as utiles from './utiles.js';
+import { Variable } from './models/variable.js';
 import { VariableController } from './controllers/variableController.js';
 import { TipoVariableController } from './controllers/tipoVariableController.js';
 import { UsuarioController } from './controllers/usuarioController.js';
@@ -100,31 +101,31 @@ const armarTablaHTML = (idTabla, variables) => {
 }
 
 // eventos de fila de tabla
-$(function() {
+$(document).ready(function() {  
 
   // reenvia a la pagina edit-liquidacion.html (jquery)
-  $(".tm-fila-variable").on("click", function() {
-      let tabla = document.getElementById("tablaVariables");  
-      let fila = $(this).closest('tr')[0];   // guarda la fila seleccionada
-      console.log(fila);
+  $(document).on("click", ".tm-fila-variable", function() { 
+    let tabla = document.getElementById("tablaVariables");  
+    let fila = $(this).closest('tr')[0];   // guarda la fila seleccionada
+    console.log(fila);
 
-      let tds = fila.querySelectorAll("td");
+    let tds = fila.querySelectorAll("td");
 
-      const variable = new Variable({
-        id: parseInt(fila.querySelector(".tm-col-id").innerText),                           // oculto
-        nombre: fila.querySelector(".tm-col-nombre").innerText,
-        valor: fila.querySelector(".tm-col-valor").innerText,
-        idTipoVariable: parseInt(fila.querySelector(".tm-col-idTipoVariable").innerText),   // oculto
-        // tipoVariable: fila.querySelector(".tm-col-tipoVariable").innerText,               
-        estado: fila.querySelector(".tm-col-estado").innerText
-      }); 
-      
-      if (variable.estado == "Activo") {
-        // console.log(`objVariable: ${JSON.stringify(variable)}`);
-        sessionStorage.setItem("objVariable", JSON.stringify(variable));
-        // console.log('window.location.href = "edit-variable.html"');
-        window.location.href = "edit-variable.html";
-      }
+    const variable = new Variable({
+      id: parseInt(fila.querySelector(".tm-col-id").innerText),                           // oculto
+      nombre: fila.querySelector(".tm-col-nombre").innerText,
+      valor: fila.querySelector(".tm-col-valor").innerText,
+      idTipoVariable: parseInt(fila.querySelector(".tm-col-idTipoVariable").innerText),   // oculto
+      // tipoVariable: fila.querySelector(".tm-col-tipoVariable").innerText,               
+      estado: fila.querySelector(".tm-col-estado").innerText.toLowerCase()
+    }); 
+    
+    if (variable.estado == "activo") {
+      // console.log(`objVariable: ${JSON.stringify(variable)}`);
+      sessionStorage.setItem("objVariable", JSON.stringify(variable));
+      // console.log('window.location.href = "edit-variable.html"');
+      window.location.href = "edit-variable.html";
+    }
   });
     
   // anula el evento click para el checkbox

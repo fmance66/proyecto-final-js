@@ -4,6 +4,7 @@
 
 import { Liquidacion } from './models/liquidacion.js';
 import { TipoLiquidacionController } from './controllers/tipoLiquidacionController.js';
+import { LiquidacionController } from './controllers/liquidacionController.js';
 
  
 // carga los datos de la liquidacion desde sessionStorage
@@ -97,18 +98,20 @@ $(function() {
   $("#btnActualizar").click(function() {
     // console.log('hizo click en actualizar!!!');
 
-    const liquidacion = new Liquidacion(); 
-    liquidacion.id = parseInt(document.querySelector("#id").value);
-    liquidacion.periodo = document.querySelector("#periodo").value;
-    liquidacion.fechaPago = document.querySelector("#fechaPago").value;
-    liquidacion.descripcion = document.querySelector("#descripcion").value;
-    liquidacion.idTipoLiquidacion = parseInt(document.querySelector("#selTipoLiquidacion").value);
-    liquidacion.estado = document.querySelector("#estado").value;
+    const liquidacion = new Liquidacion({
+      id: parseInt(document.querySelector("#id").value),
+      periodo: document.querySelector("#periodo").value,
+      fechaPago: document.querySelector("#fechaPago").value,
+      descripcion: document.querySelector("#descripcion").value,
+      idTipoLiquidacion: parseInt(document.querySelector("#selTipoLiquidacion").value),
+      estado: document.querySelector("#estado").value
+    }); 
 
     // console.log(liquidacion);
 
     // actualiza liquidación en array y local storage
-    utiles.actualizarLiquidacion(liquidacion);
+    const liquidaciones = new LiquidacionController();
+    liquidaciones.actualizar(liquidacion);
 
     // muestra mensaje de exito
     toastr.success('El registro fue actualizado con éxito...','Actualizar liquidación');

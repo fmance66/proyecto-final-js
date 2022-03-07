@@ -9,7 +9,7 @@ const generateDivEstado = (estado) => {
 
     let clase = '';
 
-    switch (estado) {
+    switch (estado.toLowerCase()) {
         case 'abierta':
             clase = 'semaforo-verde';
             break;
