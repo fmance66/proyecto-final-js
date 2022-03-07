@@ -52,8 +52,8 @@ const iniciar = () => {
 
     let userLogon = usuarios.getUserLogon();
     if (userLogon == null || userLogon === undefined) {
-        console.log('window.location.href = "../pages/login.html"');
-        window.location.href = "../pages/login.html";
+        // console.log('window.location.href = "../pages/login.html"');
+        window.location.href = "./../pages/login.html";
     }
 
     console.log(userLogon.nombre);

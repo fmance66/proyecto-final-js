@@ -51,7 +51,7 @@ class UsuarioController {
 
   // obtiene el usuario logoneado
   getUserLogon() {
-    const idUserLogon = sessionStorage.getItem(ssName);
+    let idUserLogon = sessionStorage.getItem(ssName);
     return this.get(idUserLogon);
   };
 
