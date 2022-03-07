@@ -4,7 +4,7 @@ Este proyecto es la base de un Sistema de Sueldos integrado con cálculo de reci
 
 ## Comenzando 🚀
 
-Para utilizar el sistema se debe ingresar a _Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
+Ejecutar la página INDEX.HTMLPara utilizar el sistema se debe ingresar a _Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
 
 Mira **Deployment** para conocer como desplegar el proyecto.
 
