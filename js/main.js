@@ -50,13 +50,13 @@ const iniciar = () => {
     const liquidaciones = new LiquidacionController();
     const recibos = new ReciboController();
 
-    // let userLogon = usuarios.getUserLogon();
-    // if (userLogon == null || userLogon === undefined) {
-    //     console.log('window.location.href = "../pages/login.html"');
-    //     window.location.href = "../pages/login.html";
-    // }
+    let userLogon = usuarios.getUserLogon();
+    if (userLogon == null || userLogon === undefined) {
+        console.log('window.location.href = "../pages/login.html"');
+        window.location.href = "/pages/login.html";
+    }
 
-    // console.log(userLogon.nombre);
+    console.log(userLogon.nombre);
 
     // personaliza mensaje de bienvenida al usuario logoneado
     let mensajeBienvenida = document.querySelector("#msgBienvenida");
