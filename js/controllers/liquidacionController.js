@@ -12,8 +12,7 @@ import { EmpleadoController } from './empleadoController.js';
 import { TipoLiquidacionController } from './tipoLiquidacionController.js';
 import { ReciboController } from './reciboController.js';
 
-// const urlJson = '../../data/liquidaciones.json';
-const urlJson = '/data/liquidaciones.json';
+const urlJson = '../../data/liquidaciones.json';
 const lsName = "lsLiquidaciones";
 
 

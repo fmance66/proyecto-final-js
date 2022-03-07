@@ -2,7 +2,7 @@
     Proyecto Final: Interprete de fórmulas tipo Excel
 */
 
-import { UsuarioController } from "/controllers/usuarioController.js";
+import { UsuarioController } from "./controllers/usuarioController.js";
 
 const loginForm = document.querySelector("#loginForm");
 const loginButton = document.querySelector("#submitButton");
@@ -32,7 +32,7 @@ loginButton.addEventListener("click", (e) => {
         // toastr.success(`Bienvenido ${usuario.nombre} al Sistema de Sueldos`,'Login al Sistema');
 
         // window.setTimeout(function() {
-            window.location.href = "/index.html";
+            window.location.href = "../index.html";
         // }, 5000);
 
         
