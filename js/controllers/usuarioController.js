@@ -4,7 +4,7 @@
 
 import { Usuario } from '../models/usuario.js';
 
-const urlJson = '../data/usuarios.json';
+const urlJson = '../../data/usuarios.json';
 const lsName = "lsUsuarios";
 const ssName = "ssUser";
   

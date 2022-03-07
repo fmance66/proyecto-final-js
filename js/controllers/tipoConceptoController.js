@@ -4,7 +4,7 @@
  
 import { TipoConcepto } from '../models/tipoConcepto.js';
 
-const urlJson = '../data/tipoConceptos.json';
+const urlJson = '../../data/tipoConceptos.json';
 const lsName = "lsTipoConceptos";
   
 

@@ -4,7 +4,7 @@
   
 import { Concepto } from '../models/concepto.js';
 
-const urlJson = '../data/conceptos.json';
+const urlJson = '../../data/conceptos.json';
 const lsName = "lsConceptos";
   
 class ConceptoController {

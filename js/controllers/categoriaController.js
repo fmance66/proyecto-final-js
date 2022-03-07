@@ -4,7 +4,7 @@
 
 import { Categoria } from '../models/categoria.js';
 
-const urlJson = '../data/categorias.json';
+const urlJson = '../../data/categorias.json';
 const lsName = "lsCategorias";
  
 

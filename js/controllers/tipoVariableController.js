@@ -4,7 +4,7 @@
  
 import { TipoVariable } from '../models/tipoVariable.js';
 
-const urlJson = '../data/tipoVariables.json';
+const urlJson = '../../data/tipoVariables.json';
 const lsName = "lsTipoVariables";
   
 

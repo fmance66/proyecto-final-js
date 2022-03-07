@@ -6,7 +6,7 @@ import { TipoLiquidacion } from '../models/tipoLiquidacion.js';
 
 // let arrayTipoLiquidaciones = [];
 const lsTipoLiquidaciones = "lsTipoLiquidaciones";
-const urlJsonTipoLiquidaciones = '../data/tipoLiquidaciones.json';
+const urlJsonTipoLiquidaciones = '../../data/tipoLiquidaciones.json';
 
 
 class TipoLiquidacionController {

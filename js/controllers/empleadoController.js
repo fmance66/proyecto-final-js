@@ -7,7 +7,7 @@ import { Empleado } from '../models/empleado.js';
 import { CategoriaController } from './categoriaController.js';
 import { VariableController } from './variableController.js';
 
-const urlJson = '../data/empleados.json';
+const urlJson = '../../data/empleados.json';
 const lsName = "lsEmpleados";
   
 class EmpleadoController {

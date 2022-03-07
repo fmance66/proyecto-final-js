@@ -4,7 +4,7 @@
 
 import { Recibo } from '../models/recibo.js';
 
-const urlJson = '../data/recibos.json';
+const urlJson = '../../data/recibos.json';
 const lsName = "lsRecibos";
 
 class ReciboController {
